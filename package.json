@@ -1,0 +1,25 @@
+{
+  "name": "community-portal-api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./src/server/index.js",
+    "test": "node ./node_modules/mocha/bin/_mocha ./test/**/*.test.js"
+  },
+  "keywords": [],
+  "author": "Elliot Simpson",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "4.1.1",
+    "chai-http": "^3.0.0",
+    "mocha": "3.5.0"
+  },
+  "dependencies": {
+    "knex": "^0.14.4",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-passport": "^4.0.1",
+    "koa-router": "^7.4.0",
+    "pg": "^7.4.1"
+  }
+}
