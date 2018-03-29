@@ -16,9 +16,11 @@ app.use(bodyParser());
 
 // bring in our route files
 const indexRoutes = require('./routes/index');
+const userRoutes = require('./routes/users');
 
 // register all of our routes with our Koa app
 app.use(indexRoutes.routes());
+app.use(userRoutes.routes());
 
 // auth init
 require('./auth');
