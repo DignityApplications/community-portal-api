@@ -16,7 +16,7 @@ describe('routes : users', () => {
     beforeEach(() => {
         return knex.migrate.rollback()
         .then(() => { return knex.migrate.latest(); })
-        .then(() => { return knex.seed.run(); })
+        .then(() => { return knex.seed.run(); });
     });
 
     afterEach(() => {
@@ -137,6 +137,8 @@ describe('routes : users', () => {
                     'date_of_birth', 'home_phone_number', 'cell_phone_number',
                     'current_address', 'previous_address', 'created_at', 'updated_at' 
                 );
+                // the password should be different due to hashing
+                res.body.data[0].password.should.not.eql('test9876');
                 done();
             });
         });
@@ -145,6 +147,7 @@ describe('routes : users', () => {
             chai.request(server)
             .post('/api/v1/users')
             .send({
+                password: 'test4321',
                 test: 'not sending the right payload!'
             })
             .end((err, res) => {
@@ -153,7 +156,7 @@ describe('routes : users', () => {
                 // there should be a 400 status code
                 res.status.should.equal(400);
                 // the response should be JSON
-                res.type.should.should.equal('application/json');
+                res.type.should.equal('application/json');
                 // the JSON response body should have a 
                 // key-value pair of {"status": "no good :("}
                 res.body.status.should.eql('no good :(');
@@ -162,6 +165,42 @@ describe('routes : users', () => {
                 done();
             });
         });
+
+        it('should throw an error if the email is already in use', (done) => {
+            knex('users')
+            .select('*')
+            .then((users) => {
+                const userObject = users[0];
+                chai.request(server)
+                .post('/api/v1/users')
+                .send({
+                    email: userObject.email,
+                    password: 'test9876',
+                    first_name: 'Dignity',
+                    last_name: 'Applications',
+                    date_of_birth: '10/01/1990',
+                    home_phone_number: '704-885-8342',
+                    cell_phone_number: '704-111-3357',
+                    current_address: '1234 Test St., Wilmington NC 28412',
+                    previous_address: '4321 Test Rd., Testville NC 28110' 
+                })
+                .end((err, res) => {
+                    // there should be an error
+                    should.exist(err);
+                    // there should be a 400 status code
+                    res.status.should.equal(400);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "no good :("}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a message key
+                    should.exist(res.body.message);
+                    done();
+                });
+            });
+        });
+
     });
 
     describe('PUT /api/v1/users/:id', () => {
@@ -173,7 +212,8 @@ describe('routes : users', () => {
                 chai.request(server)
                 .put(`/api/v1/users/${userObject.id}`)
                 .send({
-                    first_name: 'Jerry'
+                    first_name: 'Jerry',
+                    password: 'test9876'
                 })
                 .end((err, res) => {
                     // there should be no errors
@@ -195,8 +235,10 @@ describe('routes : users', () => {
                         'date_of_birth', 'home_phone_number', 'cell_phone_number',
                         'current_address', 'previous_address', 'created_at', 'updated_at' 
                     );
+                    // the password should be different due to hashing
+                    res.body.data[0].should.not.eql('test9876');
                     // ensure the user was in fact updated
-                    const newUserObject = res.body[0];
+                    const newUserObject = res.body.data[0];
                     newUserObject.first_name.should.not.eql(userObject.first_name);
                     done();
                 });
@@ -209,7 +251,7 @@ describe('routes : users', () => {
             .send({
                 first_name: 'Jerry'
             })
-            end((err, res) => {
+            .end((err, res) => {
                 // there should be an error
                 should.exist(err);
                 // there should be a 404 status 
@@ -223,6 +265,35 @@ describe('routes : users', () => {
                 // key-value pair of {"message": "That user does not exist."}
                 res.body.message.should.eql('That user does not exist.');
                 done();
+            });
+        });
+
+        it('should throw an error if the email is already in use', (done) => {
+            knex('users')
+            .select('*')
+            .then((users) => {
+                const firstUserObject = users[0];
+                const secondUserObject = users[1];
+                chai.request(server)
+                .put(`/api/v1/users/${firstUserObject.id}`)
+                .send({
+                    email: secondUserObject.email
+                })
+                .end((err, res) => {
+                    // there should be an error
+                    should.exist(err);
+                    // there should be a 400 status 
+                    res.status.should.equal(400);
+                    // the resopnse should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "no good :("}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a 
+                    // key-value pair of {"message": Error message}
+                    should.exist(res.body.message);
+                    done();
+                });
             });
         });
     });
@@ -240,7 +311,9 @@ describe('routes : users', () => {
                     // there should be no errors
                     should.not.exist(err);
                     // there should be a 200 status code
-                    res.status.should.equal('application/json');
+                    res.status.should.equal(200);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
                     // the JSON response body should have a 
                     // key-value pair of {"status": "good!"}
                     res.body.status.should.eql('good!');
@@ -254,7 +327,7 @@ describe('routes : users', () => {
                         'date_of_birth', 'home_phone_number', 'cell_phone_number',
                         'current_address', 'previous_address', 'created_at', 'updated_at' 
                     );
-                    // ensure that the job request was in fact deleted
+                    // ensure that the user was in fact deleted
                     knex('users').select('*')
                     .then((updatedUsers) => {
                         updatedUsers.length.should.eql(lengthBeforeDelete - 1);
