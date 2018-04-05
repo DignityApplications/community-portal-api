@@ -7,6 +7,8 @@ const Koa = require('koa');
 // bring in Koa middleware
 const bodyParser = require('koa-bodyparser');
 const passport = require('koa-passport');
+const session = require('koa-session');
+const redisStore = require('koa-redis');
 
 const app = new Koa();
 const PORT = 3000;
@@ -17,14 +19,23 @@ app.use(bodyParser());
 // bring in our route files
 const indexRoutes = require('./routes/index');
 const userRoutes = require('./routes/users');
+const authRoutes = require('./routes/auth');
 
-// register all of our routes with our Koa app
-app.use(indexRoutes.routes());
-app.use(userRoutes.routes());
+// use sessions
+app.keys = ['shh-youll-never-know'];
+app.use(session({
+    store: redisStore({})
+}, app));
 
 // auth init
 require('./auth');
 app.use(passport.initialize());
+app.use(passport.session());
+
+// register all of our routes with our Koa app
+app.use(indexRoutes.routes());
+app.use(userRoutes.routes());
+app.use(authRoutes.routes());
 
 if (environment == 'development') {
     // set the x-response-time header
