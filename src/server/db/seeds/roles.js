@@ -20,5 +20,10 @@ exports.seed = function(knex, Promise) {
     return knex('roles').insert({
       name: 'WebAdmin'
     });
-  });
+  })
+  .then(() => {
+    return knex('roles').insert({
+      name: 'Unregistered'
+    });
+  });  
 };
