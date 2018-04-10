@@ -11,7 +11,7 @@ const session = require('koa-session');
 const redisStore = require('koa-redis');
 
 const app = new Koa();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // register our middleware with Koa
 app.use(bodyParser());
