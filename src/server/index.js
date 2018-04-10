@@ -23,14 +23,9 @@ const authRoutes = require('./routes/auth');
 
 // use sessions
 app.keys = ['shh-youll-never-know'];
-if (environment == 'production') {
-    app.use(session({
-        store: redisStore({})
-    }, app));
-} else {
-    app.use(session(app));    
-}
-
+app.use(session({
+    store: redisStore({})
+}, app));    
 
 // auth init
 require('./auth');
