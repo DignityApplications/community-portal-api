@@ -23,7 +23,7 @@ router.post(`${BASE_URL}/login`, async(ctx) => {
     })(ctx);
 });
 
-router.get('/auth/logout', async (ctx) => {
+router.get(`${BASE_URL}/logout`, async (ctx) => {
     if (ctx.isAuthenticated()) {
         ctx.logout();
         ctx.body = {
@@ -35,6 +35,20 @@ router.get('/auth/logout', async (ctx) => {
             status: 'no good :('
         }
         ctx.throw(401);
+    }
+});
+
+router.get(`${BASE_URL}/status`, async (ctx) => {
+    if (ctx.isAuthenticated()) {
+        ctx.body = {
+            status: 'good!',
+            loggedin: true
+        }
+    } else {
+        ctx.body = {
+            status: 'good!',
+            loggedin: false
+        }
     }
 });
 

@@ -23,7 +23,7 @@ passport.serializeUser(function(user, done) {
 });
   
 // retrieve the user object based on the user id
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser(function(id, done) {
     return knex('users').where({id}).first()
     .then((user) => { done(null, user); })
     .catch((err) => { done(err,null); });
