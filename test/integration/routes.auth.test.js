@@ -82,13 +82,13 @@ describe('routes : auth', () => {
                 email: 'elliotsminion@gmail.com',
                 password: 'test1234'
             })
-            .then((res) => {
+            .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
                 return agent.get('/auth/status')
-                .then((res) => {
+                .end((err, res) => {
                     // there should be no errors
-                    //should.not.exist(err);
+                    should.not.exist(err);
                     // there should be a 200 status code
                     res.status.should.equal(200);
                     // the response should be JSON
@@ -99,9 +99,10 @@ describe('routes : auth', () => {
                     // the JSON response body should have a 
                     // key-value pair of {"loggedin": true}
                     res.body.loggedin.should.eql(true);
+                    agent.app.close();
                     done();                        
                 });
-            })
+            });
         });
 
         it('should show the status as logged out if the user is not authenticated', (done) => {
@@ -126,5 +127,34 @@ describe('routes : auth', () => {
         });
     });
 
-    // test logout
+    describe('GET /auth/logout', () => {
+        it('should show the status as logged on if the user is authenticated', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'elliotsminion@gmail.com',
+                password: 'test1234'
+            })
+            .end((err, res) => {
+                return agent.get('/auth/logout')
+                .end((err, res) => {
+                    // there should be no errors
+                    should.not.exist(err);
+                    // there should be a 200 status code
+                    res.status.should.equal(200);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "good!"}
+                    res.body.status.should.eql('good!');
+                    // the JSON response body should have a 
+                    // key-value pair of {"message": "User successfully logged out."}
+                    res.body.message.should.eql('User successfully logged out.');
+                    agent.app.close();
+                    done();
+                });
+            });
+        });
+    });
 });

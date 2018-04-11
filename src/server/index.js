@@ -9,12 +9,14 @@ const bodyParser = require('koa-bodyparser');
 const passport = require('koa-passport');
 const session = require('koa-session');
 const redisStore = require('koa-redis');
+const cors = require('@koa/cors');
 
 const app = new Koa();
 const PORT = process.env.PORT || 3000;
 
 // register our middleware with Koa
 app.use(bodyParser());
+app.use(cors());
 
 // bring in our route files
 const indexRoutes = require('./routes/index');
