@@ -58,8 +58,11 @@ describe('routes : users', () => {
                         'date_of_birth', 'home_phone_number', 'cell_phone_number',
                         'current_address', 'previous_address', 'role_id', 'created_at', 'updated_at' 
                     );
-                    agent.app.close();
-                    done();
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
                 });
             });
         });
@@ -90,10 +93,13 @@ describe('routes : users', () => {
                     // key-value pair of {"data": [0 objects]}
                     res.body.data.length.should.eql(0);
                     // the JSON response body should have a 
-                    // key-value pair of {"message", "User does not have the necessary permissions to view this content."}
-                    res.body.message.should.eql('User does not have the necessary permissions to view this content.')
-                    agent.app.close();
-                    done();
+                    // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
+                    res.body.message.should.eql('User does not have the necessary permissions to perform this action.')
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
                 });
             });
         });
@@ -132,8 +138,11 @@ describe('routes : users', () => {
                         'date_of_birth', 'home_phone_number', 'cell_phone_number',
                         'current_address', 'previous_address', 'role_id', 'created_at', 'updated_at' 
                     );
-                    agent.app.close();
-                    done();
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
                 });
             });
         });
@@ -164,10 +173,13 @@ describe('routes : users', () => {
                     // key-value pair of {"data": [0 objects]}
                     res.body.data.length.should.eql(0);
                     // the JSON response body should have a 
-                    // key-value pair of {"message", "User does not have the necessary permissions to view this content."}
-                    res.body.message.should.eql('User does not have the necessary permissions to view this content.')
-                    agent.app.close();
-                    done();
+                    // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
+                    res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
                 });
             });
         });
@@ -197,8 +209,11 @@ describe('routes : users', () => {
                     // the JSON response body should have a 
                     // key-value pair of {"message": "That user does not exist."}
                     res.body.message.should.eql('That user does not exist.');
-                    agent.app.close();
-                    done();
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
                 });
             });
         });
@@ -216,8 +231,7 @@ describe('routes : users', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent
-                .post('/api/v1/users')
+                return agent.post('/api/v1/users')
                 .send({
                     email: 'dignityapps@gmail.com',
                     password: 'test9876',
@@ -253,44 +267,29 @@ describe('routes : users', () => {
                     );
                     // the password should be different due to hashing
                     res.body.data[0].password.should.not.eql('test9876');
-                    agent.app.close();
-                    done();
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
                 });
             });
         });
 
-        it('should throw an error if the payload is malformed', (done) => {
-            chai.request(server)
-            .post('/api/v1/users')
+        it('should not add the user if the current user doesn\'t have the necessary permissions', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
             .send({
-                password: 'test4321',
-                test: 'not sending the right payload!'
+                email: 'fakeuser@gmail.com',
+                password: 'test9876'
             })
             .end((err, res) => {
-                // there should be an error
-                should.exist(err);
-                // there should be a 400 status code
-                res.status.should.equal(400);
-                // the response should be JSON
-                res.type.should.equal('application/json');
-                // the JSON response body should have a 
-                // key-value pair of {"status": "no good :("}
-                res.body.status.should.eql('no good :(');
-                // the JSON response body should have a message key
-                should.exist(res.body.message);
-                done();
-            });
-        });
-
-        it('should throw an error if the email is already in use', (done) => {
-            knex('users')
-            .select('*')
-            .then((users) => {
-                const userObject = users[0];
-                chai.request(server)
-                .post('/api/v1/users')
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                return agent.post('/api/v1/users')
                 .send({
-                    email: userObject.email,
+                    email: 'dignityapps@gmail.com',
                     password: 'test9876',
                     first_name: 'Dignity',
                     last_name: 'Applications',
@@ -299,7 +298,49 @@ describe('routes : users', () => {
                     cell_phone_number: '704-111-3357',
                     current_address: '1234 Test St., Wilmington NC 28412',
                     previous_address: '4321 Test Rd., Testville NC 28110',
-                    role_id: '1' 
+                    role_id: 1            
+                })
+                .end((err, res) => {
+                    // there should be an error
+                    should.exist(err);
+                    // there should be a 401 status code
+                    res.status.should.equal(401);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "good!"}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a  
+                    // key-value pair of {"data": [0 objects]}
+                    res.body.data.length.should.eql(0);
+                    // the JSON response body should have a 
+                    // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
+                    res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
+                });
+            });
+        });
+
+        it('should throw an error if the payload is malformed', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'elliotsminion@gmail.com',
+                password: 'test1234'
+            })
+            .end((err, res) => {
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                agent
+                .post('/api/v1/users')
+                .send({
+                    password: 'test4321',
+                    test: 'not sending the right payload!'
                 })
                 .end((err, res) => {
                     // there should be an error
@@ -313,7 +354,62 @@ describe('routes : users', () => {
                     res.body.status.should.eql('no good :(');
                     // the JSON response body should have a message key
                     should.exist(res.body.message);
-                    done();
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
+                });
+            });
+        });
+
+        it('should throw an error if the email is already in use', (done) => {
+            knex('users')
+            .select('*')
+            .then((users) => {
+                const userObject = users[0];
+                // first we need to log on
+                agent
+                .post('/auth/login')
+                .send({
+                    email: 'elliotsminion@gmail.com',
+                    password: 'test1234'
+                })
+                .end((err, res) => {
+                    // expect the response to contain a session cookie
+                    expect(res).to.have.cookie('koa:sess');
+                    agent
+                    .post('/api/v1/users')
+                    .send({
+                        email: userObject.email,
+                        password: 'test9876',
+                        first_name: 'Dignity',
+                        last_name: 'Applications',
+                        date_of_birth: '10/01/1990',
+                        home_phone_number: '704-885-8342',
+                        cell_phone_number: '704-111-3357',
+                        current_address: '1234 Test St., Wilmington NC 28412',
+                        previous_address: '4321 Test Rd., Testville NC 28110',
+                        role_id: '1' 
+                    })
+                    .end((err, res) => {
+                        // there should be an error
+                        should.exist(err);
+                        // there should be a 400 status code
+                        res.status.should.equal(400);
+                        // the response should be JSON
+                        res.type.should.equal('application/json');
+                        // the JSON response body should have a 
+                        // key-value pair of {"status": "no good :("}
+                        res.body.status.should.eql('no good :(');
+                        // the JSON response body should have a message key
+                        should.exist(res.body.message);
+                        return agent.get('/auth/logout')
+                        .end((err, res) => {
+                            agent.app.close();
+                            done();   
+                        }); 
+                    });
                 });
             });
         });
@@ -321,67 +417,144 @@ describe('routes : users', () => {
     });
 
     describe('PUT /api/v1/users/:id', () => {
-        it('should return the user that was updated', (done) => {
+        it('should return the user that was updated if the current user has the necessary permissions', (done) => {
             knex('users')
             .select('*')
             .then((users) => {
                 const userObject = users[0];
-                chai.request(server)
-                .put(`/api/v1/users/${userObject.id}`)
+                // first we need to log on
+                agent
+                .post('/auth/login')
                 .send({
-                    first_name: 'Jerry',
+                    email: 'elliotsminion@gmail.com',
+                    password: 'test1234'
+                })
+                .end((err, res) => {
+                    // expect the response to contain a session cookie
+                    expect(res).to.have.cookie('koa:sess');
+                    agent
+                    .put(`/api/v1/users/${userObject.id}`)
+                    .send({
+                        first_name: 'Jerry',
+                        password: 'test9876'
+                    })
+                    .end((err, res) => {
+                        // there should be no errors
+                        should.not.exist(err);
+                        // there should be a 200 status code
+                        res.status.should.equal(200);
+                        // the response should be JSON
+                        res.type.should.equal('application/json');
+                        // the JSON response body should have a 
+                        // key-value pair of {"status", "good!"}
+                        res.body.status.should.eql('good!');
+                        // the JSON response body should have a 
+                        // key-value pair of {"data": 1 user object}
+                        res.body.data.length.should.eql(1);
+                        // the first object in the data array should 
+                        // have the right keys
+                        res.body.data[0].should.include.keys(
+                            'id', 'email', 'password', 'first_name', 'last_name', 
+                            'date_of_birth', 'home_phone_number', 'cell_phone_number',
+                            'current_address', 'previous_address', 'created_at', 'updated_at' 
+                        );
+                        // the password should be different due to hashing
+                        res.body.data[0].should.not.eql('test9876');
+                        // ensure the user was in fact updated
+                        const newUserObject = res.body.data[0];
+                        newUserObject.first_name.should.not.eql(userObject.first_name);
+                        return agent.get('/auth/logout')
+                        .end((err, res) => {
+                            agent.app.close();
+                            done();   
+                        }); 
+                    });
+                });
+            });
+        });
+
+        it('should not update the user if the current user doesn\'t have the necessary permissions', (done) => {
+            knex('users')
+            .select('*')
+            .then((users) => {
+                const userObject = users[0];
+                // first we need to log on
+                agent
+                .post('/auth/login')
+                .send({
+                    email: 'fakeuser@gmail.com',
                     password: 'test9876'
                 })
                 .end((err, res) => {
-                    // there should be no errors
-                    should.not.exist(err);
-                    // there should be a 200 status code
-                    res.status.should.equal(200);
-                    // the response should be JSON
-                    res.type.should.equal('application/json');
-                    // the JSON response body should have a 
-                    // key-value pair of {"status", "good!"}
-                    res.body.status.should.eql('good!');
-                    // the JSON response body should have a 
-                    // key-value pair of {"data": 1 user object}
-                    res.body.data.length.should.eql(1);
-                    // the first object in the data array should 
-                    // have the right keys
-                    res.body.data[0].should.include.keys(
-                        'id', 'email', 'password', 'first_name', 'last_name', 
-                        'date_of_birth', 'home_phone_number', 'cell_phone_number',
-                        'current_address', 'previous_address', 'created_at', 'updated_at' 
-                    );
-                    // the password should be different due to hashing
-                    res.body.data[0].should.not.eql('test9876');
-                    // ensure the user was in fact updated
-                    const newUserObject = res.body.data[0];
-                    newUserObject.first_name.should.not.eql(userObject.first_name);
-                    done();
+                    // expect the response to contain a session cookie
+                    expect(res).to.have.cookie('koa:sess');
+                    agent
+                    .put(`/api/v1/users/${userObject.id}`)
+                    .send({
+                        first_name: 'Jerry',
+                        password: 'test9876'
+                    })
+                    .end((err, res) => {
+                        // there should be an error
+                        should.exist(err);
+                        // there should be a 401 status code
+                        res.status.should.equal(401);
+                        // the response should be JSON
+                        res.type.should.equal('application/json');
+                        // the JSON response body should have a 
+                        // key-value pair of {"status": "good!"}
+                        res.body.status.should.eql('no good :(');
+                        // the JSON response body should have a  
+                        // key-value pair of {"data": [0 objects]}
+                        res.body.data.length.should.eql(0);
+                        // the JSON response body should have a 
+                        // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
+                        res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
+                        return agent.get('/auth/logout')
+                        .end((err, res) => {
+                            agent.app.close();
+                            done();   
+                        }); 
+                    });
                 });
             });
         });
 
         it('should throw an error if the user does not exist', (done) => {
-            chai.request(server)
-            .put('/api/v1/users/9999999')
+            // first we need to log on
+            agent
+            .post('/auth/login')
             .send({
-                first_name: 'Jerry'
+                email: 'elliotsminion@gmail.com',
+                password: 'test1234'
             })
             .end((err, res) => {
-                // there should be an error
-                should.exist(err);
-                // there should be a 404 status 
-                res.status.should.equal(404);
-                // the resopnse should be JSON
-                res.type.should.equal('application/json');
-                // the JSON response body should have a 
-                // key-value pair of {"status": "no good :("}
-                res.body.status.should.eql('no good :(');
-                // the JSON response body should have a 
-                // key-value pair of {"message": "That user does not exist."}
-                res.body.message.should.eql('That user does not exist.');
-                done();
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                agent
+                .put('/api/v1/users/9999999')
+                .send({
+                    first_name: 'Jerry'
+                })
+                .end((err, res) => {
+                    // there should be an error
+                    should.exist(err);
+                    // there should be a 404 status 
+                    res.status.should.equal(404);
+                    // the resopnse should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "no good :("}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a 
+                    // key-value pair of {"message": "That user does not exist."}
+                    res.body.message.should.eql('That user does not exist.');
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    });
+                });
             });
         });
 
@@ -391,86 +564,167 @@ describe('routes : users', () => {
             .then((users) => {
                 const firstUserObject = users[0];
                 const secondUserObject = users[1];
-                chai.request(server)
-                .put(`/api/v1/users/${firstUserObject.id}`)
+                // first we need to log on
+                agent
+                .post('/auth/login')
                 .send({
-                    email: secondUserObject.email
+                    email: 'elliotsminion@gmail.com',
+                    password: 'test1234'
                 })
                 .end((err, res) => {
-                    // there should be an error
-                    should.exist(err);
-                    // there should be a 400 status 
-                    res.status.should.equal(400);
-                    // the resopnse should be JSON
-                    res.type.should.equal('application/json');
-                    // the JSON response body should have a 
-                    // key-value pair of {"status": "no good :("}
-                    res.body.status.should.eql('no good :(');
-                    // the JSON response body should have a 
-                    // key-value pair of {"message": Error message}
-                    should.exist(res.body.message);
-                    done();
-                });
+                    // expect the response to contain a session cookie
+                    expect(res).to.have.cookie('koa:sess');
+                    agent
+                    .put(`/api/v1/users/${firstUserObject.id}`)
+                    .send({
+                        email: secondUserObject.email
+                    })
+                    .end((err, res) => {
+                        // there should be an error
+                        should.exist(err);
+                        // there should be a 400 status 
+                        res.status.should.equal(400);
+                        // the resopnse should be JSON
+                        res.type.should.equal('application/json');
+                        // the JSON response body should have a 
+                        // key-value pair of {"status": "no good :("}
+                        res.body.status.should.eql('no good :(');
+                        // the JSON response body should have a 
+                        // key-value pair of {"message": Error message}
+                        should.exist(res.body.message);
+                        return agent.get('/auth/logout')
+                        .end((err, res) => {
+                            agent.app.close();
+                            done();   
+                        });
+                    });
+                })
             });
         });
     });
 
     describe('DELETE /api/v1/users/:id', () => {
-        it('should return the user that was deleted', (done) => {
+        it('should return the user that was deleted if the current user has the necessary permissions', (done) => {
             knex('users')
             .select('*')
             .then((users) => {
-                const userObject = users[0];
+                const userObject = users[1];
                 const lengthBeforeDelete = users.length;
-                chai.request(server)
-                .delete(`/api/v1/users/${userObject.id}`)
+                // first we need to log on
+                agent
+                .post('/auth/login')
+                .send({
+                    email: 'elliotsminion@gmail.com',
+                    password: 'test1234'
+                })
                 .end((err, res) => {
-                    // there should be no errors
-                    should.not.exist(err);
-                    // there should be a 200 status code
-                    res.status.should.equal(200);
-                    // the response should be JSON
-                    res.type.should.equal('application/json');
-                    // the JSON response body should have a 
-                    // key-value pair of {"status": "good!"}
-                    res.body.status.should.eql('good!');
-                    // the JSON response body should have a 
-                    // key-value pair of {"data": 1 user object}
-                    res.body.data.length.should.eql(1);
-                    // the first object in the data array should
-                    // have the right keys
-                    res.body.data[0].should.include.keys(
-                        'id', 'email', 'password', 'first_name', 'last_name', 
-                        'date_of_birth', 'home_phone_number', 'cell_phone_number',
-                        'current_address', 'previous_address', 'created_at', 'updated_at' 
-                    );
-                    // ensure that the user was in fact deleted
-                    knex('users').select('*')
-                    .then((updatedUsers) => {
-                        updatedUsers.length.should.eql(lengthBeforeDelete - 1);
-                        done();
+                    // expect the response to contain a session cookie
+                    expect(res).to.have.cookie('koa:sess');
+                    agent
+                    .delete(`/api/v1/users/${userObject.id}`)
+                    .end((err, res) => {
+                        // there should be no errors
+                        should.not.exist(err);
+                        // there should be a 200 status code
+                        res.status.should.equal(200);
+                        // the response should be JSON
+                        res.type.should.equal('application/json');
+                        // the JSON response body should have a 
+                        // key-value pair of {"status": "good!"}
+                        res.body.status.should.eql('good!');
+                        // the JSON response body should have a 
+                        // key-value pair of {"data": 1 user object}
+                        res.body.data.length.should.eql(1);
+                        // the first object in the data array should
+                        // have the right keys
+                        res.body.data[0].should.include.keys(
+                            'id', 'email', 'password', 'first_name', 'last_name', 
+                            'date_of_birth', 'home_phone_number', 'cell_phone_number',
+                            'current_address', 'previous_address', 'created_at', 'updated_at' 
+                        );
+                        return agent.get('/auth/logout')
+                        .end((err, res) => {
+                            // ensure that the user was in fact deleted
+                            knex('users').select('*')
+                            .then((updatedUsers) => {
+                                updatedUsers.length.should.eql(lengthBeforeDelete - 1);
+                                done();
+                            }); 
+                        });
+                    });
+                });
+            });
+        });
+
+        it('should not delete the user if the current user doesn\'t have the necessary permissions', (done) => {
+            knex('users')
+            .select('*')
+            .then((users) => {
+                const userObject = users[1];
+                const lengthBeforeDelete = users.length;
+                // first we need to log on
+                agent
+                .post('/auth/login')
+                .send({
+                    email: 'fakeuser@gmail.com',
+                    password: 'test9876'
+                })
+                .end((err, res) => {
+                    // expect the response to contain a session cookie
+                    expect(res).to.have.cookie('koa:sess');
+                    agent
+                    .delete(`/api/v1/users/${userObject.id}`)
+                    .end((err, res) => {
+                        // there should be an error
+                        should.exist(err);
+                        // there should be a 400 status 
+                        res.status.should.equal(400);
+                        // the resopnse should be JSON
+                        res.type.should.equal('application/json');
+                        // the JSON response body should have a 
+                        // key-value pair of {"status": "no good :("}
+                        res.body.status.should.eql('no good :(');
+                        // the JSON response body should have a 
+                        // key-value pair of {"message": Error message}
+                        should.exist(res.body.message);
+                        return agent.get('/auth/logout')
+                        .end((err, res) => {
+                            agent.app.close();
+                            done();   
+                        });
                     });
                 });
             });
         });
 
         it('should throw an error if the user does not exist', (done) => {
-            chai.request(server)
-            .delete('/api/v1/users/9999999')
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'elliotsminion@gmail.com',
+                password: 'test1234'
+            })
             .end((err, res) => {
-                // there should be an error
-                should.exist(err);
-                // there should be a 404 status code
-                res.status.should.equal(404);
-                // the response should be JSON
-                res.type.should.equal('application/json');
-                // the JSON response body should have a 
-                // key-value pair of {"status": "no good :("}
-                res.body.status.should.eql('no good :(');
-                // the JSON response body should have a 
-                // key-value pair of {"message": "That user does not exist."}
-                res.body.message.should.eql('That user does not exist.');
-                done();
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                agent
+                .delete('/api/v1/users/9999999')
+                .end((err, res) => {
+                    // there should be an error
+                    should.exist(err);
+                    // there should be a 404 status code
+                    res.status.should.equal(404);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "no good :("}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a 
+                    // key-value pair of {"message": "That user does not exist."}
+                    res.body.message.should.eql('That user does not exist.');
+                    done();
+                });
             });
         });
     });

@@ -99,8 +99,11 @@ describe('routes : auth', () => {
                     // the JSON response body should have a 
                     // key-value pair of {"loggedin": true}
                     res.body.loggedin.should.eql(true);
-                    agent.app.close();
-                    done();                        
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    });                     
                 });
             });
         });
@@ -151,8 +154,11 @@ describe('routes : auth', () => {
                     // the JSON response body should have a 
                     // key-value pair of {"message": "User successfully logged out."}
                     res.body.message.should.eql('User successfully logged out.');
-                    agent.app.close();
-                    done();
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
                 });
             });
         });
