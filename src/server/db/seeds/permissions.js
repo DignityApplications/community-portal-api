@@ -4,88 +4,88 @@ exports.seed = function(knex, Promise) {
   // members
   .then(() => {
     return knex('permissions').insert({
-      name: 'AddMember'
+      name: 'AddUserMember'
     });
   })
   .then(() => {
     return knex('permissions').insert({
-      name: 'SeeAnyMember'
+      name: 'SeeAnyUserMember'
     });
   })
   .then(() => {
     return knex('permissions').insert({
-      name: 'UpdateAnyMember'
+      name: 'UpdateAnyUserMember'
     });
   })
   .then(() => {
     return knex('permissions').insert({
-      name: 'DeleteAnyMember'
+      name: 'DeleteAnyUserMember'
     });
   })
 
   // staff
   .then(() => {
     return knex('permissions').insert({
-      name: 'AddStaff'
+      name: 'AddUserStaff'
     });
   }) 
   .then(() => {
     return knex('permissions').insert({
-      name: 'SeeAnyStaff'
+      name: 'SeeAnyUserStaff'
     });
   })
   .then(() => {
     return knex('permissions').insert({
-      name: 'UpdateAnyStaff'
+      name: 'UpdateAnyUserStaff'
     });
   }) 
   .then(() => {
     return knex('permissions').insert({
-      name: 'DeleteAnyStaff'
+      name: 'DeleteAnyUserStaff'
     });
   })
 
   // guests
   .then(() => {
     return knex('permissions').insert({
-      name: 'AddGuest'
+      name: 'AddUserGuest'
     });
   }) 
   .then(() => {
     return knex('permissions').insert({
-      name: 'SeeAnyGuest'
+      name: 'SeeAnyUserGuest'
     });
   })
   .then(() => {
     return knex('permissions').insert({
-      name: 'UpdateAnyGuest'
+      name: 'UpdateAnyUserGuest'
     });
   }) 
   .then(() => {
     return knex('permissions').insert({
-      name: 'DeleteAnyGuest'
+      name: 'DeleteAnyUserGuest'
     });
   })
 
   // website admins
   .then(() => {
     return knex('permissions').insert({
-      name: 'AddWebAdmin'
+      name: 'AddUserWebAdmin'
     });
   }) 
   .then(() => {
     return knex('permissions').insert({
-      name: 'SeeAnyWebAdmin'
+      name: 'SeeAnyUserWebAdmin'
     });
   })
   .then(() => {
     return knex('permissions').insert({
-      name: 'UpdateAnyWebAdmin'
+      name: 'UpdateAnyUserWebAdmin'
     });
   }) 
   .then(() => {
     return knex('permissions').insert({
-      name: 'DeleteAnyWebAdmin'
+      name: 'DeleteAnyUserWebAdmin'
     });
   })
 

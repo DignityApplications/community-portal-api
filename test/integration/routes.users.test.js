@@ -56,7 +56,8 @@ describe('routes : users', () => {
                     res.body.data[0].should.include.keys(
                         'id', 'email', 'password', 'first_name', 'last_name', 
                         'date_of_birth', 'home_phone_number', 'cell_phone_number',
-                        'current_address', 'previous_address', 'role_id', 'created_at', 'updated_at' 
+                        'current_address', 'previous_address', 'avatar_path', 'bio', 
+                        'role_id', 'created_at', 'updated_at' 
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
@@ -136,7 +137,8 @@ describe('routes : users', () => {
                     res.body.data[0].should.include.keys(
                         'id', 'email', 'password', 'first_name', 'last_name', 
                         'date_of_birth', 'home_phone_number', 'cell_phone_number',
-                        'current_address', 'previous_address', 'role_id', 'created_at', 'updated_at' 
+                        'current_address', 'previous_address', 'avatar_path', 'bio', 
+                        'role_id', 'created_at', 'updated_at' 
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
@@ -242,6 +244,8 @@ describe('routes : users', () => {
                     cell_phone_number: '704-111-3357',
                     current_address: '1234 Test St., Wilmington NC 28412',
                     previous_address: '4321 Test Rd., Testville NC 28110',
+                    avatar_path: '/images/avatars/DignityApps.jpg',
+                    bio: 'BEST COMPANY EVER.',
                     role_id: 1            
                 })
                 .end((err, res) => {
@@ -263,7 +267,8 @@ describe('routes : users', () => {
                     res.body.data[0].should.include.keys(
                         'id', 'email', 'password', 'first_name', 'last_name', 
                         'date_of_birth', 'home_phone_number', 'cell_phone_number',
-                        'current_address', 'previous_address', 'role_id', 'created_at', 'updated_at' 
+                        'current_address', 'previous_address', 'avatar_path', 'bio', 
+                        'role_id', 'created_at', 'updated_at' 
                     );
                     // the password should be different due to hashing
                     res.body.data[0].password.should.not.eql('test9876');
@@ -298,6 +303,8 @@ describe('routes : users', () => {
                     cell_phone_number: '704-111-3357',
                     current_address: '1234 Test St., Wilmington NC 28412',
                     previous_address: '4321 Test Rd., Testville NC 28110',
+                    avatar_path: '/images/avatars/DignityApps.jpg',
+                    bio: 'BEST COMPANY EVER.',
                     role_id: 1            
                 })
                 .end((err, res) => {
@@ -390,6 +397,8 @@ describe('routes : users', () => {
                         cell_phone_number: '704-111-3357',
                         current_address: '1234 Test St., Wilmington NC 28412',
                         previous_address: '4321 Test Rd., Testville NC 28110',
+                        avatar_path: '/images/avatars/DignityApps.jpg',
+                        bio: 'BEST COMPANY EVER.',
                         role_id: '1' 
                     })
                     .end((err, res) => {
@@ -456,7 +465,8 @@ describe('routes : users', () => {
                         res.body.data[0].should.include.keys(
                             'id', 'email', 'password', 'first_name', 'last_name', 
                             'date_of_birth', 'home_phone_number', 'cell_phone_number',
-                            'current_address', 'previous_address', 'created_at', 'updated_at' 
+                            'current_address', 'previous_address', 'avatar_path', 'bio', 
+                            'created_at', 'updated_at' 
                         );
                         // the password should be different due to hashing
                         res.body.data[0].should.not.eql('test9876');
@@ -640,7 +650,8 @@ describe('routes : users', () => {
                         res.body.data[0].should.include.keys(
                             'id', 'email', 'password', 'first_name', 'last_name', 
                             'date_of_birth', 'home_phone_number', 'cell_phone_number',
-                            'current_address', 'previous_address', 'created_at', 'updated_at' 
+                            'current_address', 'previous_address', 'avatar_path', 'bio', 
+                            'created_at', 'updated_at' 
                         );
                         return agent.get('/auth/logout')
                         .end((err, res) => {

@@ -2,17 +2,32 @@
 const Router = require('koa-router');
 const queries = require('../db/queries/users');
 
+// bring in our helper functions
+const permissions = require('./_permissionHelpers');
+
 const router = new Router();
 const BASE_URL = `/api/v1/users`;
 
 // return all users
 router.get(BASE_URL, async (ctx) => {
     try {
-        const users = await queries.getAllUsers();
-        ctx.body = {
-            status: 'good!',
-            data: users
-        };
+        let user = ctx.state.user || null;
+        // make sure the current user (or lack of user) can 'See' all types of users
+        // note: the lack of a third argument indicates that we want to see all
+        let canDo = await permissions.canDo(user, 'SeeAnyUser');
+        if (canDo) {
+            const users = await queries.getAllUsers();
+            ctx.body = {
+                status: 'good!',
+                data: users
+            };
+        } else {
+            ctx.status = 401;
+            ctx.body = {
+                status: 'no good :(',
+                message: 'User does not have the necessary permissions to perform this action.'
+            };
+        }
     } catch (err) {
         console.log(err);
     }

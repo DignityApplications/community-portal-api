@@ -14,6 +14,9 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '704-221-8792',
       current_address: '4536 Exuma Lane, Wilmington NC 28412',
       previous_address: '3714 Sincerity Rd., Monroe NC 28110',
+      avatar_path: '/images/avatars/Elliot.jpg',
+      bio: 'Elliot is a fun-loving goofball. He is well-liked by most people - especially the ladies ;) Most describe ' +
+      'Elliot as a "perfect person".',
       role_id: 4
     });
   })
@@ -28,6 +31,8 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '704-685-3016',
       current_address: '7281 Savannah Run Loop, Wilmington NC 28411',
       previous_address: '1422 Parkview Cir., Wilmington NC 28403',
+      avatar_path: '/images/avatars/Garret.jpg',
+      bio: 'Garret\'s alright.',
       role_id: 4
     });
   })
@@ -42,6 +47,8 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '704-233-8465',
       current_address: '7281 Test Dr., Wilmington NC 28411',
       previous_address: '1422 Test Cir., Wilmington NC 28403',
+      avatar_path: '/images/avatars/MrFake.jpg',
+      bio: 'He\'s not even real',
       role_id: 5
     });
   })
