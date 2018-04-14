@@ -12,6 +12,7 @@ const BASE_URL = `/api/v1/users`;
 router.get(BASE_URL, async (ctx) => {
     try {
         let user = ctx.state.user || null;
+
         // make sure the current user (or lack of user) can 'See' all types of users
         // note: the lack of a third argument indicates that we want to see all
         let canDo = await permissions.canDo(user, 'SeeAnyUser');

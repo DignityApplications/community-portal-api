@@ -7,11 +7,16 @@ const _ = require('lodash');
 
 // pass in the user, the action as a string, and the resource as a string (defaults to blank)
 async function canDo (user, action, resource = '') {
+    // if there is no user, they default to 'Unregistered'
+    const unregistered = (await roleQueries.getSingleRoleByName('Unregistered'))[0];
+
+    let role_id = (user) ? user.role_id : unregistered.id;
+
     // get the set of permissions that we are testing
     const permissions = await permissionQueries.getPermissionsByActionAndResource(action, resource);
 
     // get the permissions that the user's role can do
-    const canDo = await permissionQueries.getPermissionsByRole(user.role_id);
+    const canDo = await permissionQueries.getPermissionsByRole(role_id);
      
     let permissionArr = permissions.map(p => p.id);
     let canDoArr = canDo.map(c => c.permission_id);
