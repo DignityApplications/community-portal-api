@@ -21,9 +21,7 @@ async function canDo (user, action, resource = '') {
     let permissionArr = permissions.map(p => p.id);
     let canDoArr = canDo.map(c => c.permission_id);
 
-    //return _.difference(permissionArr, canDoArr).length === 0;
-    return true;
-
+    return _.difference(permissionArr, canDoArr).length === 0;
 }
 
 module.exports = {

@@ -168,9 +168,6 @@ describe('routes : users', () => {
                     // the JSON response body should have a 
                     // key-value pair of {"status": "good!"}
                     res.body.status.should.eql('no good :(');
-                    // the JSON response body should have a  
-                    // key-value pair of {"data": [0 objects]}
-                    res.body.data.length.should.eql(0);
                     // the JSON response body should have a 
                     // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
                     res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
@@ -312,9 +309,6 @@ describe('routes : users', () => {
                     // the JSON response body should have a 
                     // key-value pair of {"status": "good!"}
                     res.body.status.should.eql('no good :(');
-                    // the JSON response body should have a  
-                    // key-value pair of {"data": [0 objects]}
-                    res.body.data.length.should.eql(0);
                     // the JSON response body should have a 
                     // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
                     res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
@@ -509,9 +503,6 @@ describe('routes : users', () => {
                         // the JSON response body should have a 
                         // key-value pair of {"status": "good!"}
                         res.body.status.should.eql('no good :(');
-                        // the JSON response body should have a  
-                        // key-value pair of {"data": [0 objects]}
-                        res.body.data.length.should.eql(0);
                         // the JSON response body should have a 
                         // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
                         res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
@@ -683,16 +674,16 @@ describe('routes : users', () => {
                     .end((err, res) => {
                         // there should be an error
                         should.exist(err);
-                        // there should be a 400 status 
-                        res.status.should.equal(400);
-                        // the resopnse should be JSON
+                        // there should be a 401 status code
+                        res.status.should.equal(401);
+                        // the response should be JSON
                         res.type.should.equal('application/json');
                         // the JSON response body should have a 
-                        // key-value pair of {"status": "no good :("}
+                        // key-value pair of {"status": "good!"}
                         res.body.status.should.eql('no good :(');
                         // the JSON response body should have a 
-                        // key-value pair of {"message": Error message}
-                        should.exist(res.body.message);
+                        // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
+                        res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
                         return agent.get('/auth/logout')
                         .end((err, res) => {
                             agent.app.close();
