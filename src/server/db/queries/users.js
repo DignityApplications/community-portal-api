@@ -7,14 +7,22 @@ const knex = require('../connection');
 // return all users
 function getAllUsers() {
     return knex('users')
-    .select('*');
+    .select('users.id', 'email', 'first_name', 'last_name', 
+    'date_of_birth', 'home_phone_number', 'cell_phone_number',
+    'current_address', 'previous_address', 'avatar_path', 'bio', 
+    'roles.name as role', 'created_at', 'updated_at')
+    .leftJoin('roles', 'users.role_id', 'roles.id')
 }
 
 // return a single user
 function getSingleUser(id) {
     return knex('users')
-    .select('*')
-    .where({ id: parseInt(id) });
+    .select('users.id', 'email', 'first_name', 'last_name', 
+    'date_of_birth', 'home_phone_number', 'cell_phone_number',
+    'current_address', 'previous_address', 'avatar_path', 'bio', 
+    'roles.name as role', 'created_at', 'updated_at')
+    .leftJoin('roles', 'users.role_id', 'roles.id')
+    .where({ 'users.id': parseInt(id) });
 }
 
 // add a new user
@@ -23,7 +31,10 @@ function addUser(user) {
 
     return knex('users')
     .insert(user)
-    .returning('*');
+    .returning(['id', 'email', 'first_name', 'last_name', 
+    'date_of_birth', 'home_phone_number', 'cell_phone_number',
+    'current_address', 'previous_address', 'avatar_path', 'bio', 
+    'role_id', 'created_at', 'updated_at']);
 }
 
 // update a user
@@ -32,16 +43,22 @@ function updateUser(id, user) {
 
     return knex('users')
     .update(user)
-    .where({id: parseInt(id)})
-    .returning('*');
+    .where({'users.id': parseInt(id)})
+    .returning(['id', 'email', 'first_name', 'last_name', 
+    'date_of_birth', 'home_phone_number', 'cell_phone_number',
+    'current_address', 'previous_address', 'avatar_path', 'bio', 
+    'role_id', 'created_at', 'updated_at']);
 }
 
 // delete a user
 function deleteUser(id) {
     return knex('users')
     .del()
-    .where({id: parseInt(id)})
-    .returning('*');
+    .where({'users.id': parseInt(id)})
+    .returning(['id', 'email', 'first_name', 'last_name', 
+    'date_of_birth', 'home_phone_number', 'cell_phone_number',
+    'current_address', 'previous_address', 'avatar_path', 'bio', 
+    'role_id', 'created_at', 'updated_at']);
 }
 
 module.exports = {

@@ -7,6 +7,13 @@ function getPermissionsByActionAndResource(action, resource) {
     .where('name', 'like', `${action}${resource}%`);
 }
 
+function getPermissionsByRole(role_id) {
+    return knex('roles_permissions')
+    .select('*')
+    .where({role_id})
+}
+
 module.exports = {
-    getPermissionsByActionAndResource
+    getPermissionsByActionAndResource,
+    getPermissionsByRole
 }

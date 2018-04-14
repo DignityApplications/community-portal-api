@@ -47,7 +47,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '704-233-8465',
       current_address: '7281 Test Dr., Wilmington NC 28411',
       previous_address: '1422 Test Cir., Wilmington NC 28403',
-      avatar_path: '/images/avatars/MrFake.jpg',
       bio: 'He\'s not even real',
       role_id: 5
     });

@@ -54,10 +54,10 @@ describe('routes : users', () => {
                     // the first object in the data array should 
                     // have the right keys
                     res.body.data[0].should.include.keys(
-                        'id', 'email', 'password', 'first_name', 'last_name', 
+                        'id', 'email', 'first_name', 'last_name', 
                         'date_of_birth', 'home_phone_number', 'cell_phone_number',
                         'current_address', 'previous_address', 'avatar_path', 'bio', 
-                        'role_id', 'created_at', 'updated_at' 
+                        'role', 'created_at', 'updated_at' 
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
@@ -90,9 +90,6 @@ describe('routes : users', () => {
                     // the JSON response body should have a 
                     // key-value pair of {"status": "good!"}
                     res.body.status.should.eql('no good :(');
-                    // the JSON response body should have a  
-                    // key-value pair of {"data": [0 objects]}
-                    res.body.data.length.should.eql(0);
                     // the JSON response body should have a 
                     // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
                     res.body.message.should.eql('User does not have the necessary permissions to perform this action.')
@@ -135,10 +132,10 @@ describe('routes : users', () => {
                     // the first object in the data array should 
                     // have the right keys
                     res.body.data[0].should.include.keys(
-                        'id', 'email', 'password', 'first_name', 'last_name', 
+                        'id', 'email', 'first_name', 'last_name', 
                         'date_of_birth', 'home_phone_number', 'cell_phone_number',
                         'current_address', 'previous_address', 'avatar_path', 'bio', 
-                        'role_id', 'created_at', 'updated_at' 
+                        'role', 'created_at', 'updated_at' 
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
@@ -265,13 +262,11 @@ describe('routes : users', () => {
                     // the first object in the data array should
                     // have the right keys
                     res.body.data[0].should.include.keys(
-                        'id', 'email', 'password', 'first_name', 'last_name', 
+                        'id', 'email', 'first_name', 'last_name', 
                         'date_of_birth', 'home_phone_number', 'cell_phone_number',
                         'current_address', 'previous_address', 'avatar_path', 'bio', 
                         'role_id', 'created_at', 'updated_at' 
                     );
-                    // the password should be different due to hashing
-                    res.body.data[0].password.should.not.eql('test9876');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
                         agent.app.close();
@@ -463,10 +458,10 @@ describe('routes : users', () => {
                         // the first object in the data array should 
                         // have the right keys
                         res.body.data[0].should.include.keys(
-                            'id', 'email', 'password', 'first_name', 'last_name', 
+                            'id', 'email', 'first_name', 'last_name', 
                             'date_of_birth', 'home_phone_number', 'cell_phone_number',
                             'current_address', 'previous_address', 'avatar_path', 'bio', 
-                            'created_at', 'updated_at' 
+                            'role_id', 'created_at', 'updated_at' 
                         );
                         // the password should be different due to hashing
                         res.body.data[0].should.not.eql('test9876');
@@ -648,10 +643,10 @@ describe('routes : users', () => {
                         // the first object in the data array should
                         // have the right keys
                         res.body.data[0].should.include.keys(
-                            'id', 'email', 'password', 'first_name', 'last_name', 
+                            'id', 'email', 'first_name', 'last_name', 
                             'date_of_birth', 'home_phone_number', 'cell_phone_number',
                             'current_address', 'previous_address', 'avatar_path', 'bio', 
-                            'created_at', 'updated_at' 
+                            'role_id', 'created_at', 'updated_at' 
                         );
                         return agent.get('/auth/logout')
                         .end((err, res) => {

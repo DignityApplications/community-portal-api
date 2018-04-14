@@ -8,7 +8,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('roles').insert({
-      name: 'AdministrativeStaff'
+      name: 'Administrative Staff'
     });
   })
   .then(() => {
@@ -18,7 +18,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('roles').insert({
-      name: 'WebAdmin'
+      name: 'Web Admin'
     });
   })
   .then(() => {
