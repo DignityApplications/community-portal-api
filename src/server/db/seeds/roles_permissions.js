@@ -116,7 +116,31 @@ exports.seed = function(knex, Promise) {
             permission_id: 19,
         });
     })
-    
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 4,
+            permission_id: 20,
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 4,
+            permission_id: 21,
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 4,
+            permission_id: 22,
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 4,
+            permission_id: 23,
+        });
+    })
+
     // give roles_permissions to members
 
     // give roles_permissions to administrative staff

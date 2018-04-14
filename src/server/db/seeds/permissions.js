@@ -89,6 +89,28 @@ exports.seed = function(knex, Promise) {
     });
   })
 
+  // unregistered
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'AddUserUnregistered'
+    });
+  }) 
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'SeeAnyUserUnregistered'
+    });
+  })
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'UpdateAnyUserUnregistered'
+    });
+  }) 
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'DeleteAnyUserUnregistered'
+    });
+  })
+  
   // self
   .then(() => {
     return knex('permissions').insert({

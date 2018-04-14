@@ -7,6 +7,10 @@ const _ = require('lodash');
 
 // pass in the user, the action as a string, and the resource as a string (defaults to blank)
 async function canDo (user, action, resource = '') {
+    // make sure we have no spaces in the action or resource
+    action = action.replace(' ', '');
+    resource = resource.replace(' ', '');
+    
     // if there is no user, they default to 'Unregistered'
     const unregistered = (await roleQueries.getSingleRoleByName('Unregistered'))[0];
 
