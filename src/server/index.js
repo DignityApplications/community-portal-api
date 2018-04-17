@@ -16,7 +16,9 @@ const PORT = process.env.PORT || 3000;
 
 // register our middleware with Koa
 app.use(bodyParser());
-app.use(cors());
+app.use(cors({
+    credentials: true
+}));
 
 // bring in our route files
 const indexRoutes = require('./routes/index');
