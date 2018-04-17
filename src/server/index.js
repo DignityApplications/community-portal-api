@@ -31,7 +31,7 @@ if (environment != 'production') {
         store: redisStore({})
     }, app));  
 } else {
-    app.use(session());
+    app.use(session(app));
 }  
 
 // auth init
