@@ -25,6 +25,7 @@ const indexRoutes = require('./routes/index');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
 const roleRoutes = require('./routes/roles');
+const permissionRoutes = require('./routes/permissions')
 
 // use sessions
 app.keys = ['shh-youll-never-know'];
@@ -47,6 +48,7 @@ app.use(indexRoutes.routes());
 app.use(userRoutes.routes());
 app.use(authRoutes.routes());
 app.use(roleRoutes.routes());
+app.use(permissionRoutes.routes());
 
 if (environment == 'development') {
     // set the x-response-time header
