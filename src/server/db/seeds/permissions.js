@@ -26,22 +26,22 @@ exports.seed = function(knex, Promise) {
   // staff
   .then(() => {
     return knex('permissions').insert({
-      name: 'AddUserStaff'
+      name: 'AddUserAdministrativeStaff'
     });
   }) 
   .then(() => {
     return knex('permissions').insert({
-      name: 'SeeAnyUserStaff'
+      name: 'SeeAnyUserAdministrativeStaff'
     });
   })
   .then(() => {
     return knex('permissions').insert({
-      name: 'UpdateAnyUserStaff'
+      name: 'UpdateAnyUserAdministrativeStaff'
     });
   }) 
   .then(() => {
     return knex('permissions').insert({
-      name: 'DeleteAnyUserStaff'
+      name: 'DeleteAnyUserAdministrativeStaff'
     });
   })
 
@@ -126,5 +126,49 @@ exports.seed = function(knex, Promise) {
     return knex('permissions').insert({
       name: 'DeleteSelf'
     });
-  })         
+  })
+  
+  // roles
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'AddRoles'
+    });
+  }) 
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'SeeRoles'
+    });
+  })
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'UpdateRoles'
+    });
+  }) 
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'DeleteRoles'
+    });
+  })
+
+  // permissions
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'AddPermissions'
+    });
+  }) 
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'SeePermissions'
+    });
+  })
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'UpdatePermissions'
+    });
+  }) 
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'DeletePermissions'
+    });
+  })
 };
