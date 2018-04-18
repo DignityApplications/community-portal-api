@@ -1,27 +1,25 @@
 // get our router and queries
 const Router = require('koa-router');
-const userQueries = require('../db/queries/users');
 const roleQueries = require('../db/queries/roles');
 
 // bring in our helper functions
 const permissions = require('./_permissionHelpers');
 
 const router = new Router();
-const BASE_URL = `/api/v1/users`;
+const BASE_URL = `/api/v1/roles`;
 
-// return all users
+// return all roles
 router.get(BASE_URL, async (ctx) => {
     try {
         let user = ctx.state.user || null;
 
-        // make sure the current user (or lack of user) can 'See' of users
-        // note: the lack of a third argument indicates that we want to see all types of users
-        let canDo = await permissions.canDo(user, 'SeeAnyUser');
+        // make sure the current user (or lack of user) can 'See' all roles
+        let canDo = await permissions.canDo(user, 'See', 'Roles');
         if (canDo) {
-            const users = await userQueries.getAllUsers();
+            const roles = await roleQueries.getAllRoles();
             ctx.body = {
                 status: 'good!',
-                data: users
+                data: roles
             };
         } else {
             ctx.status = 401;
@@ -35,31 +33,27 @@ router.get(BASE_URL, async (ctx) => {
     }
 });
 
-// return a single user
+// return a single role
 router.get(`${BASE_URL}/:id`, async (ctx) => {
     try {
         let user = ctx.state.user || null;
 
-        // make sure the current user (or lack of user) can 'See' users
-        // note: the lack of a third argument indicates that we want to see all types of users
+        // make sure the current user (or lack of user) can 'See' roles
         let canDo = false;
-        if (user && user.id == ctx.params.id) // they are trying to see themselves
-            canDo = await permissions.canDo(user, 'See', 'Self');
-        else // they are trying to see another user
-            canDo = await permissions.canDo(user, 'SeeAnyUser');
+        canDo = await permissions.canDo(user, 'See', 'Roles');
 
         if (canDo) {
-            const user = await userQueries.getSingleUser(ctx.params.id);
-            if (user.length) {
+            const role = await roleQueries.getSingleRole(ctx.params.id);
+            if (role.length) {
                 ctx.body = {
                     status: 'good!',
-                    data: user
+                    data: role
                 };
             } else {
                 ctx.status = 404;
                 ctx.body = {
                     status: 'no good :(',
-                    message: 'That user does not exist.'
+                    message: 'That role does not exist.'
                 };
             }
         } else {
@@ -74,24 +68,21 @@ router.get(`${BASE_URL}/:id`, async (ctx) => {
     }
 });
 
-// create a new user
+// create a new role
 router.post(`${BASE_URL}`, async(ctx) => {
     try {
         let user = ctx.state.user || null;
-        // we want to check if the current user can add this specific user role
-        let newUserRole = (ctx.request.body.role_id) ? (await roleQueries.getSingleRole(ctx.request.body.role_id))[0] : '';
 
-        // make sure the current user (or lack of user) can 'Add' users
-        // note: the lack of a third argument indicates that we want to add all types of users
-        let canDo = await permissions.canDo(user, 'AddUser', String(newUserRole.name));
+        // make sure the current user (or lack of user) can 'Add' roles
+        let canDo = await permissions.canDo(user, 'Add', 'Roles');
 
         if (canDo) {
-            const user = await userQueries.addUser(ctx.request.body);
-            if (user.length) {
+            const role = await roleQueries.addRole(ctx.request.body);
+            if (role.length) {
                 ctx.status = 201;
                 ctx.body = {
                     status: 'good!',
-                    data: user
+                    data: role
                 };
             } else {
                 ctx.status = 400;
@@ -116,35 +107,28 @@ router.post(`${BASE_URL}`, async(ctx) => {
     }
 });
 
-// update a user
+// update a role
 router.put(`${BASE_URL}/:id`, async (ctx) => {
     try {
         let user = ctx.state.user || null;
-        // we want to check if the current user can update this specific user role
-        let userToUpdate = (await userQueries.getSingleUser(ctx.params.id))[0];
-        let userToUpdateRole = (userToUpdate) ? userToUpdate.role : '';
 
-        // make sure the current user (or lack of user) can 'Update' users
-        // note: the lack of a third argument indicates that we want to update all types of users
+        // make sure the current user (or lack of user) can 'Update' roles
         let canDo = false;
-        if (user && user.id == ctx.params.id) // they are trying to update themselves
-            canDo = await permissions.canDo(user, 'Update', 'Self');
-        else // they are trying to see another user
-            canDo = await permissions.canDo(user, 'UpdateAnyUser', String(userToUpdateRole));
+        canDo = await permissions.canDo(user, 'Update', 'Roles');
 
         if (canDo) {
-            const user = await userQueries.updateUser(ctx.params.id, ctx.request.body);
-            if (user.length) {
+            const role = await roleQueries.updateRole(ctx.params.id, ctx.request.body);
+            if (role.length) {
                 ctx.status = 200;
                 ctx.body = {
                     status: 'good!',
-                    data: user
+                    data: role
                 };
             } else {
                 ctx.status = 404;
                 ctx.body = {
                     status: 'no good :(',
-                    message: 'That user does not exist.'
+                    message: 'That role does not exist.'
                 };
             }
         } else {
@@ -163,35 +147,28 @@ router.put(`${BASE_URL}/:id`, async (ctx) => {
     }
 });
 
-// delete a user
+// delete a role
 router.delete(`${BASE_URL}/:id`, async (ctx) => {
     try {
         let user = ctx.state.user || null;
-        // we want to check if the current user can delete this specific user role
-        let userToDelete = (await userQueries.getSingleUser(ctx.params.id))[0];
-        let userToDeleteRole = (userToDelete) ? userToDelete.role : '';
 
-        // make sure the current user (or lack of user) can 'Delete' users
-        // note: the lack of a third argument indicates that we want to delete all types of users
+        // make sure the current user (or lack of user) can 'Delete' roles
         let canDo = false;
-        if (user && user.id == ctx.params.id) // they are trying to update themselves
-            canDo = await permissions.canDo(user, 'Delete', 'Self');
-        else // they are trying to see another user
-            canDo = await permissions.canDo(user, 'DeleteAnyUser', userToDeleteRole);
+        canDo = await permissions.canDo(user, 'Delete', 'Roles');
 
         if (canDo) {
-            const user = await userQueries.deleteUser(ctx.params.id);
-            if (user.length) {
+            const role = await roleQueries.deleteRole(ctx.params.id);
+            if (role.length) {
                 ctx.status = 200;
                 ctx.body = {
                     status: 'good!',
-                    data: user
+                    data: role
                 };
             } else {
                 ctx.status = 404;
                 ctx.body = {
                     status: 'no good :(',
-                    message: 'That user does not exist.'
+                    message: 'That role does not exist.'
                 };
             }
         } else {
