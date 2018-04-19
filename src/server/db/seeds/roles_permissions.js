@@ -143,55 +143,49 @@ exports.seed = function(knex, Promise) {
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 4,
-            permission_id: 24, // DeleteAnyUserUnregistered
+            permission_id: 24, // AddRoles
         });
     })
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 4,
-            permission_id: 25, // AddRoles
+            permission_id: 25, // SeeRoles
         });
     })
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 4,
-            permission_id: 26, // SeeRoles
+            permission_id: 26, // UpdateRoles
         });
     })
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 4,
-            permission_id: 27, // UpdateRoles
+            permission_id: 27, // DeleteRoles
         });
     })
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 4,
-            permission_id: 28, // DeleteRoles
+            permission_id: 28, // AddPermissions
         });
     })
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 4,
-            permission_id: 29, // AddPermissions
+            permission_id: 29, // SeePermissions
         });
     })
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 4,
-            permission_id: 30, // SeePermissions
+            permission_id: 30, // UpdatePermissions
         });
     })
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 4,
-            permission_id: 31, // UpdatePermissions
-        });
-    })
-    .then(() => {
-        return knex('roles_permissions').insert({
-            role_id: 4,
-            permission_id: 32, // DeletePermissions
+            permission_id: 31, // DeletePermissions
         });
     })
 
@@ -218,13 +212,13 @@ exports.seed = function(knex, Promise) {
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 1,
-            permission_id: 26, // SeeRoles
+            permission_id: 25, // SeeRoles
         });
     })
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 1,
-            permission_id: 30, // SeePermissions
+            permission_id: 29, // SeePermissions
         });
     })
 
@@ -323,13 +317,13 @@ exports.seed = function(knex, Promise) {
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 2,
-            permission_id: 26, // SeeRoles
+            permission_id: 25, // SeeRoles
         });
     })
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 2,
-            permission_id: 30, // SeePermissions
+            permission_id: 29, // SeePermissions
         });
     })
 
@@ -349,13 +343,13 @@ exports.seed = function(knex, Promise) {
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 2,
-            permission_id: 26, // SeeRoles
+            permission_id: 25, // SeeRoles
         });
     })
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 2,
-            permission_id: 30, // SeePermissions
+            permission_id: 29, // SeePermissions
         });
     })
     

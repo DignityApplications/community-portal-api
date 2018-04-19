@@ -507,6 +507,7 @@ describe('routes : permissions', () => {
                             knex('permissions').select('*')
                             .then((updatedPermissions) => {
                                 updatedPermissions.length.should.eql(lengthBeforeDelete - 1);
+                                agent.app.close();
                                 done();
                             }); 
                         });
@@ -582,7 +583,11 @@ describe('routes : permissions', () => {
                     // the JSON response body should have a 
                     // key-value pair of {"message": "That permission does not exist."}
                     res.body.message.should.eql('That permission does not exist.');
-                    done();
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    });
                 });
             });
         });

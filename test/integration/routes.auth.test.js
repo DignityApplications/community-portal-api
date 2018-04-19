@@ -46,7 +46,11 @@ describe('routes : auth', () => {
                 res.body.message.should.eql('User successfully authenticated!');
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                done();
+                return agent.get('/auth/logout')
+                .end((err, res) => {
+                    agent.app.close();
+                    done();   
+                });
             });
         });
 

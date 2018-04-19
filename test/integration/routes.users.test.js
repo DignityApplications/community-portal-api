@@ -645,6 +645,7 @@ describe('routes : users', () => {
                             knex('users').select('*')
                             .then((updatedUsers) => {
                                 updatedUsers.length.should.eql(lengthBeforeDelete - 1);
+                                agent.app.close();
                                 done();
                             }); 
                         });
@@ -720,7 +721,11 @@ describe('routes : users', () => {
                     // the JSON response body should have a 
                     // key-value pair of {"message": "That user does not exist."}
                     res.body.message.should.eql('That user does not exist.');
-                    done();
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    });
                 });
             });
         });

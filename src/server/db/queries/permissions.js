@@ -18,6 +18,7 @@ function getPermissionsByActionAndResource(action, resource) {
 function getPermissionsByRole(role_id) {
     return knex('roles_permissions')
     .select('*')
+    .leftJoin('permissions', 'roles_permissions.permission_id', 'permissions.id')
     .where({role_id})
 }
 

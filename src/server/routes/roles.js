@@ -1,6 +1,7 @@
 // get our router and queries
 const Router = require('koa-router');
 const roleQueries = require('../db/queries/roles');
+const permissionQueries = require('../db/queries/permissions');
 
 // bring in our helper functions
 const permissions = require('./_permissionHelpers');
@@ -186,5 +187,44 @@ router.delete(`${BASE_URL}/:id`, async (ctx) => {
         };
     }
 })
+
+// return all permissions for a single role
+router.get(`${BASE_URL}/:id/permissions`, async (ctx) => {
+    try {
+        let user = ctx.state.user || null;
+
+        // make sure the current user (or lack of user) can 'See' roles and 
+        // can see permissions
+        let canDo = false;
+        canDo = ((await permissions.canDo(user, 'See', 'Roles') && 
+            (await permissions.canDo(user, 'See', 'Permissions'))));
+
+        if (canDo) {
+            const role = await roleQueries.getSingleRole(ctx.params.id);
+            if (role.length) {
+                // get all of the permissions for the given role
+                const permissions = await permissionQueries.getPermissionsByRole(ctx.params.id);
+                ctx.body = {
+                    status: 'good!',
+                    data: permissions
+                };
+            } else {
+                ctx.status = 404;
+                ctx.body = {
+                    status: 'no good :(',
+                    message: 'That role does not exist.'
+                };
+            }
+        } else {
+            ctx.status = 401;
+            ctx.body = {
+                status: 'no good :(',
+                message: 'User does not have the necessary permissions to perform this action.'
+            };            
+        }
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 module.exports = router;
