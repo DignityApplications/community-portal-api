@@ -59,6 +59,13 @@ function deletePermission(id) {
     .returning('*');
 }
 
+// add a permission to a role using the roles_permissions junction table
+function addPermissionToRole(role_permission) {
+    return knex('roles_permissions')
+    .insert(role_permission)
+    .returning('*')
+}
+
 module.exports = {
     getPermissionsByActionAndResource,
     getPermissionsByRole,
@@ -66,6 +73,7 @@ module.exports = {
     getSinglePermission,
     getSinglePermissionByName,
     addPermission,
+    addPermissionToRole,
     updatePermission,
     deletePermission
 }

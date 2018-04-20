@@ -701,6 +701,125 @@ describe('routes : roles', () => {
                 });
             });
         });
-
     });
+
+    describe('POST /api/v1/roles/:id/permissions', () => {
+        it('should return the roles_permissions junction that was added if the current user has the necessary permissions', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'elliotsminion@gmail.com',
+                password: 'test1234'
+            })
+            .end((err, res) => {
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                return agent.post('/api/v1/roles/4/permissions')
+                .send({
+                    permission_id: 1       
+                })
+                .end((err, res) => {
+                    // there should be no errors
+                    should.not.exist(err);
+                    // there should be a 201 status code
+                    // indicating that something was created
+                    res.status.should.equal(201);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "good!"}
+                    res.body.status.should.eql('good!');
+                    // the JSON response body should have a 
+                    // key-value pair of {"data": 1 role object}
+                    res.body.data.length.should.eql(1);
+                    // the first object in the data array should
+                    // have the right keys
+                    res.body.data[0].should.include.keys(
+                        'id', 'permission_id', 'role_id'
+                    );
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
+                });
+            });
+        });
+
+        it('should not add the roles_permission junction if the current user doesn\'t have the necessary permissions', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'fakeuser@gmail.com',
+                password: 'test9876'
+            })
+            .end((err, res) => {
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                return agent.post('/api/v1/roles/4/permissions')
+                .send({
+                    permission_id: 1          
+                })
+                .end((err, res) => {
+                    // there should be an error
+                    should.exist(err);
+                    // there should be a 401 status code
+                    res.status.should.equal(401);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "good!"}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a 
+                    // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
+                    res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
+                });
+            });
+        });
+
+        it('should throw an error if the payload is malformed', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'elliotsminion@gmail.com',
+                password: 'test1234'
+            })
+            .end((err, res) => {
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                agent
+                .post('/api/v1/roles/4/permissions')
+                .send({
+                    test: 'not sending the right payload!'
+                })
+                .end((err, res) => {
+                    // there should be an error
+                    should.exist(err);
+                    // there should be a 400 status code
+                    res.status.should.equal(400);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "no good :("}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a message key
+                    should.exist(res.body.message);
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
+                });
+            });
+        });
+    });
+
 });
