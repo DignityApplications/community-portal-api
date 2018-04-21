@@ -46,6 +46,9 @@ describe('routes : auth', () => {
                 res.body.message.should.eql('User successfully authenticated!');
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
+                // the JSON response body should have a 
+                // key-value pair of {user: 1 user object}
+                should.exist(res.body.user);
                 return agent.get('/auth/logout')
                 .end((err, res) => {
                     agent.app.close();

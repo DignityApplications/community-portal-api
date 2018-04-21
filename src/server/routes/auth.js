@@ -9,9 +9,12 @@ router.post(`${BASE_URL}/login`, async(ctx) => {
     return passport.authenticate('local', (err, user, info, status) => {
         if (user) {
             ctx.login(user);
+            let resUser = user;
+            delete resUser.password
             ctx.body = {
                 status: 'good!',
-                message: 'User successfully authenticated!'
+                message: 'User successfully authenticated!',
+                user: resUser
             }
         } else {
             ctx.status = 400;
