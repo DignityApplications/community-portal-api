@@ -66,6 +66,14 @@ function addPermissionToRole(role_permission) {
     .returning('*')
 }
 
+// remove a permission from a given role using the roles_permissions junction table
+function removePermissionFromRole(role_id, permission_id) {
+    return knex('roles_permissions')
+    .del()
+    .where({role_id, permission_id})
+    .returning('*')
+}
+
 module.exports = {
     getPermissionsByActionAndResource,
     getPermissionsByRole,
@@ -75,5 +83,6 @@ module.exports = {
     addPermission,
     addPermissionToRole,
     updatePermission,
-    deletePermission
+    deletePermission,
+    removePermissionFromRole
 }

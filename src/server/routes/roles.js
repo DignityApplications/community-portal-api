@@ -271,4 +271,44 @@ router.post(`${BASE_URL}/:id/permissions`, async(ctx) => {
     }
 });
 
+router.delete(`${BASE_URL}/:id/permissions/:p_id`, async(ctx) => {
+    try {
+        let user = ctx.state.user || null;
+
+        // let's assume that if the user can delete roles and permissions independently, they can
+        // create a link between the two
+        let canDo = ((await permissions.canDo(user, 'Delete', 'Roles')) &&
+                    (await permissions.canDo(user, 'Delete', 'Permissions')));
+        if (canDo) {
+            const role = await roleQueries.getSingleRole(ctx.params.id);
+            if (role.length) {
+                const permission = await permissionQueries.removePermissionFromRole(ctx.params.id, ctx.params.p_id);
+                ctx.status = 200;
+                ctx.body = {
+                    status: 'good!',
+                    data: permission
+                };
+            } else {
+                ctx.status = 404;
+                ctx.body = {
+                    status: 'no good :(',
+                    message: 'That role does not exist.'
+                };
+            }
+        } else {
+            ctx.status = 401;
+            ctx.body = {
+                status: 'no good :(',
+                message: 'User does not have the necessary permissions to perform this action.'
+            };             
+        }
+    } catch (err) {
+        ctx.status = 400;
+        ctx.body = {
+            status: 'no good :(',
+            message: err.message || 'Sorry, an error has occurred'
+        };
+    }
+});
+
 module.exports = router;

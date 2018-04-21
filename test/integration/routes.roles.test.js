@@ -822,4 +822,133 @@ describe('routes : roles', () => {
         });
     });
 
+    describe('DELETE /api/v1/roles/:id/permission', () => {
+        it('should return the roles_permissions junction that was removed if the current user has the necessary permissions', (done) => {
+            knex('roles_permissions')
+            .select('*')
+            .then((roles_permissions) => {
+                const roles_permissionObject = roles_permissions[1];
+                const lengthBeforeDelete = roles_permissions.length;
+                // first we need to log on
+                agent
+                .post('/auth/login')
+                .send({
+                    email: 'elliotsminion@gmail.com',
+                    password: 'test1234'
+                })
+                .end((err, res) => {
+                    // expect the response to contain a session cookie
+                    expect(res).to.have.cookie('koa:sess');
+                    agent
+                    .delete(`/api/v1/roles/${roles_permissionObject.role_id}/permissions/${roles_permissionObject.permission_id}`)
+                    .end((err, res) => {
+                        // there should be no errors
+                        should.not.exist(err);
+                        // there should be a 200 status code
+                        res.status.should.equal(200);
+                        // the response should be JSON
+                        res.type.should.equal('application/json');
+                        // the JSON response body should have a 
+                        // key-value pair of {"status": "good!"}
+                        res.body.status.should.eql('good!');
+                        // the JSON response body should have a 
+                        // key-value pair of {"data": 1 roles_permissions object}
+                        res.body.data.length.should.eql(1);
+                        // the first object in the data array should
+                        // have the right keys
+                        res.body.data[0].should.include.keys(
+                            'id', 'role_id', 'permission_id'
+                        );
+                        return agent.get('/auth/logout')
+                        .end((err, res) => {
+                            // ensure that the role was in fact deleted
+                            knex('roles_permissions').select('*')
+                            .then((updatedRoles_Permissions) => {
+                                updatedRoles_Permissions.length.should.eql(lengthBeforeDelete - 1);
+                                agent.app.close();
+                                done();
+                            }); 
+                        });
+                    });
+                });
+            });
+        });
+
+        it('should not delete the role_permission junction if the current user doesn\'t have the necessary permissions', (done) => {
+            knex('roles_permissions')
+            .select('*')
+            .then((roles_permissions) => {
+                const roles_permissionObject = roles_permissions[1];
+                const lengthBeforeDelete = roles_permissions.length;
+                // first we need to log on
+                agent
+                .post('/auth/login')
+                .send({
+                    email: 'fakeuser@gmail.com',
+                    password: 'test9876'
+                })
+                .end((err, res) => {
+                    // expect the response to contain a session cookie
+                    expect(res).to.have.cookie('koa:sess');
+                    agent
+                    .delete(`/api/v1/roles/${roles_permissionObject.role_id}/permissions/${roles_permissionObject.permission_id}`)
+                    .end((err, res) => {
+                        // there should be an error
+                        should.exist(err);
+                        // there should be a 401 status code
+                        res.status.should.equal(401);
+                        // the response should be JSON
+                        res.type.should.equal('application/json');
+                        // the JSON response body should have a 
+                        // key-value pair of {"status": "good!"}
+                        res.body.status.should.eql('no good :(');
+                        // the JSON response body should have a 
+                        // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
+                        res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
+                        return agent.get('/auth/logout')
+                        .end((err, res) => {
+                            agent.app.close();
+                            done();   
+                        });
+                    });
+                });
+            });
+        });
+
+        it('should throw an error if the role does not exist', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'elliotsminion@gmail.com',
+                password: 'test1234'
+            })
+            .end((err, res) => {
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                agent
+                .delete('/api/v1/roles/9999999/permissions/1')
+                .end((err, res) => {
+                    // there should be an error
+                    should.exist(err);
+                    // there should be a 404 status code
+                    res.status.should.equal(404);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "no good :("}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a 
+                    // key-value pair of {"message": "That role does not exist."}
+                    res.body.message.should.eql('That role does not exist.');
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    });
+                });
+            });
+        });
+    });
+
 });
