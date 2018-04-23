@@ -951,4 +951,116 @@ describe('routes : roles', () => {
         });
     });
 
+    // GET all users of a given role
+    describe('GET /api/v1/roles/:id/users', () => {
+        it('should return all users of a given role if the current user has the necessary permissions', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'elliotsminion@gmail.com',
+                password: 'test1234'
+            })
+            .end((err, res) => {
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                return agent.get('/api/v1/roles/4/users') // WebAdmins
+                .end((err, res) => {
+                    // there should be no errors
+                    should.not.exist(err);
+                    // there should be a 200 status code
+                    res.status.should.equal(200);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "good!"}
+                    res.body.status.should.eql('good!');
+                    // the JSON response body should have a  
+                    // key-value pair of {"data": [2 objects]}
+                    res.body.data.length.should.eql(2);
+                    // the first object in the data array should 
+                    // have the right keys
+                    res.body.data[0].should.include.keys(
+                        'id', 'email', 'first_name', 'last_name', 
+                        'date_of_birth', 'home_phone_number', 'cell_phone_number',
+                        'current_address', 'previous_address', 'avatar_path', 'bio', 
+                        'role_id', 'created_at', 'updated_at' 
+                    );
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
+                });
+            });
+        });
+
+        it('should not return all users of a given role if the current user doesn\'t have the necessary permissions', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'fakeuser@gmail.com',
+                password: 'test9876'
+            })
+            .end((err, res) => {
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                return agent.get('/api/v1/roles/4/users') // WebAdmins
+                .end((err, res) => {
+                    // there should be an error
+                    should.exist(err);
+                    // there should be a 401 status code
+                    res.status.should.equal(401);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "good!"}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a 
+                    // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
+                    res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
+                });
+            });
+        });
+        
+        it('should throw an error if the role does not exist', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'elliotsminion@gmail.com',
+                password: 'test1234'
+            })
+            .end((err, res) => {
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                return agent.get('/api/v1/roles/999999999/users')
+                .end((err, res) => {
+                    // there should be an error
+                    should.exist(err);
+                    // there should be a 404 status code
+                    res.status.should.equal(404);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"message": "no good :("}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a 
+                    // key-value pair of {"message": "That role does not exist."}
+                    res.body.message.should.eql('That role does not exist.');
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        agent.app.close();
+                        done();   
+                    }); 
+                });
+            });
+        });
+    });
 });

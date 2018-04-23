@@ -61,10 +61,22 @@ function deleteUser(id) {
     'role_id', 'created_at', 'updated_at']);
 }
 
+// get users by role id 
+function getUsersByRole(role_id) {
+    return knex('users')
+    .select('users.id', 'email', 'first_name', 'last_name', 
+    'date_of_birth', 'home_phone_number', 'cell_phone_number',
+    'current_address', 'previous_address', 'avatar_path', 'bio', 
+    'roles.name as role', 'role_id', 'created_at', 'updated_at')
+    .leftJoin('roles', 'users.role_id', 'roles.id')
+    .where({ 'users.role_id': parseInt(role_id) });
+}
+
 module.exports = {
     getAllUsers,
     getSingleUser,
     addUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUsersByRole
 }
