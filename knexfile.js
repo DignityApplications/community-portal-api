@@ -10,7 +10,7 @@ module.exports = {
       directory: path.join(BASE_PATH, 'migrations')
     },
     seeds: {
-      directory: path.join(BASE_PATH, 'seeds')
+      directory: path.join(BASE_PATH, 'seeds/prod')
     }
   },
 
@@ -21,7 +21,7 @@ module.exports = {
       directory: path.join(BASE_PATH, 'migrations')
     },
     seeds: {
-      directory: path.join(BASE_PATH, 'seeds')
+      directory: path.join(BASE_PATH, 'seeds/prod')
     }
   },
 
@@ -32,7 +32,7 @@ module.exports = {
       directory: path.join(BASE_PATH, 'migrations')
     },
     seeds: {
-      directory: path.join(BASE_PATH, 'seeds')
+      directory: path.join(BASE_PATH, 'seeds/heroku')
     }
   }
 };
