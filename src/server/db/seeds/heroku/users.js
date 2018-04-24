@@ -198,22 +198,6 @@ exports.seed = function(knex, Promise) {
       role_id: 4
     });
   })
-  .then(() => {
-    return knex('users').insert({
-      email: 'WebAdmin10@dignityapps.com',
-      password: bcrypt.hashSync('WebAdmin101234', 10),
-      first_name: 'Web',
-      last_name: 'Admin10',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Web Admin 10 Rd. Wilmington NC 28111',
-      previous_address: 'Web Admin 10 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/WebAdmin10.jpg',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 4
-    });
-  })
 
   // add Members
   .then(() => {
