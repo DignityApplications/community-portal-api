@@ -320,7 +320,7 @@ router.get(`${BASE_URL}/:id/users`, async (ctx) => {
         // make sure the current user (or lack of user) can 'See' users of the given role
         const role = await roleQueries.getSingleRole(ctx.params.id);
         let canDo = false;
-        canDo = await permissions.canDo(user, 'See', role.name || '');
+        canDo = await permissions.canDo(user, 'SeeAnyUser', role.name || '');
 
         if (canDo) {
             if (role.length > 0) {
