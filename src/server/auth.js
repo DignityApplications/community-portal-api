@@ -30,7 +30,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new LocalStrategy(options, (email, password, done) => {
-    knex('users').where({email}).first()
+    knex('users').where({email: email.toLowerCase()}).first()
     .then((user) => {
         if (!user) return done(null, false);
         if (!comparePass(password, user.password)) {

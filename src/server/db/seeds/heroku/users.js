@@ -40,7 +40,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'WebAdmin1@dignityapps.com',
+      email: 'webadmin1@dignityapps.com',
       password: bcrypt.hashSync('WebAdmin11234', 10),
       first_name: 'Web',
       last_name: 'Admin1',
@@ -56,7 +56,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'WebAdmin2@dignityapps.com',
+      email: 'webadmin2@dignityapps.com',
       password: bcrypt.hashSync('WebAdmin21234', 10),
       first_name: 'Web',
       last_name: 'Admin2',
@@ -72,7 +72,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'WebAdmin3@dignityapps.com',
+      email: 'webamin3@dignityapps.com',
       password: bcrypt.hashSync('WebAdmin31234', 10),
       first_name: 'Web',
       last_name: 'Admin3',
@@ -88,7 +88,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'WebAdmin4@dignityapps.com',
+      email: 'webadmin4@dignityapps.com',
       password: bcrypt.hashSync('WebAdmin41234', 10),
       first_name: 'Web',
       last_name: 'Admin4',
@@ -104,7 +104,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'WebAdmin5@dignityapps.com',
+      email: 'webadmin5@dignityapps.com',
       password: bcrypt.hashSync('WebAdmin51234', 10),
       first_name: 'Web',
       last_name: 'Admin5',
@@ -120,7 +120,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'WebAdmin6@dignityapps.com',
+      email: 'webadmin6@dignityapps.com',
       password: bcrypt.hashSync('WebAdmin61234', 10),
       first_name: 'Web',
       last_name: 'Admin6',
@@ -136,7 +136,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'WebAdmin7@dignityapps.com',
+      email: 'webadmin7@dignityapps.com',
       password: bcrypt.hashSync('WebAdmin71234', 10),
       first_name: 'Web',
       last_name: 'Admin7',
@@ -152,7 +152,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'WebAdmin8@dignityapps.com',
+      email: 'webadmin8@dignityapps.com',
       password: bcrypt.hashSync('WebAdmin81234', 10),
       first_name: 'Web',
       last_name: 'Admin8',
@@ -168,7 +168,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'WebAdmin9@dignityapps.com',
+      email: 'webadmin9@dignityapps.com',
       password: bcrypt.hashSync('WebAdmin91234', 10),
       first_name: 'Web',
       last_name: 'Admin9',
@@ -184,7 +184,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'WebAdmin10@dignityapps.com',
+      email: 'webadmin10@dignityapps.com',
       password: bcrypt.hashSync('WebAdmin101234', 10),
       first_name: 'Web',
       last_name: 'Admin10',
@@ -202,7 +202,7 @@ exports.seed = function(knex, Promise) {
   // add Members
   .then(() => {
     return knex('users').insert({
-      email: 'Member1@dignityapps.com',
+      email: 'member1@dignityapps.com',
       password: bcrypt.hashSync('Member11234', 10),
       first_name: 'Member',
       last_name: '1',
@@ -218,7 +218,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member2@dignityapps.com',
+      email: 'member2@dignityapps.com',
       password: bcrypt.hashSync('Member21234', 10),
       first_name: 'Member',
       last_name: '2',
@@ -234,7 +234,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member3@dignityapps.com',
+      email: 'member3@dignityapps.com',
       password: bcrypt.hashSync('Member31234', 10),
       first_name: 'Member',
       last_name: '3',
@@ -250,7 +250,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member4@dignityapps.com',
+      email: 'member4@dignityapps.com',
       password: bcrypt.hashSync('Member41234', 10),
       first_name: 'Member',
       last_name: '4',
@@ -266,7 +266,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member5@dignityapps.com',
+      email: 'member5@dignityapps.com',
       password: bcrypt.hashSync('Member51234', 10),
       first_name: 'Member',
       last_name: '5',
@@ -282,7 +282,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member6@dignityapps.com',
+      email: 'member6@dignityapps.com',
       password: bcrypt.hashSync('Member61234', 10),
       first_name: 'Member',
       last_name: '6',
@@ -298,7 +298,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member7@dignityapps.com',
+      email: 'member7@dignityapps.com',
       password: bcrypt.hashSync('Member71234', 10),
       first_name: 'Member',
       last_name: '7',
@@ -314,7 +314,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member8@dignityapps.com',
+      email: 'member8@dignityapps.com',
       password: bcrypt.hashSync('Member81234', 10),
       first_name: 'Member',
       last_name: '8',
@@ -330,7 +330,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member9@dignityapps.com',
+      email: 'member9@dignityapps.com',
       password: bcrypt.hashSync('Member91234', 10),
       first_name: 'Member',
       last_name: '9',
@@ -346,7 +346,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member10@dignityapps.com',
+      email: 'member10@dignityapps.com',
       password: bcrypt.hashSync('Member101234', 10),
       first_name: 'Member',
       last_name: '10',
@@ -362,7 +362,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member11@dignityapps.com',
+      email: 'member11@dignityapps.com',
       password: bcrypt.hashSync('Member111234', 10),
       first_name: 'Member',
       last_name: '11',
@@ -378,7 +378,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member12@dignityapps.com',
+      email: 'member12@dignityapps.com',
       password: bcrypt.hashSync('Member121234', 10),
       first_name: 'Member',
       last_name: '12',
@@ -394,7 +394,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member13@dignityapps.com',
+      email: 'member13@dignityapps.com',
       password: bcrypt.hashSync('Member131234', 10),
       first_name: 'Member',
       last_name: '13',
@@ -410,7 +410,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member14@dignityapps.com',
+      email: 'member14@dignityapps.com',
       password: bcrypt.hashSync('Member141234', 10),
       first_name: 'Member',
       last_name: '14',
@@ -426,7 +426,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Member15@dignityapps.com',
+      email: 'member15@dignityapps.com',
       password: bcrypt.hashSync('Member151234', 10),
       first_name: 'Member',
       last_name: '15',
@@ -444,7 +444,7 @@ exports.seed = function(knex, Promise) {
   // add Administrative Staff
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff1@dignityapps.com',
+      email: 'administrativestaff1@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff11234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '1',
@@ -460,7 +460,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff2@dignityapps.com',
+      email: 'administrativestaff2@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff21234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '2',
@@ -476,7 +476,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff3@dignityapps.com',
+      email: 'administrativestaff3@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff31234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '3',
@@ -492,7 +492,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff4@dignityapps.com',
+      email: 'administrativestaff4@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff41234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '4',
@@ -508,7 +508,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff5@dignityapps.com',
+      email: 'administrativestaff5@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff51234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '5',
@@ -524,7 +524,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff6@dignityapps.com',
+      email: 'administrativestaff6@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff61234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '6',
@@ -540,7 +540,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff7@dignityapps.com',
+      email: 'administrativestaff7@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff71234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '7',
@@ -556,7 +556,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff8@dignityapps.com',
+      email: 'administrativestaff8@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff81234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '8',
@@ -572,7 +572,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff9@dignityapps.com',
+      email: 'administrativestaff9@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff91234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '9',
@@ -588,7 +588,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff10@dignityapps.com',
+      email: 'administrativestaff10@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff101234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '10',
@@ -604,7 +604,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff11@dignityapps.com',
+      email: 'administrativestaff11@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff111234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '11',
@@ -620,7 +620,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff12@dignityapps.com',
+      email: 'administrativestaff12@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff121234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '12',
@@ -636,7 +636,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff13@dignityapps.com',
+      email: 'administrativestaff13@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff131234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '13',
@@ -652,7 +652,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff14@dignityapps.com',
+      email: 'administrativestaff14@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff141234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '14',
@@ -668,7 +668,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'AdministrativeStaff15@dignityapps.com',
+      email: 'administrativestaff15@dignityapps.com',
       password: bcrypt.hashSync('AdministrativeStaff151234', 10),
       first_name: 'AdministrativeStaff',
       last_name: '15',
@@ -686,7 +686,7 @@ exports.seed = function(knex, Promise) {
   // add Guests
   .then(() => {
     return knex('users').insert({
-      email: 'Guest1@dignityapps.com',
+      email: 'guest1@dignityapps.com',
       password: bcrypt.hashSync('Guest11234', 10),
       first_name: 'Guest',
       last_name: '1',
@@ -702,7 +702,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Guest2@dignityapps.com',
+      email: 'guest2@dignityapps.com',
       password: bcrypt.hashSync('Guest21234', 10),
       first_name: 'Guest',
       last_name: '2',
@@ -718,7 +718,7 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'Guest3@dignityapps.com',
+      email: 'guest3@dignityapps.com',
       password: bcrypt.hashSync('Guest31234', 10),
       first_name: 'Guest',
       last_name: '3',
