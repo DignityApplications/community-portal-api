@@ -434,10 +434,10 @@ describe('routes : users', () => {
                     .put(`/api/v1/users/${userObject.id}`)
                     .send({
                         first_name: 'Jerry',
-                        password: 'test9876'
+                        password: 'test9876',
+                        role_id: 1 // change to a member
                     })
                     .end((err, res) => {
-                        console.log(res.body.data[0])
                         // there should be no errors
                         should.not.exist(err);
                         // there should be a 200 status code
@@ -492,7 +492,8 @@ describe('routes : users', () => {
                     .put(`/api/v1/users/${userObject.id}`)
                     .send({
                         first_name: 'Jerry',
-                        password: 'test9876'
+                        password: 'test9876',
+                        role_id: 1 // attempt to change to a member
                     })
                     .end((err, res) => {
                         // there should be an error

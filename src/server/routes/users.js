@@ -129,8 +129,13 @@ router.put(`${BASE_URL}/:id`, async (ctx) => {
         let canDo = false;
         if (user && user.id == ctx.params.id) // they are trying to update themselves
             canDo = await permissions.canDo(user, 'Update', 'Self');
-        else // they are trying to see another user
+        else // they are trying to update another user
             canDo = await permissions.canDo(user, 'UpdateAnyUser', String(userToUpdateRole));
+
+        // let's also make sure that, if they are trying to change the user to another role, that the current 
+        // user has the permissions to 'add' a user to the new role
+        if (canDo && ctx.request.body.role_id) 
+            canDo = await permissions.canDo(user, 'AddUser', (await roleQueries.getSingleRole(ctx.request.body.role_id))[0].name);
 
         if (canDo) {
             const user = await userQueries.updateUser(ctx.params.id, ctx.request.body);
