@@ -31,8 +31,9 @@ function addUser(user) {
     user.email = user.email.toLowerCase();
     
     // user should not be able to manually set these
-    if (user.created_at) delete user["created_at"];
-    if (user.updated_at) delete user["updated_at"];
+    if (user.id) delete user.id;
+    if (user.created_at) delete user.created_at;
+    if (user.updated_at) delete user.updated_at;
 
     return knex('users')
     .insert(user)
@@ -48,8 +49,10 @@ function updateUser(id, user) {
     if (user.email) user.email = user.email.toLowerCase();
     
     // user should not be able to manually set these
-    if (user.created_at) delete user["created_at"];
-    if (user.updated_at) delete user["updated_at"];
+    if (user.id) delete user.id;
+    if (user.created_at) delete user.created_at;
+
+    user.updated_at = new Date();
 
     return knex('users')
     .update(user)

@@ -437,6 +437,7 @@ describe('routes : users', () => {
                         password: 'test9876'
                     })
                     .end((err, res) => {
+                        console.log(res.body.data[0])
                         // there should be no errors
                         should.not.exist(err);
                         // there should be a 200 status code

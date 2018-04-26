@@ -317,31 +317,36 @@ router.get(`${BASE_URL}/:id/users`, async (ctx) => {
     try {
         let user = ctx.state.user || null;
 
-        // make sure the current user (or lack of user) can 'See' users of the given role
+        // get the role that is being accessed
         const role = await roleQueries.getSingleRole(ctx.params.id);
-        let canDo = false;
-        canDo = await permissions.canDo(user, 'SeeAnyUser', role[0].name || '');
-    
-        if (canDo) {
-            if (role.length > 0) {
+ 
+        // make sure the role exists
+        if (role.length) {
+            let canDo = false;
+            let roleName = role[0].name;
+            
+            // make sure the current user (or lack of user) can 'See' users of the given role
+            canDo = await permissions.canDo(user, 'SeeAnyUser', roleName);
+
+            if (canDo) {
                 // get all of the users for the given role
                 const users = await userQueries.getUsersByRole(ctx.params.id);
                 ctx.body = {
                     status: 'good!',
                     data: users
-                };
+                };                
             } else {
-                ctx.status = 404;
+                ctx.status = 401;
                 ctx.body = {
                     status: 'no good :(',
-                    message: 'That role does not exist.'
-                };
-            }
+                    message: 'User does not have the necessary permissions to perform this action.'
+                };                 
+            }   
         } else {
-            ctx.status = 401;
+            ctx.status = 404;
             ctx.body = {
                 status: 'no good :(',
-                message: 'User does not have the necessary permissions to perform this action.'
+                message: 'That role does not exist.'
             };            
         }
     } catch (err) {

@@ -38,6 +38,9 @@ function getSinglePermissionByName (name) {
 
 // add a new permission
 function addPermission(permission) {
+    // user should not be able to manually set these
+    if (permission.id) delete permission.id;
+
     return knex('permissions')
     .insert(permission)
     .returning('*');
@@ -45,6 +48,9 @@ function addPermission(permission) {
 
 // update a permission
 function updatePermission(id, permission) {
+    // user should not be able to manually set these
+    if (permission.id) delete permission.id;
+    
     return knex('permissions')
     .update(permission)
     .where({'permissions.id': parseInt(id)})

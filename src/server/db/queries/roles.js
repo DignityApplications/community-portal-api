@@ -23,6 +23,9 @@ function getSingleRoleByName (name) {
 
 // add a new role
 function addRole(role) {
+    // user should not be able to manually set these
+    if (role.id) delete role.id;
+
     return knex('roles')
     .insert(role)
     .returning('*');
@@ -30,6 +33,9 @@ function addRole(role) {
 
 // update a role
 function updateRole(id, role) {
+    // user should not be able to manually set these
+    if (role.id) delete role.id;
+    
     return knex('roles')
     .update(role)
     .where({'roles.id': parseInt(id)})
