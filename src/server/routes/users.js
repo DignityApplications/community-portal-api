@@ -18,7 +18,11 @@ router.get(BASE_URL, async (ctx) => {
         // note: the lack of a third argument indicates that we want to see all types of users
         let canDo = await permissions.canDo(user, 'SeeAnyUser');
         if (canDo) {
-            const users = await userQueries.getAllUsers();
+            let opts = {sortBy: ctx.query.sortBy, sortDirection: ctx.query.sortDirection, 
+                        searchField: ctx.query.searchField, searchTerm: ctx.query.searchTerm,
+                        startsWithLetter: ctx.query.startsWithLetter, startsWithField: ctx.query.startsWithField};
+
+            const users = await userQueries.getAllUsers(opts);
             ctx.body = {
                 status: 'good!',
                 data: users
