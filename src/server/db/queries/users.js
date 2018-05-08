@@ -7,11 +7,10 @@ const knex = require('../connection');
 // return all users
 function getAllUsers(opts = null) {
     let query = knex('users')
-    .select('users.id', 'email', 'first_name', 'last_name', 
+    .select('id', 'email', 'first_name', 'last_name', 
     'date_of_birth', 'home_phone_number', 'cell_phone_number',
     'current_address', 'previous_address', 'avatar_path', 'bio', 
-    'roles.name as role', 'created_at', 'updated_at')
-    .leftJoin('roles', 'users.role_id', 'roles.id')
+    'role_id', 'created_at', 'updated_at')
     .where(true) // empty so we can use andWhere below
     if (opts.startsWithLetter && opts.startsWithField) query.andWhere(opts.startsWithField, 'like', `${opts.startsWithLetter}%`);
     if (opts.searchTerm && opts.searchField) query.andWhere(opts.searchField, 'like', `%${opts.searchTerm}%`);
@@ -22,12 +21,11 @@ function getAllUsers(opts = null) {
 // return a single user
 function getSingleUser(id) {
     return knex('users')
-    .select('users.id', 'email', 'first_name', 'last_name', 
+    .select('id', 'email', 'first_name', 'last_name', 
     'date_of_birth', 'home_phone_number', 'cell_phone_number',
     'current_address', 'previous_address', 'avatar_path', 'bio', 
-    'roles.name as role', 'created_at', 'updated_at')
-    .leftJoin('roles', 'users.role_id', 'roles.id')
-    .where({ 'users.id': parseInt(id) });
+    'role_id', 'created_at', 'updated_at')
+    .where({ 'id': parseInt(id) });
 }
 
 // add a new user
@@ -82,12 +80,11 @@ function deleteUser(id) {
 // get users by role id 
 function getUsersByRole(role_id, opts = null) {
     let query = knex('users')
-    .select('users.id', 'email', 'first_name', 'last_name', 
+    .select('id', 'email', 'first_name', 'last_name', 
     'date_of_birth', 'home_phone_number', 'cell_phone_number',
     'current_address', 'previous_address', 'avatar_path', 'bio', 
-    'roles.name as role', 'role_id', 'created_at', 'updated_at')
-    .leftJoin('roles', 'users.role_id', 'roles.id')
-    query.where({ 'users.role_id': parseInt(role_id) })
+    'role_id', 'created_at', 'updated_at')
+    query.where({ 'role_id': parseInt(role_id) })
     if (opts.startsWithLetter && opts.startsWithField) query.andWhere(opts.startsWithField, 'like', `${opts.startsWithLetter}%`);
     if (opts.searchTerm && opts.searchField) query.andWhere(opts.searchField, 'like', `%${opts.searchTerm}%`);
     if (opts.sortBy) query.orderBy(opts.sortBy, opts.sortDirection || 'asc');

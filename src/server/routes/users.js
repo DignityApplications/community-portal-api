@@ -47,7 +47,7 @@ router.get(`${BASE_URL}/:id`, async (ctx) => {
         const userToSee = await userQueries.getSingleUser(ctx.params.id);
         if (userToSee.length) {
             // make sure the current user (or lack of user) can 'See' that type of user
-            let userToSeeRole = userToSee[0].role;
+            let userToSeeRole = (await roleQueries.getSingleRole(userToSee[0].role_id))[0].name;
             let canDo = false;
             if (user && user.id == ctx.params.id) // they are trying to see themselves
                 canDo = await permissions.canDo(user, 'See', 'Self');
@@ -126,7 +126,7 @@ router.put(`${BASE_URL}/:id`, async (ctx) => {
         let user = ctx.state.user || null;
         // we want to check if the current user can update this specific user role
         let userToUpdate = (await userQueries.getSingleUser(ctx.params.id))[0];
-        let userToUpdateRole = (userToUpdate) ? userToUpdate.role : '';
+        let userToUpdateRole = (userToUpdate) ? (await roleQueries.getSingleRole(userToUpdate.role_id))[0].name : '';
 
         // make sure the current user (or lack of user) can 'Update' users
         // note: the lack of a third argument indicates that we want to update all types of users
@@ -178,7 +178,7 @@ router.delete(`${BASE_URL}/:id`, async (ctx) => {
         let user = ctx.state.user || null;
         // we want to check if the current user can delete this specific user role
         let userToDelete = (await userQueries.getSingleUser(ctx.params.id))[0];
-        let userToDeleteRole = (userToDelete) ? userToDelete.role : '';
+        let userToDeleteRole = (userToDelete) ? (await roleQueries.getSingleRole(userToDelete.role_id))[0].name : '';
 
         // make sure the current user (or lack of user) can 'Delete' users
         // note: the lack of a third argument indicates that we want to delete all types of users

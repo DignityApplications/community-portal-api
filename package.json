@@ -20,7 +20,7 @@
     "bcryptjs": "^2.4.3",
     "knex": "^0.14.4",
     "koa": "^2.5.0",
-    "koa-bodyparser": "^4.2.0",
+    "koa-body": "^2.5.0",
     "koa-passport": "^4.0.1",
     "koa-redis": "^3.1.2",
     "koa-router": "^7.4.0",

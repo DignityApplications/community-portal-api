@@ -5,7 +5,7 @@ const environment = process.env.NODE_ENV || 'development';
 const Koa = require('koa');
 
 // bring in Koa middleware
-const bodyParser = require('koa-bodyparser');
+const bodyParser = require('koa-body');
 const passport = require('koa-passport');
 const session = require('koa-session');
 const redisStore = require('koa-redis');
@@ -15,7 +15,14 @@ const app = new Koa();
 const PORT = process.env.PORT || 3000;
 
 // register our middleware with Koa
-app.use(bodyParser());
+app.use(bodyParser({
+    formidable:{uploadDir: './uploads', // where files will be uploaded
+                keepExtensions: true, 
+                multiples: false},    
+    multipart: true,
+    urlencoded: true
+}));
+
 app.use(cors({
     credentials: true
 }));
