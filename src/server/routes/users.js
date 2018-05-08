@@ -44,34 +44,34 @@ router.get(`${BASE_URL}/:id`, async (ctx) => {
     try {
         let user = ctx.state.user || null;
 
-        // make sure the current user (or lack of user) can 'See' users
-        // note: the lack of a third argument indicates that we want to see all types of users
-        let canDo = false;
-        if (user && user.id == ctx.params.id) // they are trying to see themselves
-            canDo = await permissions.canDo(user, 'See', 'Self');
-        else // they are trying to see another user
-            canDo = await permissions.canDo(user, 'SeeAnyUser');
+        const userToSee = await userQueries.getSingleUser(ctx.params.id);
+        if (userToSee.length) {
+            // make sure the current user (or lack of user) can 'See' that type of user
+            let userToSeeRole = userToSee[0].role;
+            let canDo = false;
+            if (user && user.id == ctx.params.id) // they are trying to see themselves
+                canDo = await permissions.canDo(user, 'See', 'Self');
+            else // they are trying to see another user
+                canDo = await permissions.canDo(user, 'SeeAnyUser', String(userToSeeRole));
 
-        if (canDo) {
-            const user = await userQueries.getSingleUser(ctx.params.id);
-            if (user.length) {
+            if (canDo) {
                 ctx.body = {
                     status: 'good!',
-                    data: user
+                    data: userToSee
                 };
             } else {
-                ctx.status = 404;
+                ctx.status = 401;
                 ctx.body = {
                     status: 'no good :(',
-                    message: 'That user does not exist.'
-                };
+                    message: 'User does not have the necessary permissions to perform this action.'
+                };            
             }
         } else {
-            ctx.status = 401;
+            ctx.status = 404;
             ctx.body = {
                 status: 'no good :(',
-                message: 'User does not have the necessary permissions to perform this action.'
-            };            
+                message: 'That user does not exist.'
+            };
         }
     } catch (err) {
         console.log(err);
