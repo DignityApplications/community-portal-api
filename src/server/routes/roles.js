@@ -4,6 +4,9 @@ const roleQueries = require('../db/queries/roles');
 const permissionQueries = require('../db/queries/permissions');
 const userQueries = require('../db/queries/users');
 
+// bring in our body parser
+const bodyParser = require('koa-body');
+
 // bring in our helper functions
 const permissions = require('./_permissionHelpers');
 
@@ -71,7 +74,7 @@ router.get(`${BASE_URL}/:id`, async (ctx) => {
 });
 
 // create a new role
-router.post(`${BASE_URL}`, async(ctx) => {
+router.post(`${BASE_URL}`, bodyParser(), async(ctx) => {
     try {
         let user = ctx.state.user || null;
 
@@ -110,7 +113,7 @@ router.post(`${BASE_URL}`, async(ctx) => {
 });
 
 // update a role
-router.put(`${BASE_URL}/:id`, async (ctx) => {
+router.put(`${BASE_URL}/:id`, bodyParser(), async (ctx) => {
     try {
         let user = ctx.state.user || null;
 
@@ -228,7 +231,7 @@ router.get(`${BASE_URL}/:id/permissions`, async (ctx) => {
     }
 });
 
-router.post(`${BASE_URL}/:id/permissions`, async(ctx) => {
+router.post(`${BASE_URL}/:id/permissions`, bodyParser(), async(ctx) => {
     try {
         let user = ctx.state.user || null;
 

@@ -3,6 +3,17 @@ const Router = require('koa-router');
 const userQueries = require('../db/queries/users');
 const roleQueries = require('../db/queries/roles');
 
+// bring in our body parser
+const bodyParser = require('koa-body')({ 
+    formidable:{
+        uploadDir: './uploads', // where files will be uploaded 
+        keepExtensions: true,  
+        multiples: false},     
+        multipart: true, 
+        urlencoded: true 
+    }
+);
+
 // bring in our helper functions
 const permissions = require('./_permissionHelpers');
 
@@ -79,7 +90,7 @@ router.get(`${BASE_URL}/:id`, async (ctx) => {
 });
 
 // create a new user
-router.post(`${BASE_URL}`, async(ctx) => {
+router.post(`${BASE_URL}`, bodyParser, async(ctx) => {
     try {
         let user = ctx.state.user || null;
         // we want to check if the current user can add this specific user role
@@ -121,7 +132,7 @@ router.post(`${BASE_URL}`, async(ctx) => {
 });
 
 // update a user
-router.put(`${BASE_URL}/:id`, async (ctx) => {
+router.put(`${BASE_URL}/:id`, bodyParser, async (ctx) => {
     try {
         let user = ctx.state.user || null;
         // we want to check if the current user can update this specific user role

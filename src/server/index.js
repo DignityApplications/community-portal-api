@@ -14,15 +14,6 @@ const cors = require('@koa/cors');
 const app = new Koa();
 const PORT = process.env.PORT || 3000;
 
-// register our middleware with Koa
-app.use(bodyParser({
-    formidable:{uploadDir: './uploads', // where files will be uploaded
-                keepExtensions: true, 
-                multiples: false},    
-    multipart: true,
-    urlencoded: true
-}));
-
 app.use(cors({
     credentials: true
 }));

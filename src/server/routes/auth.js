@@ -5,7 +5,10 @@ const passport = require('koa-passport');
 const router = new Router();
 const BASE_URL = `/auth`;
 
-router.post(`${BASE_URL}/login`, async(ctx) => {
+// bring in our parser
+const bodyParser = require('koa-body');
+
+router.post(`${BASE_URL}/login`, bodyParser(), async(ctx) => {
     return passport.authenticate('local', (err, user, info, status) => {
         if (user) {
             ctx.login(user);
