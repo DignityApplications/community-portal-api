@@ -7,8 +7,21 @@ const roleQueries = require('../db/queries/roles');
 const bodyParser = require('koa-body')({ 
     formidable:{
         uploadDir: './uploads', // where files will be uploaded 
-        keepExtensions: true,  
-        multiples: false},     
+        keepExtensions: true,
+        maxFileSize: (5 * 1024 * 1024), // 5mb
+        multiples: false, 
+        onPart: (part) => {
+            console.log(test);
+            if(!part.filename || part.filename.match(/\.(jpg|jpeg|png)$/i)) {
+                this.handlePart(part);
+            } else {
+                res.json({
+                    status: 'no good :(',
+                    message: 'That file type is invalid.'
+                });
+            }
+        }
+        },     
         multipart: true, 
         urlencoded: true 
     }
