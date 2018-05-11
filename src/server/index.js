@@ -20,7 +20,7 @@ app.use(cors({
 }));
 
 
-app.use(serve('./uploads'));
+app.use(serve('/uploads'));
 
 // bring in our route files
 const indexRoutes = require('./routes/index');
