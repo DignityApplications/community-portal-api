@@ -120,7 +120,7 @@ router.post(`${BASE_URL}`, bodyParser, async(ctx) => {
             let formData = (ctx.request.body.fields) ? ctx.request.body.fields : ctx.request.body;
 
             if (ctx.request.body.files && ctx.request.body.files.fileObject)
-                formData.avatar_path = ctx.request.body.files.fileObject.path;
+                formData.avatar_path = String(ctx.request.body.files.fileObject.path).replace('uploads/', '/');
     
             const user = await userQueries.addUser(formData);
             if (user.length) {
