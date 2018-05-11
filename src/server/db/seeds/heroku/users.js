@@ -16,7 +16,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '704-221-8792',
       current_address: '4536 Exuma Lane, Wilmington NC 28412',
       previous_address: '3714 Sincerity Rd., Monroe NC 28110',
-      avatar_path: '/images/avatars/Elliot.jpg',
       bio: 'Elliot is a fun-loving goofball. He is well-liked by most people - especially the ladies ;) Most describe ' +
       'Elliot as a "perfect person".',
       role_id: 4
@@ -33,7 +32,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '704-685-3016',
       current_address: '7281 Savannah Run Loop, Wilmington NC 28411',
       previous_address: '1422 Parkview Cir., Wilmington NC 28403',
-      avatar_path: '/images/avatars/Garret.jpg',
       bio: 'Garret\'s alright.',
       role_id: 4
     });
@@ -49,7 +47,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Web Admin 1 Rd. Wilmington NC 28111',
       previous_address: 'Web Admin 1 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/WebAdmin1.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 4
     });
@@ -65,7 +62,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Web Admin 2 Rd. Wilmington NC 28111',
       previous_address: 'Web Admin 2 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/WebAdmin2.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 4
     });
@@ -81,7 +77,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Web Admin 3 Rd. Wilmington NC 28111',
       previous_address: 'Web Admin 3 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/WebAdmin3.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 4
     });
@@ -97,7 +92,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Web Admin 4 Rd. Wilmington NC 28111',
       previous_address: 'Web Admin 4 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/WebAdmin4.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 4
     });
@@ -113,7 +107,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Web Admin 5 Rd. Wilmington NC 28111',
       previous_address: 'Web Admin 5 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/WebAdmin5.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 4
     });
@@ -129,7 +122,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Web Admin 6 Rd. Wilmington NC 28111',
       previous_address: 'Web Admin 6 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/WebAdmin6.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 4
     });
@@ -145,7 +137,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Web Admin 7 Rd. Wilmington NC 28111',
       previous_address: 'Web Admin 7 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/WebAdmin7.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 4
     });
@@ -161,7 +152,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Web Admin 8 Rd. Wilmington NC 28111',
       previous_address: 'Web Admin 8 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/WebAdmin8.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 4
     });
@@ -177,7 +167,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Web Admin 1 Rd. Wilmington NC 28111',
       previous_address: 'Web Admin 1 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/WebAdmin9.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 4
     });
@@ -193,7 +182,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Web Admin 1 Rd. Wilmington NC 28111',
       previous_address: 'Web Admin 1 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/WebAdmin10.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 4
     });
@@ -211,7 +199,7 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 1 Rd. Wilmington NC 28111',
       previous_address: 'Member 1 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member1.jpg',
+      avatar_path: '/images/person1.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -227,7 +215,7 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 2 Rd. Wilmington NC 28111',
       previous_address: 'Member 2 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member2.jpg',
+      avatar_path: '/images/person2.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -243,7 +231,7 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 3 Rd. Wilmington NC 28111',
       previous_address: 'Member 3 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member3.jpg',
+      avatar_path: '/images/person3.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -259,7 +247,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 4 Rd. Wilmington NC 28111',
       previous_address: 'Member 4 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member4.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -275,7 +262,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 5 Rd. Wilmington NC 28111',
       previous_address: 'Member 5 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member5.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -291,7 +277,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 6 Rd. Wilmington NC 28111',
       previous_address: 'Member 6 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member6.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -307,7 +292,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 7 Rd. Wilmington NC 28111',
       previous_address: 'Member 7 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member7.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -323,7 +307,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 8 Rd. Wilmington NC 28111',
       previous_address: 'Member 8 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member8.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -339,7 +322,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 9 Rd. Wilmington NC 28111',
       previous_address: 'Member 9 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member9.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -355,7 +337,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 10 Rd. Wilmington NC 28111',
       previous_address: 'Member 10 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member10.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -371,7 +352,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 11 Rd. Wilmington NC 28111',
       previous_address: 'Member 11 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member11.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -387,7 +367,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 12 Rd. Wilmington NC 28111',
       previous_address: 'Member 12 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member12.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -403,7 +382,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 13 Rd. Wilmington NC 28111',
       previous_address: 'Member 13 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member13.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -419,7 +397,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 14 Rd. Wilmington NC 28111',
       previous_address: 'Member 14 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member14.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -435,7 +412,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Member 15 Rd. Wilmington NC 28111',
       previous_address: 'Member 15 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Member15.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
@@ -453,7 +429,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Administrative Staff 1 Rd. Wilmington NC 28111',
       previous_address: 'Administrative Staff 1 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff1.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -469,7 +444,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 2 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 2 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaf2.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -485,7 +459,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 3 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 3 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff3.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -501,7 +474,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 4 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 4 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff4.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -517,7 +489,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 5 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 5 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff5.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -533,7 +504,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 6 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 6 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff6.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -549,7 +519,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 7 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 7 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff7.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -565,7 +534,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 8 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 8 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff8.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -581,7 +549,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 9 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 9 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff9.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -597,7 +564,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 10 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 10 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff10.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -613,7 +579,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 11 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 11 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff11.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -629,7 +594,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 12 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 12 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff12.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -645,7 +609,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 13 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 13 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff13.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -661,7 +624,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 14 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 14 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff14.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -677,7 +639,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'AdministrativeStaff 15 Rd. Wilmington NC 28111',
       previous_address: 'AdministrativeStaff 15 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/AdministrativeStaff15.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 2
     });
@@ -695,7 +656,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Guest 1 Rd. Wilmington NC 28111',
       previous_address: 'Guest 1 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Guest1.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 3
     });
@@ -711,7 +671,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Guest 2 Rd. Wilmington NC 28111',
       previous_address: 'Guest 2 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Guest2.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 3
     });
@@ -727,7 +686,6 @@ exports.seed = function(knex, Promise) {
       cell_phone_number: '965-367-321',
       current_address: 'Guest 3 Rd. Wilmington NC 28111',
       previous_address: 'Guest 3 Rd. Monroe NC 28113',
-      avatar_path: '/images/avatars/Guest3.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 3
     });
