@@ -106,6 +106,14 @@ describe('routes : auth', () => {
                     // the JSON response body should have a 
                     // key-value pair of {"loggedin": true}
                     res.body.loggedin.should.eql(true);
+                    // the user object should 
+                    // have the right keys
+                    res.body.user.should.include.keys(
+                        'id', 'email', 'first_name', 'last_name', 
+                        'date_of_birth', 'home_phone_number', 'cell_phone_number',
+                        'current_address', 'previous_address', 'avatar_path', 'bio', 
+                        'role_id', 'created_at', 'updated_at' 
+                    );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
                         agent.app.close();

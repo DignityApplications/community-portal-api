@@ -2,6 +2,9 @@
 const Router = require('koa-router');
 const passport = require('koa-passport');
 
+// get our user queries
+const userQueries = require('../db/queries/users');
+
 const router = new Router();
 const BASE_URL = `/auth`;
 
@@ -46,9 +49,11 @@ router.get(`${BASE_URL}/logout`, async (ctx) => {
 
 router.get(`${BASE_URL}/status`, async (ctx) => {
     if (ctx.isAuthenticated()) {
+        let user = (await userQueries.getSingleUser(ctx.state.user.id))[0];
         ctx.body = {
             status: 'good!',
-            loggedin: true
+            loggedin: true,
+            user
         }
     } else {
         ctx.body = {
