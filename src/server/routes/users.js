@@ -6,7 +6,7 @@ const roleQueries = require('../db/queries/roles');
 // bring in our body parser
 const bodyParser = require('koa-body')({ 
     formidable:{
-        uploadDir: '/uploads/images', // where files will be uploaded 
+        uploadDir: './uploads/images', // where files will be uploaded 
         keepExtensions: true,
         maxFileSize: (5 * 1024 * 1024), // 5mb
         multiples: false, 
