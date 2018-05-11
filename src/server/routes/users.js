@@ -114,7 +114,15 @@ router.post(`${BASE_URL}`, bodyParser, async(ctx) => {
         let canDo = await permissions.canDo(user, 'AddUser', String(newUserRole.name));
 
         if (canDo) {
-            const user = await userQueries.addUser(ctx.request.body);
+            if (ctx.request.body.fields && ctx.request.body.fields.fileObject)
+                delete ctx.request.body.fields.fileObject;
+
+            let formData = (ctx.request.body.fields) ? ctx.request.body.fields : ctx.request.body;
+
+            if (ctx.request.body.files && ctx.request.body.files.fileObject)
+                formData.avatar_path = ctx.request.body.files.fileObject.path;
+    
+            const user = await userQueries.addUser(formData);
             if (user.length) {
                 ctx.status = 201;
                 ctx.body = {
