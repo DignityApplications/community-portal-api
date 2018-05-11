@@ -9,6 +9,7 @@ const bodyParser = require('koa-body');
 const passport = require('koa-passport');
 const session = require('koa-session');
 const redisStore = require('koa-redis');
+const serve = require('koa-static');
 const cors = require('@koa/cors');
 
 const app = new Koa();
@@ -17,6 +18,9 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({
     credentials: true
 }));
+
+
+app.use(serve('./uploads'));
 
 // bring in our route files
 const indexRoutes = require('./routes/index');
