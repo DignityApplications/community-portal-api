@@ -334,7 +334,7 @@ router.get(`${BASE_URL}/:id/users`, async (ctx) => {
             if (canDo) {
                 // get all of the users for the given role
                 let opts = {sortBy: ctx.query.sortBy, sortDirection: ctx.query.sortDirection, 
-                    searchField: ctx.query.searchField, searchTerm: ctx.query.searchTerm,
+                    searchFields: (ctx.query.searchFields).split(','), searchTerm: ctx.query.searchTerm,
                     startsWithLetter: ctx.query.startsWithLetter, startsWithField: ctx.query.startsWithField};
 
                 const users = await userQueries.getUsersByRole(ctx.params.id, opts);
