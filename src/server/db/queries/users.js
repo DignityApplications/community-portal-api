@@ -15,7 +15,7 @@ function getAllUsers(opts = null) {
     if (opts.startsWithLetter && opts.startsWithField) query.andWhere(opts.startsWithField, 'ilike', `${opts.startsWithLetter}%`);
     if (opts.searchTerm && opts.searchFields) {
         let whereRaw = '('
-        opts.searchFields.forEach((val) => {
+        opts.searchFields.forEach((val, index) => {
             if (index) whereRaw += ` OR ${val} ilike '%${opts.searchTerm}%'`
             else whereRaw += `${val} ilike '%${opts.searchTerm}%'`
         });
@@ -97,7 +97,7 @@ function getUsersByRole(role_id, opts = null) {
     if (opts.startsWithLetter && opts.startsWithField) query.andWhere(opts.startsWithField, 'ilike', `${opts.startsWithLetter}%`);
     if (opts.searchTerm && opts.searchFields) {
         let whereRaw = '('
-        opts.searchFields.forEach((val) => {
+        opts.searchFields.forEach((val, index) => {
             if (index) whereRaw += ` OR ${val} ilike '%${opts.searchTerm}%'`
             else whereRaw += `${val} ilike '%${opts.searchTerm}%'`
         });
