@@ -13,7 +13,12 @@ function getAllUsers(opts = null) {
     'role_id', 'created_at', 'updated_at')
     .where(true) // empty so we can use andWhere below
     if (opts.startsWithLetter && opts.startsWithField) query.andWhere(opts.startsWithField, 'ilike', `${opts.startsWithLetter}%`);
-    if (opts.searchTerm && opts.searchFields) query.andWhere(opts.searchFields, 'ilike', `%${opts.searchTerm}%`);
+    if (opts.searchTerm && opts.searchFields) {
+        opts.searchFields.array.forEach((val, index) => {
+            if (index) query.orWhere(val, 'ilike', `%${opts.searchTerm}%`);
+            else query.andWhere(val, 'ilike', `%${opts.searchTerm}%`);
+        });  
+    }
     if (opts.sortBy) query.orderBy(opts.sortBy, opts.sortDirection || 'asc');
     return query;
 }
@@ -86,7 +91,12 @@ function getUsersByRole(role_id, opts = null) {
     'role_id', 'created_at', 'updated_at')
     query.where({ 'role_id': parseInt(role_id) })
     if (opts.startsWithLetter && opts.startsWithField) query.andWhere(opts.startsWithField, 'ilike', `${opts.startsWithLetter}%`);
-    if (opts.searchTerm && opts.searchFields) query.andWhere(opts.searchFields, 'ilike', `%${opts.searchTerm}%`);
+    if (opts.searchTerm && opts.searchFields) {
+        opts.searchFields.array.forEach((val, index) => {
+            if (index) query.orWhere(val, 'ilike', `%${opts.searchTerm}%`);
+            else query.andWhere(val, 'ilike', `%${opts.searchTerm}%`);
+        });  
+    }
     if (opts.sortBy) query.orderBy(opts.sortBy, opts.sortDirection || 'asc');
     return query;
 }
