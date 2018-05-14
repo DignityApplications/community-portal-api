@@ -43,8 +43,9 @@ router.get(BASE_URL, async (ctx) => {
         let canDo = await permissions.canDo(user, 'SeeAnyUser');
         if (canDo) {
             let opts = {sortBy: ctx.query.sortBy, sortDirection: ctx.query.sortDirection, 
-                        searchFields: (ctx.query.searchFields).split(','), searchTerm: ctx.query.searchTerm,
-                        startsWithLetter: ctx.query.startsWithLetter, startsWithField: ctx.query.startsWithField};
+                        searchFields: (ctx.query.searchFields) ? (ctx.query.searchFields).split(',') : ctx.query.searchFields, 
+                        searchTerm: ctx.query.searchTerm, startsWithLetter: ctx.query.startsWithLetter, 
+                        startsWithField: ctx.query.startsWithField};
 
             const users = await userQueries.getAllUsers(opts);
             ctx.body = {
