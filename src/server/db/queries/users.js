@@ -86,7 +86,7 @@ function getUsersByRole(role_id, opts = null) {
     'role_id', 'created_at', 'updated_at')
     query.where({ 'role_id': parseInt(role_id) })
     if (opts.startsWithLetter && opts.startsWithField) query.andWhere(opts.startsWithField, 'ilike', `${opts.startsWithLetter}%`);
-    if (opts.searchTerm && opts.searchField) query.andWhere(opts.searchField, 'ilike', `%${opts.searchTerm}%`);
+    if (opts.searchTerm && opts.searchField) query.andWhere("(first_name || ' ' || last_name)", 'ilike', `%${opts.searchTerm}%`);
     if (opts.sortBy) query.orderBy(opts.sortBy, opts.sortDirection || 'asc');
     return query;
 }
