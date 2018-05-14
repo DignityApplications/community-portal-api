@@ -14,7 +14,7 @@ function getAllUsers(opts = null) {
     .where(true) // empty so we can use andWhere below
     if (opts.startsWithLetter && opts.startsWithField) query.andWhere(opts.startsWithField, 'ilike', `${opts.startsWithLetter}%`);
     if (opts.searchTerm && opts.searchFields) {
-        opts.searchFields.array.forEach((val, index) => {
+        opts.searchFields.forEach((val, index) => {
             if (index) query.orWhere(val, 'ilike', `%${opts.searchTerm}%`);
             else query.andWhere(val, 'ilike', `%${opts.searchTerm}%`);
         });  
@@ -92,7 +92,7 @@ function getUsersByRole(role_id, opts = null) {
     query.where({ 'role_id': parseInt(role_id) })
     if (opts.startsWithLetter && opts.startsWithField) query.andWhere(opts.startsWithField, 'ilike', `${opts.startsWithLetter}%`);
     if (opts.searchTerm && opts.searchFields) {
-        opts.searchFields.array.forEach((val, index) => {
+        opts.searchFields.forEach((val, index) => {
             if (index) query.orWhere(val, 'ilike', `%${opts.searchTerm}%`);
             else query.andWhere(val, 'ilike', `%${opts.searchTerm}%`);
         });  
