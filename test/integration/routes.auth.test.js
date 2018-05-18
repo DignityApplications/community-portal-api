@@ -25,15 +25,13 @@ describe('routes : auth', () => {
 
     describe('POST /auth/login', () => {
         it('should login a user if the credentials are valid', (done) => {
-            chai.request(server)
+            chai.request(server).keepOpen()
             .post('/auth/login')
             .send({
                 email: 'elliotsminion@gmail.com',
                 password: 'test1234'
             })
             .end((err, res) => {
-                // there should be no errors
-                should.not.exist(err);
                 // there should be a 200 status code
                 res.status.should.equal(200);
                 // the response should be JSON
@@ -58,7 +56,7 @@ describe('routes : auth', () => {
         });
 
         it('should not login a user if the credentials are invalid', (done) => {
-            chai.request(server)
+            chai.request(server).keepOpen()
             .post('/auth/login')
             .send({
                 email: 'elliotsminion@gmail.com',
@@ -94,8 +92,6 @@ describe('routes : auth', () => {
                 expect(res).to.have.cookie('koa:sess');
                 return agent.get('/auth/status')
                 .end((err, res) => {
-                    // there should be no errors
-                    should.not.exist(err);
                     // there should be a 200 status code
                     res.status.should.equal(200);
                     // the response should be JSON
@@ -125,11 +121,9 @@ describe('routes : auth', () => {
 
         it('should show the status as logged out if the user is not authenticated', (done) => {
             // we won't log on this time
-            chai.request(server)
+            chai.request(server).keepOpen()
             .get('/auth/status')
             .end((err, res) => {
-                // there should be no errors
-                should.not.exist(err);
                 // there should be a 200 status code
                 res.status.should.equal(200);
                 // the response should be JSON
@@ -157,8 +151,6 @@ describe('routes : auth', () => {
             .end((err, res) => {
                 return agent.get('/auth/logout')
                 .end((err, res) => {
-                    // there should be no errors
-                    should.not.exist(err);
                     // there should be a 200 status code
                     res.status.should.equal(200);
                     // the response should be JSON

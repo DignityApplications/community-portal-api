@@ -39,8 +39,6 @@ describe('routes : users', () => {
                 expect(res).to.have.cookie('koa:sess');
                 return agent.get('/api/v1/users')
                 .end((err, res) => {
-                    // there should be no error
-                    should.not.exist(err);
                     // there should be a 200 status code
                     res.status.should.equal(200);
                     // the response should be JSON
@@ -61,7 +59,6 @@ describe('routes : users', () => {
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
-                        agent.app.close();
                         done();   
                     }); 
                 });
@@ -81,8 +78,6 @@ describe('routes : users', () => {
                 expect(res).to.have.cookie('koa:sess');
                 return agent.get('/api/v1/users')
                 .end((err, res) => {
-                    // there should be an error
-                    should.exist(err);
                     // there should be a 401 status code
                     res.status.should.equal(401);
                     // the response should be JSON
@@ -95,7 +90,6 @@ describe('routes : users', () => {
                     res.body.message.should.eql('User does not have the necessary permissions to perform this action.')
                     return agent.get('/auth/logout')
                     .end((err, res) => {
-                        agent.app.close();
                         done();   
                     }); 
                 });
@@ -117,8 +111,6 @@ describe('routes : users', () => {
                 expect(res).to.have.cookie('koa:sess');
                 return agent.get('/api/v1/users/1')
                 .end((err, res) => {
-                    // there should be no errors
-                    should.not.exist(err);
                     // there should be a 200 status code
                     res.status.should.equal(200);
                     // the response should be JSON
@@ -139,7 +131,6 @@ describe('routes : users', () => {
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
-                        agent.app.close();
                         done();   
                     }); 
                 });
@@ -159,8 +150,6 @@ describe('routes : users', () => {
                 expect(res).to.have.cookie('koa:sess');
                 return agent.get('/api/v1/users/1')
                 .end((err, res) => {
-                    // there should be an error
-                    should.exist(err);
                     // there should be a 401 status code
                     res.status.should.equal(401);
                     // the response should be JSON
@@ -173,7 +162,6 @@ describe('routes : users', () => {
                     res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
-                        agent.app.close();
                         done();   
                     }); 
                 });
@@ -193,8 +181,6 @@ describe('routes : users', () => {
                 expect(res).to.have.cookie('koa:sess');
                 return agent.get('/api/v1/users/999999999')
                 .end((err, res) => {
-                    // there should be an error
-                    should.exist(err);
                     // there should be a 404 status code
                     res.status.should.equal(404);
                     // the response should be JSON
@@ -207,7 +193,6 @@ describe('routes : users', () => {
                     res.body.message.should.eql('That user does not exist.');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
-                        agent.app.close();
                         done();   
                     }); 
                 });
@@ -243,8 +228,6 @@ describe('routes : users', () => {
                     role_id: 1            
                 })
                 .end((err, res) => {
-                    // there should be no errors
-                    should.not.exist(err);
                     // there should be a 201 status code
                     // indicating that something was created
                     res.status.should.equal(201);
@@ -266,7 +249,6 @@ describe('routes : users', () => {
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
-                        agent.app.close();
                         done();   
                     }); 
                 });
@@ -300,8 +282,6 @@ describe('routes : users', () => {
                     role_id: 1            
                 })
                 .end((err, res) => {
-                    // there should be an error
-                    should.exist(err);
                     // there should be a 401 status code
                     res.status.should.equal(401);
                     // the response should be JSON
@@ -314,7 +294,6 @@ describe('routes : users', () => {
                     res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
-                        agent.app.close();
                         done();   
                     }); 
                 });
@@ -339,8 +318,6 @@ describe('routes : users', () => {
                     test: 'not sending the right payload!'
                 })
                 .end((err, res) => {
-                    // there should be an error
-                    should.exist(err);
                     // there should be a 400 status code
                     res.status.should.equal(400);
                     // the response should be JSON
@@ -352,7 +329,6 @@ describe('routes : users', () => {
                     should.exist(res.body.message);
                     return agent.get('/auth/logout')
                     .end((err, res) => {
-                        agent.app.close();
                         done();   
                     }); 
                 });
@@ -391,8 +367,6 @@ describe('routes : users', () => {
                         role_id: '1' 
                     })
                     .end((err, res) => {
-                        // there should be an error
-                        should.exist(err);
                         // there should be a 400 status code
                         res.status.should.equal(400);
                         // the response should be JSON
@@ -404,7 +378,6 @@ describe('routes : users', () => {
                         should.exist(res.body.message);
                         return agent.get('/auth/logout')
                         .end((err, res) => {
-                            agent.app.close();
                             done();   
                         }); 
                     });
@@ -438,8 +411,6 @@ describe('routes : users', () => {
                         role_id: 1 // change to a member
                     })
                     .end((err, res) => {
-                        // there should be no errors
-                        should.not.exist(err);
                         // there should be a 200 status code
                         res.status.should.equal(200);
                         // the response should be JSON
@@ -465,7 +436,6 @@ describe('routes : users', () => {
                         newUserObject.first_name.should.not.eql(userObject.first_name);
                         return agent.get('/auth/logout')
                         .end((err, res) => {
-                            agent.app.close();
                             done();   
                         }); 
                     });
@@ -496,8 +466,6 @@ describe('routes : users', () => {
                         role_id: 1 // attempt to change to a member
                     })
                     .end((err, res) => {
-                        // there should be an error
-                        should.exist(err);
                         // there should be a 401 status code
                         res.status.should.equal(401);
                         // the response should be JSON
@@ -510,7 +478,6 @@ describe('routes : users', () => {
                         res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
                         return agent.get('/auth/logout')
                         .end((err, res) => {
-                            agent.app.close();
                             done();   
                         }); 
                     });
@@ -535,8 +502,6 @@ describe('routes : users', () => {
                     first_name: 'Jerry'
                 })
                 .end((err, res) => {
-                    // there should be an error
-                    should.exist(err);
                     // there should be a 404 status 
                     res.status.should.equal(404);
                     // the resopnse should be JSON
@@ -549,7 +514,6 @@ describe('routes : users', () => {
                     res.body.message.should.eql('That user does not exist.');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
-                        agent.app.close();
                         done();   
                     });
                 });
@@ -578,8 +542,6 @@ describe('routes : users', () => {
                         email: secondUserObject.email
                     })
                     .end((err, res) => {
-                        // there should be an error
-                        should.exist(err);
                         // there should be a 400 status 
                         res.status.should.equal(400);
                         // the resopnse should be JSON
@@ -592,7 +554,6 @@ describe('routes : users', () => {
                         should.exist(res.body.message);
                         return agent.get('/auth/logout')
                         .end((err, res) => {
-                            agent.app.close();
                             done();   
                         });
                     });
@@ -621,8 +582,6 @@ describe('routes : users', () => {
                     agent
                     .delete(`/api/v1/users/${userObject.id}`)
                     .end((err, res) => {
-                        // there should be no errors
-                        should.not.exist(err);
                         // there should be a 200 status code
                         res.status.should.equal(200);
                         // the response should be JSON
@@ -647,7 +606,6 @@ describe('routes : users', () => {
                             knex('users').select('*')
                             .then((updatedUsers) => {
                                 updatedUsers.length.should.eql(lengthBeforeDelete - 1);
-                                agent.app.close();
                                 done();
                             }); 
                         });
@@ -675,8 +633,6 @@ describe('routes : users', () => {
                     agent
                     .delete(`/api/v1/users/${userObject.id}`)
                     .end((err, res) => {
-                        // there should be an error
-                        should.exist(err);
                         // there should be a 401 status code
                         res.status.should.equal(401);
                         // the response should be JSON
@@ -689,7 +645,6 @@ describe('routes : users', () => {
                         res.body.message.should.eql('User does not have the necessary permissions to perform this action.');
                         return agent.get('/auth/logout')
                         .end((err, res) => {
-                            agent.app.close();
                             done();   
                         });
                     });
@@ -711,8 +666,6 @@ describe('routes : users', () => {
                 agent
                 .delete('/api/v1/users/9999999')
                 .end((err, res) => {
-                    // there should be an error
-                    should.exist(err);
                     // there should be a 404 status code
                     res.status.should.equal(404);
                     // the response should be JSON
@@ -725,7 +678,6 @@ describe('routes : users', () => {
                     res.body.message.should.eql('That user does not exist.');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
-                        agent.app.close();
                         done();   
                     });
                 });

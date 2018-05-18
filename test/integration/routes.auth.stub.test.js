@@ -38,15 +38,13 @@ describe('routes : auth - stubbed', () => {
       this.deserialize.yields(null, { id: 1 });
     });
     it('should login a user', (done) => {
-      chai.request(server)
+      chai.request(server).keepOpen()
       .post('/auth/login')
       .send({
         email: 'testuser9023@gmail.com',
         password: 'thisisatest'
       })
       .end((err, res) => {
-        // there should be no errors
-        should.not.exist(err);
         // there should be a 200 status code
         res.status.should.equal(200);
         // the response should be JSON
@@ -67,15 +65,13 @@ describe('routes : auth - stubbed', () => {
       this.authenticate.yields(null, false);
     });
     it('should not login a user if the password is incorrect', (done) => {
-      chai.request(server)
+      chai.request(server).keepOpen()
       .post('/auth/login')
       .send({
         username: 'testuser9023@gmail.com',
         password: 'notcorrect'
       })
       .end((err, res) => {
-        // there should be an error
-        should.exist(err);
         // there should be a 400 status code
         res.status.should.eql(400);
         // the response should be JSON

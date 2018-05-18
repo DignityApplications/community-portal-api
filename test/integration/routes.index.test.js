@@ -12,10 +12,9 @@ const server = require('../../src/server/index');
 // test the root route of our app
 describe('GET /', () => {
     it('should return JSON', (done) => {
-        chai.request(server)
+        chai.request(server).keepOpen()
         .get('/')
         .end((err, res) => {
-            should.not.exist(err);
             res.status.should.eql(200);
             res.type.should.eql('application/json');
             res.body.status.should.equal('good!');
