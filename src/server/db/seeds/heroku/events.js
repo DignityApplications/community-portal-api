@@ -3,11 +3,11 @@ const moment = require('moment');
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('users').del()
+  return knex('events').del()
 
   // add WebAdmins
   .then(() => {
-    return knex('users').insert({
+    return knex('events').insert({
       name: 'Knitting Club Meeting',
       description: 'The knitting club will be having their weekly meeting in building E room 10.',
       begin: moment().add(2, 'days').add(10, 'hours'),
@@ -18,7 +18,7 @@ exports.seed = function(knex, Promise) {
     });
   })
   .then(() => {
-    return knex('users').insert({
+    return knex('events').insert({
       name: 'Concerto in Robertson Hall',
       description: 'There will be a concerto in Robertson Hall.',
       begin: moment().add(2, 'days').add(15, 'hours'),
@@ -30,7 +30,7 @@ exports.seed = function(knex, Promise) {
     });
   })
   .then(() => {
-    return knex('users').insert({
+    return knex('events').insert({
       name: 'Board Meeting for STT',
       description: 'Our weekly STT board meeting will take place in Dobis Hall Room 5',
       begin: moment().add(2, 'days').add(10, 'hours'),
@@ -40,7 +40,7 @@ exports.seed = function(knex, Promise) {
     });
   })
   .then(() => {
-    return knex('users').insert({
+    return knex('events').insert({
       name: 'Bingo Night',
       description: 'Come join us!',
       begin: moment().add(2, 'days').add(13, 'hours'),
@@ -50,7 +50,7 @@ exports.seed = function(knex, Promise) {
     });
   })
   .then(() => {
-    return knex('users').insert({
+    return knex('events').insert({
       name: 'Gardening Club',
       description: 'We will be gardening',
       begin: moment().add(2, 'days').add(7, 'hours'),
@@ -60,7 +60,7 @@ exports.seed = function(knex, Promise) {
     });
   })
   .then(() => {
-    return knex('users').insert({
+    return knex('events').insert({
       name: 'Breakfast n\' Bible study!',
       description: 'We will be gardening our spirits',
       begin: moment().add(3, 'days').add(8, 'hours'),
