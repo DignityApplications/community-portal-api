@@ -12,8 +12,8 @@ const should = chai.should();
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-// test our permissions CRUD routes
-describe('routes : permissions', () => {
+// test our event CRUD routes
+describe('routes : events', () => {
     // we need a fresh instance of the database before each test is run
     beforeEach(() => {
         return knex.migrate.rollback()
@@ -25,8 +25,8 @@ describe('routes : permissions', () => {
         return knex.migrate.rollback();
     });
 
-    describe('GET /api/v1/permissions', () => {
-        it('should return all permissions if the current user has the necessary permissions', (done) => {
+    describe('GET /api/v1/events', () => {
+        it('should return all events if the current user has the necessary permissions', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -37,7 +37,7 @@ describe('routes : permissions', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.get('/api/v1/permissions')
+                return agent.get('/api/v1/events')
                 .end((err, res) => {
                     // there should be a 200 status code
                     res.status.should.equal(200);
@@ -47,12 +47,14 @@ describe('routes : permissions', () => {
                     // key-value pair of {"status": "good!"}
                     res.body.status.should.eql('good!');
                     // the JSON response body should have a  
-                    // key-value pair of {"data": [35 objects]}
-                    res.body.data.length.should.eql(35);
+                    // key-value pair of {"data": [6 objects]}
+                    res.body.data.length.should.eql(6);
                     // the first object in the data array should 
                     // have the right keys
                     res.body.data[0].should.include.keys(
-                        'id', 'name'
+                        'id', 'name', 'description', 'begin', 'end', 
+                        'location', 'creator', 'reservable', 'reservation_limit', 
+                        'created_at', 'updated_at'
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
@@ -62,7 +64,7 @@ describe('routes : permissions', () => {
             });
         });
 
-        it('should not return all permissions if the current user doesn\'t have the necessary permissions', (done) => {
+        it('should not return all events if the current user doesn\'t have the necessary permissions', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -73,7 +75,7 @@ describe('routes : permissions', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.get('/api/v1/permissions')
+                return agent.get('/api/v1/events')
                 .end((err, res) => {
                     // there should be a 401 status code
                     res.status.should.equal(401);
@@ -94,8 +96,8 @@ describe('routes : permissions', () => {
         });
     });
 
-    describe('GET /api/v1/permissions/:id', () => {
-        it('should return a single permission if the current user has the necessary permissions', (done) => {
+    describe('GET /api/v1/events/:id', () => {
+        it('should return a single event if the current user has the necessary permissions', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -106,7 +108,7 @@ describe('routes : permissions', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.get('/api/v1/permissions/1')
+                return agent.get('/api/v1/events/1')
                 .end((err, res) => {
                     // there should be a 200 status code
                     res.status.should.equal(200);
@@ -121,7 +123,9 @@ describe('routes : permissions', () => {
                     // the first object in the data array should 
                     // have the right keys
                     res.body.data[0].should.include.keys(
-                        'id', 'name' 
+                        'id', 'name', 'description', 'begin', 'end', 
+                        'location', 'creator', 'reservable', 'reservation_limit', 
+                        'created_at', 'updated_at' 
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
@@ -131,7 +135,7 @@ describe('routes : permissions', () => {
             });
         });
 
-        it('should not return a permission if the current user doesn\'t have the necessary permissions', (done) => {
+        it('should not return an event if the current user doesn\'t have the necessary permissions', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -142,7 +146,7 @@ describe('routes : permissions', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.get('/api/v1/permissions/1')
+                return agent.get('/api/v1/events/1')
                 .end((err, res) => {
                     // there should be a 401 status code
                     res.status.should.equal(401);
@@ -162,7 +166,7 @@ describe('routes : permissions', () => {
             });
         });
 
-        it('should throw an error if the permission does not exist', (done) => {
+        it('should throw an error if the event does not exist', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -173,7 +177,7 @@ describe('routes : permissions', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.get('/api/v1/permissions/999999999')
+                return agent.get('/api/v1/events/999999999')
                 .end((err, res) => {
                     // there should be a 404 status code
                     res.status.should.equal(404);
@@ -183,8 +187,8 @@ describe('routes : permissions', () => {
                     // key-value pair of {"message": "no good :("}
                     res.body.status.should.eql('no good :(');
                     // the JSON response body should have a 
-                    // key-value pair of {"message": "That permission does not exist."}
-                    res.body.message.should.eql('That permission does not exist.');
+                    // key-value pair of {"message": "That event does not exist."}
+                    res.body.message.should.eql('That event does not exist.');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
                         done();   
@@ -194,8 +198,8 @@ describe('routes : permissions', () => {
         });
     });
 
-    describe('POST /api/v1/permissions', () => {
-        it('should return the permission that was added if the current user has the necessary permissions', (done) => {
+    describe('POST /api/v1/events', () => {
+        it('should return the event that was added if the current user has the necessary permissions', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -206,9 +210,16 @@ describe('routes : permissions', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.post('/api/v1/permissions')
+                return agent.post('/api/v1/events')
                 .send({
-                    name: 'CanDoEverything'        
+                    name: 'Game Night!',
+                    description: 'There will be a game night coming up. Game on!.',
+                    begin: moment().add(4, 'days').add(20, 'hours'),
+                    end: moment().add(4, 'days').add(22, 'hours'),
+                    location: 'Game Room',
+                    creator: 2, // user id
+                    reservable: true,
+                    reservation_limit: 30        
                 })
                 .end((err, res) => {
                     // there should be a 201 status code
@@ -220,12 +231,14 @@ describe('routes : permissions', () => {
                     // key-value pair of {"status": "good!"}
                     res.body.status.should.eql('good!');
                     // the JSON response body should have a 
-                    // key-value pair of {"data": 1 permission object}
+                    // key-value pair of {"data": 1 event object}
                     res.body.data.length.should.eql(1);
                     // the first object in the data array should
                     // have the right keys
                     res.body.data[0].should.include.keys(
-                        'id', 'name'
+                        'id', 'name', 'description', 'begin', 'end', 
+                        'location', 'creator', 'reservable', 'reservation_limit', 
+                        'created_at', 'updated_at'
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
@@ -235,7 +248,7 @@ describe('routes : permissions', () => {
             });
         });
 
-        it('should not add the permission if the current user doesn\'t have the necessary permissions', (done) => {
+        it('should not add the event if the current user doesn\'t have the necessary permissions', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -246,9 +259,16 @@ describe('routes : permissions', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.post('/api/v1/permissions')
+                return agent.post('/api/v1/events')
                 .send({
-                    name: 'CanDoEverything'            
+                    name: 'Game Night!',
+                    description: 'There will be a game night coming up. Game on!.',
+                    begin: moment().add(4, 'days').add(20, 'hours'),
+                    end: moment().add(4, 'days').add(22, 'hours'),
+                    location: 'Game Room',
+                    creator: 2, // user id
+                    reservable: true,
+                    reservation_limit: 30            
                 })
                 .end((err, res) => {
                     // there should be a 401 status code
@@ -281,7 +301,7 @@ describe('routes : permissions', () => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
                 agent
-                .post('/api/v1/permissions')
+                .post('/api/v1/events')
                 .send({
                     test: 'not sending the right payload!'
                 })
@@ -304,12 +324,12 @@ describe('routes : permissions', () => {
         });
     });
 
-    describe('PUT /api/v1/permissions/:id', () => {
-        it('should return the permission that was updated if the current user has the necessary permissions', (done) => {
-            knex('permissions')
+    describe('PUT /api/v1/events/:id', () => {
+        it('should return the event that was updated if the current user has the necessary permissions', (done) => {
+            knex('events')
             .select('*')
-            .then((permissions) => {
-                const permissionObject = permissions[0];
+            .then((events) => {
+                const eventObject = events[0];
                 // first we need to log on
                 agent
                 .post('/auth/login')
@@ -321,9 +341,9 @@ describe('routes : permissions', () => {
                     // expect the response to contain a session cookie
                     expect(res).to.have.cookie('koa:sess');
                     agent
-                    .put(`/api/v1/permissions/${permissionObject.id}`)
+                    .put(`/api/v1/events/${eventObject.id}`)
                     .send({
-                        name: 'CanDoEverything'
+                        name: 'Updated: Cancelled!'
                     })
                     .end((err, res) => {
                         // there should be a 200 status code
@@ -334,18 +354,18 @@ describe('routes : permissions', () => {
                         // key-value pair of {"status", "good!"}
                         res.body.status.should.eql('good!');
                         // the JSON response body should have a 
-                        // key-value pair of {"data": 1 permission object}
+                        // key-value pair of {"data": 1 event object}
                         res.body.data.length.should.eql(1);
                         // the first object in the data array should 
                         // have the right keys
                         res.body.data[0].should.include.keys(
-                            'id', 'name' 
+                            'id', 'name', 'description', 'begin', 'end', 
+                            'location', 'creator', 'reservable', 'reservation_limit', 
+                            'created_at', 'updated_at' 
                         );
-                        // the password should be different due to hashing
-                        res.body.data[0].should.not.eql('test9876');
-                        // ensure the permission was in fact updated
-                        const newPermissionObject = res.body.data[0];
-                        newPermissionObject.name.should.not.eql(permissionObject.name);
+                        // ensure the event was in fact updated
+                        const newEventObject = res.body.data[0];
+                        newEventObject.name.should.not.eql(eventObject.name);
                         return agent.get('/auth/logout')
                         .end((err, res) => {
                             done();   
@@ -355,11 +375,11 @@ describe('routes : permissions', () => {
             });
         });
 
-        it('should not update the permission if the current user doesn\'t have the necessary permissions', (done) => {
-            knex('permissions')
+        it('should not update the event if the current user doesn\'t have the necessary permissions', (done) => {
+            knex('events')
             .select('*')
-            .then((permissions) => {
-                const permissionObject = permissions[0];
+            .then((events) => {
+                const eventObject = events[0];
                 // first we need to log on
                 agent
                 .post('/auth/login')
@@ -371,9 +391,9 @@ describe('routes : permissions', () => {
                     // expect the response to contain a session cookie
                     expect(res).to.have.cookie('koa:sess');
                     agent
-                    .put(`/api/v1/permissions/${permissionObject.id}`)
+                    .put(`/api/v1/events/${eventObject.id}`)
                     .send({
-                        name: 'CanDoEverything'
+                        name: 'Updated: Cancelled!'
                     })
                     .end((err, res) => {
                         // there should be a 401 status code
@@ -395,7 +415,7 @@ describe('routes : permissions', () => {
             });
         });
 
-        it('should throw an error if the permission does not exist', (done) => {
+        it('should throw an error if the event does not exist', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -407,9 +427,9 @@ describe('routes : permissions', () => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
                 agent
-                .put('/api/v1/permissions/9999999')
+                .put('/api/v1/events/9999999')
                 .send({
-                    name: 'CanDoEverything'
+                    name: 'Updated: Cancelled!'
                 })
                 .end((err, res) => {
                     // there should be a 404 status 
@@ -420,8 +440,8 @@ describe('routes : permissions', () => {
                     // key-value pair of {"status": "no good :("}
                     res.body.status.should.eql('no good :(');
                     // the JSON response body should have a 
-                    // key-value pair of {"message": "That permission does not exist."}
-                    res.body.message.should.eql('That permission does not exist.');
+                    // key-value pair of {"message": "That event does not exist."}
+                    res.body.message.should.eql('That event does not exist.');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
                         done();   
@@ -431,13 +451,13 @@ describe('routes : permissions', () => {
         });
     });
 
-    describe('DELETE /api/v1/permissions/:id', () => {
-        it('should return the permission that was deleted if the current user has the necessary permissions', (done) => {
-            knex('permissions')
+    describe('DELETE /api/v1/events/:id', () => {
+        it('should return the event that was deleted if the current user has the necessary permissions', (done) => {
+            knex('events')
             .select('*')
-            .then((permissions) => {
-                const permissionObject = permissions[1];
-                const lengthBeforeDelete = permissions.length;
+            .then((events) => {
+                const eventObject = events[1];
+                const lengthBeforeDelete = events.length;
                 // first we need to log on
                 agent
                 .post('/auth/login')
@@ -449,7 +469,7 @@ describe('routes : permissions', () => {
                     // expect the response to contain a session cookie
                     expect(res).to.have.cookie('koa:sess');
                     agent
-                    .delete(`/api/v1/permissions/${permissionObject.id}`)
+                    .delete(`/api/v1/events/${eventObject.id}`)
                     .end((err, res) => {
                         // there should be a 200 status code
                         res.status.should.equal(200);
@@ -459,19 +479,21 @@ describe('routes : permissions', () => {
                         // key-value pair of {"status": "good!"}
                         res.body.status.should.eql('good!');
                         // the JSON response body should have a 
-                        // key-value pair of {"data": 1 permission object}
+                        // key-value pair of {"data": 1 event object}
                         res.body.data.length.should.eql(1);
                         // the first object in the data array should
                         // have the right keys
                         res.body.data[0].should.include.keys(
-                            'id', 'name'
+                            'id', 'name', 'description', 'begin', 'end', 
+                            'location', 'creator', 'reservable', 'reservation_limit', 
+                            'created_at', 'updated_at'
                         );
                         return agent.get('/auth/logout')
                         .end((err, res) => {
-                            // ensure that the permission was in fact deleted
-                            knex('permissions').select('*')
-                            .then((updatedPermissions) => {
-                                updatedPermissions.length.should.eql(lengthBeforeDelete - 1);
+                            // ensure that the event was in fact deleted
+                            knex('events').select('*')
+                            .then((updatedEvents) => {
+                                updatedEvents.length.should.eql(lengthBeforeDelete - 1);
                                 done();
                             }); 
                         });
@@ -480,12 +502,12 @@ describe('routes : permissions', () => {
             });
         });
 
-        it('should not delete the permission if the current user doesn\'t have the necessary permissions', (done) => {
-            knex('permissions')
+        it('should not delete the event if the current user doesn\'t have the necessary permissions', (done) => {
+            knex('events')
             .select('*')
-            .then((permissions) => {
-                const permissionObject = permissions[1];
-                const lengthBeforeDelete = permissions.length;
+            .then((events) => {
+                const eventObject = events[1];
+                const lengthBeforeDelete = events.length;
                 // first we need to log on
                 agent
                 .post('/auth/login')
@@ -497,7 +519,7 @@ describe('routes : permissions', () => {
                     // expect the response to contain a session cookie
                     expect(res).to.have.cookie('koa:sess');
                     agent
-                    .delete(`/api/v1/permissions/${permissionObject.id}`)
+                    .delete(`/api/v1/events/${eventObject.id}`)
                     .end((err, res) => {
                         // there should be a 401 status code
                         res.status.should.equal(401);
@@ -518,7 +540,7 @@ describe('routes : permissions', () => {
             });
         });
 
-        it('should throw an error if the permission does not exist', (done) => {
+        it('should throw an error if the event does not exist', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -530,7 +552,7 @@ describe('routes : permissions', () => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
                 agent
-                .delete('/api/v1/permissions/9999999')
+                .delete('/api/v1/events/9999999')
                 .end((err, res) => {
                     // there should be a 404 status code
                     res.status.should.equal(404);
@@ -540,8 +562,8 @@ describe('routes : permissions', () => {
                     // key-value pair of {"status": "no good :("}
                     res.body.status.should.eql('no good :(');
                     // the JSON response body should have a 
-                    // key-value pair of {"message": "That permission does not exist."}
-                    res.body.message.should.eql('That permission does not exist.');
+                    // key-value pair of {"message": "That event does not exist."}
+                    res.body.message.should.eql('That event does not exist.');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
                         done();   
@@ -550,5 +572,4 @@ describe('routes : permissions', () => {
             });
         });
     });
-    
 });
