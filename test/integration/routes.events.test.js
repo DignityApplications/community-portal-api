@@ -10,6 +10,7 @@ const chaiHttp = require('chai-http');
 const agent = chai.request.agent(server);
 const should = chai.should();
 const expect = chai.expect;
+const moment = require('moment');
 chai.use(chaiHttp);
 
 // test our event CRUD routes
