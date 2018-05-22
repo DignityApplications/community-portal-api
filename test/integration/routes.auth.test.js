@@ -49,7 +49,6 @@ describe('routes : auth', () => {
                 should.exist(res.body.user);
                 return agent.get('/auth/logout')
                 .end((err, res) => {
-                    agent.app.close();
                     done();   
                 });
             });
@@ -112,7 +111,6 @@ describe('routes : auth', () => {
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
-                        agent.app.close();
                         done();   
                     });                     
                 });
@@ -163,7 +161,6 @@ describe('routes : auth', () => {
                     res.body.message.should.eql('User successfully logged out.');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
-                        agent.app.close();
                         done();   
                     }); 
                 });
