@@ -53,7 +53,7 @@ describe('routes : events', () => {
                     // the first object in the data array should 
                     // have the right keys
                     res.body.data[0].should.include.keys(
-                        'id', 'name', 'description', 'begin', 'end', 
+                        'id', 'title', 'description', 'start', 'end', 
                         'location', 'creator', 'reservable', 'reservation_limit', 
                         'created_at', 'updated_at'
                     );
@@ -124,7 +124,7 @@ describe('routes : events', () => {
                     // the first object in the data array should 
                     // have the right keys
                     res.body.data[0].should.include.keys(
-                        'id', 'name', 'description', 'begin', 'end', 
+                        'id', 'title', 'description', 'start', 'end', 
                         'location', 'creator', 'reservable', 'reservation_limit', 
                         'created_at', 'updated_at' 
                     );
@@ -213,9 +213,9 @@ describe('routes : events', () => {
                 expect(res).to.have.cookie('koa:sess');
                 return agent.post('/api/v1/events')
                 .send({
-                    name: 'Game Night!',
+                    title: 'Game Night!',
                     description: 'There will be a game night coming up. Game on!.',
-                    begin: moment().add(4, 'days').add(20, 'hours'),
+                    start: moment().add(4, 'days').add(20, 'hours'),
                     end: moment().add(4, 'days').add(22, 'hours'),
                     location: 'Game Room',
                     creator: 2, // user id
@@ -237,7 +237,7 @@ describe('routes : events', () => {
                     // the first object in the data array should
                     // have the right keys
                     res.body.data[0].should.include.keys(
-                        'id', 'name', 'description', 'begin', 'end', 
+                        'id', 'title', 'description', 'start', 'end', 
                         'location', 'creator', 'reservable', 'reservation_limit', 
                         'created_at', 'updated_at'
                     );
@@ -262,9 +262,9 @@ describe('routes : events', () => {
                 expect(res).to.have.cookie('koa:sess');
                 return agent.post('/api/v1/events')
                 .send({
-                    name: 'Game Night!',
+                    title: 'Game Night!',
                     description: 'There will be a game night coming up. Game on!.',
-                    begin: moment().add(4, 'days').add(20, 'hours'),
+                    start: moment().add(4, 'days').add(20, 'hours'),
                     end: moment().add(4, 'days').add(22, 'hours'),
                     location: 'Game Room',
                     creator: 2, // user id
@@ -344,7 +344,7 @@ describe('routes : events', () => {
                     agent
                     .put(`/api/v1/events/${eventObject.id}`)
                     .send({
-                        name: 'Updated: Cancelled!'
+                        title: 'Updated: Cancelled!'
                     })
                     .end((err, res) => {
                         // there should be a 200 status code
@@ -360,13 +360,13 @@ describe('routes : events', () => {
                         // the first object in the data array should 
                         // have the right keys
                         res.body.data[0].should.include.keys(
-                            'id', 'name', 'description', 'begin', 'end', 
+                            'id', 'title', 'description', 'start', 'end', 
                             'location', 'creator', 'reservable', 'reservation_limit', 
                             'created_at', 'updated_at' 
                         );
                         // ensure the event was in fact updated
                         const newEventObject = res.body.data[0];
-                        newEventObject.name.should.not.eql(eventObject.name);
+                        newEventObject.title.should.not.eql(eventObject.title);
                         return agent.get('/auth/logout')
                         .end((err, res) => {
                             done();   
@@ -394,7 +394,7 @@ describe('routes : events', () => {
                     agent
                     .put(`/api/v1/events/${eventObject.id}`)
                     .send({
-                        name: 'Updated: Cancelled!'
+                        title: 'Updated: Cancelled!'
                     })
                     .end((err, res) => {
                         // there should be a 401 status code
@@ -430,7 +430,7 @@ describe('routes : events', () => {
                 agent
                 .put('/api/v1/events/9999999')
                 .send({
-                    name: 'Updated: Cancelled!'
+                    title: 'Updated: Cancelled!'
                 })
                 .end((err, res) => {
                     // there should be a 404 status 
@@ -485,7 +485,7 @@ describe('routes : events', () => {
                         // the first object in the data array should
                         // have the right keys
                         res.body.data[0].should.include.keys(
-                            'id', 'name', 'description', 'begin', 'end', 
+                            'id', 'title', 'description', 'start', 'end', 
                             'location', 'creator', 'reservable', 'reservation_limit', 
                             'created_at', 'updated_at'
                         );
