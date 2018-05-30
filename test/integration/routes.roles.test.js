@@ -436,7 +436,6 @@ describe('routes : roles', () => {
             knex('roles')
             .select('*') // no users are assigned this role
             .then((roles) => {
-                console.log
                 const roleObject = roles[1];
                 const lengthBeforeDelete = roles.length;
                 // first we need to log on
