@@ -1,6 +1,9 @@
 exports.seed = function(knex, Promise) {
     // Deletes ALL existing entries
-    return knex('roles_permissions').del()
+    return knex('roles_permissions')
+    .truncate()
+    .del()
+    
     // give all roles_permissions to WebAdmin
     .then(() => {
         return knex('roles_permissions').insert({

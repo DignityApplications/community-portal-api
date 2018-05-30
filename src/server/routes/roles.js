@@ -307,6 +307,7 @@ router.delete(`${BASE_URL}/:id/permissions/:p_id`, async(ctx) => {
             };             
         }
     } catch (err) {
+        console.log(err);
         ctx.status = 400;
         ctx.body = {
             status: 'no good :(',

@@ -434,8 +434,9 @@ describe('routes : roles', () => {
     describe('DELETE /api/v1/roles/:id', () => {
         it('should return the role that was deleted if the current user has the necessary permissions', (done) => {
             knex('roles')
-            .select('*')
+            .select('*') // no users are assigned this role
             .then((roles) => {
+                console.log
                 const roleObject = roles[1];
                 const lengthBeforeDelete = roles.length;
                 // first we need to log on
@@ -542,6 +543,38 @@ describe('routes : roles', () => {
                     // the JSON response body should have a 
                     // key-value pair of {"message": "That role does not exist."}
                     res.body.message.should.eql('That role does not exist.');
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        done();   
+                    });
+                });
+            });
+        });
+
+        it('should throw an error if there are users assigned to that role', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'elliotsminion@gmail.com',
+                password: 'test1234'
+            })
+            .end((err, res) => {
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                agent
+                .delete('/api/v1/roles/4')
+                .end((err, res) => {
+                    // there should be a 400 status code
+                    res.status.should.equal(400);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "no good :("}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a 
+                    // key-value pair of {"message": String object with keywords 'foreign key'}
+                    res.body.message.should.have.string('foreign key');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
                         done();   

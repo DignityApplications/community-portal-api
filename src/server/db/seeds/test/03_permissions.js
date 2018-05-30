@@ -1,6 +1,9 @@
 exports.seed = function(knex, Promise) {
     // Deletes ALL existing entries
-    return knex('permissions').del()
+    return knex('permissions')
+    .truncate()
+    .del()
+    
     // members
     .then(() => {
       return knex('permissions').insert({
