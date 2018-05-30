@@ -18,6 +18,8 @@ function getSingleEvent(id) {
 function addEvent(event) {
     // user should not be able to manually set these
     if (event.id) delete event.id;
+    if (event.created_at) delete event.created_at;
+    if (event.updated_at) delete event.updated_at;
 
     return knex('events')
     .insert(event)
@@ -28,6 +30,9 @@ function addEvent(event) {
 function updateEvent(id, event) {
     // user should not be able to manually set these
     if (event.id) delete event.id;
+    if (event.created_at) delete event.created_at;
+
+    event.updated_at = new Date();
     
     return knex('events')
     .update(event)
