@@ -54,4 +54,22 @@ exports.seed = function(knex, Promise) {
       role_id: 5
     });
   })
+
+
+  // this user is reserved for testing deletion. It will not violate a foreign key constraint
+  .then(() => {
+    return knex('users').insert({
+      email: 'deleteme@gmail.com',
+      password: bcrypt.hashSync('delete', 10),
+      first_name: 'Delete',
+      last_name: 'Me',
+      date_of_birth: '11/11/1991',
+      home_phone_number: '704-228-8799',
+      cell_phone_number: '704-685-3016',
+      current_address: '7281 Delete Me Rd. NC 28411',
+      previous_address: '1422 Delete Me Rd. NC 28403',
+      bio: 'Get outta here.',
+      role_id: 5
+    });
+  });
 };

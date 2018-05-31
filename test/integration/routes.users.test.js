@@ -47,8 +47,8 @@ describe('routes : users', () => {
                     // key-value pair of {"status": "good!"}
                     res.body.status.should.eql('good!');
                     // the JSON response body should have a  
-                    // key-value pair of {"data": [3 objects]}
-                    res.body.data.length.should.eql(3);
+                    // key-value pair of {"data": [4 objects]}
+                    res.body.data.length.should.eql(4);
                     // the first object in the data array should 
                     // have the right keys
                     res.body.data[0].should.include.keys(
@@ -567,7 +567,7 @@ describe('routes : users', () => {
             knex('users')
             .select('*')
             .then((users) => {
-                const userObject = users[1];
+                const userObject = users[users.length - 1];
                 const lengthBeforeDelete = users.length;
                 // first we need to log on
                 agent
@@ -676,6 +676,38 @@ describe('routes : users', () => {
                     // the JSON response body should have a 
                     // key-value pair of {"message": "That user does not exist."}
                     res.body.message.should.eql('That user does not exist.');
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        done();   
+                    });
+                });
+            });
+        });
+
+        it('should throw an error if there is a foreign key constraint violation', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'elliotsminion@gmail.com',
+                password: 'test1234'
+            })
+            .end((err, res) => {
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                agent
+                .delete('/api/v1/users/1')
+                .end((err, res) => {
+                    // there should be a 400 status code
+                    res.status.should.equal(400);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "no good :("}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a 
+                    // key-value pair of {"message": String object with keywords 'foreign key'}
+                    res.body.message.should.have.string('foreign key');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
                         done();   
