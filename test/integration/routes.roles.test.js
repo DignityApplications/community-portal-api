@@ -47,8 +47,8 @@ describe('routes : roles', () => {
                     // key-value pair of {"status": "good!"}
                     res.body.status.should.eql('good!');
                     // the JSON response body should have a  
-                    // key-value pair of {"data": [5 objects]}
-                    res.body.data.length.should.eql(5);
+                    // key-value pair of {"data": [6 objects]}
+                    res.body.data.length.should.eql(6);
                     // the first object in the data array should 
                     // have the right keys
                     res.body.data[0].should.include.keys(
@@ -436,7 +436,7 @@ describe('routes : roles', () => {
             knex('roles')
             .select('*') // no users are assigned this role
             .then((roles) => {
-                const roleObject = roles[1];
+                const roleObject = roles[roles.length - 1];
                 const lengthBeforeDelete = roles.length;
                 // first we need to log on
                 agent
@@ -550,7 +550,7 @@ describe('routes : roles', () => {
             });
         });
 
-        it('should throw an error if there are users assigned to that role', (done) => {
+        it('should throw an error if there is a foreign key constraint violation', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')

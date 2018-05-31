@@ -28,6 +28,15 @@ exports.seed = function(knex, Promise) {
       return knex('roles').insert({
         name: 'Unregistered'
       });
-    });  
+    })
+    
+    
+
+    // this role is reserved for testing deletion. It will not violate a foreign key constraint
+    .then(() => {
+      return knex('roles').insert({
+        name: 'Test role (for deletion)'
+      });
+    });
   };
   

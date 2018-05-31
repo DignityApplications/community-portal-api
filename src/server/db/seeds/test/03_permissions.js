@@ -197,5 +197,12 @@ exports.seed = function(knex, Promise) {
       });
     })
   
+
+    // this permission is reserved for testing deletion. It will not violate a foreign key constraint
+    .then(() => {
+      return knex('permissions').insert({
+        name: 'Test permission (for deletion)'
+      });
+    });
   };
   
