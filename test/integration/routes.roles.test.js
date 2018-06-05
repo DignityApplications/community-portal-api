@@ -606,8 +606,8 @@ describe('routes : roles', () => {
                     // key-value pair of {"status": "good!"}
                     res.body.status.should.eql('good!');
                     // the JSON response body should have a  
-                    // key-value pair of {"data": [35 objects]}
-                    res.body.data.length.should.eql(35);
+                    // key-value pair of {"data": [37 objects]}
+                    res.body.data.length.should.eql(37);
                     // the first object in the data array should 
                     // have the right keys
                     res.body.data[0].should.include.keys(

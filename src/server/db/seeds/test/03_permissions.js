@@ -197,6 +197,17 @@ exports.seed = function(knex, Promise) {
       });
     })
   
+    // settings
+    .then(() => {
+      return knex('permissions').insert({
+        name: 'SeeSettings' // 36
+      });
+    })
+    .then(() => {
+      return knex('permissions').insert({
+        name: 'UpdateSettings' // 37
+      });
+    }) 
 
     // this permission is reserved for testing deletion. It will not violate a foreign key constraint
     .then(() => {
