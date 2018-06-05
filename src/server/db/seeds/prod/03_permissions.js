@@ -200,13 +200,8 @@ exports.seed = function(knex, Promise) {
   // settings
   .then(() => {
     return knex('permissions').insert({
-      name: 'SeeSettings' // 36
-    });
-  })
-  .then(() => {
-    return knex('permissions').insert({
-      name: 'UpdateSettings' // 37
+      name: 'UpdateSettings' // 36
     });
   }) 
-  
+
 };

@@ -26,74 +26,36 @@ describe('routes : settings', () => {
     });
 
     describe('GET /api/v1/settings', () => {
-        it('should return the settings record if the current user has the necessary permissions', (done) => {
-            // first we need to log on
-            agent
-            .post('/auth/login')
-            .send({
-                email: 'elliotsminion@gmail.com',
-                password: 'test1234'
-            })
+        it('should return the settings record', (done) => {
+            agent.get('/api/v1/settings')
             .end((err, res) => {
-                // expect the response to contain a session cookie
-                expect(res).to.have.cookie('koa:sess');
-                return agent.get('/api/v1/settings')
+                // there should be a 200 status code
+                res.status.should.equal(200);
+                // the response should be JSON
+                res.type.should.equal('application/json');
+                // the JSON response body should have a 
+                // key-value pair of {"status": "good!"}
+                res.body.status.should.eql('good!');
+                // the JSON response body should have a  
+                // key-value pair of {"data": [1 object]}
+                res.body.data.length.should.eql(1);
+                // the first object in the data array should 
+                // have the right keys
+                res.body.data[0].should.include.keys(
+                    'id', 'community_name', 'address', 'city', 'state', 
+                    'zip', 'site_color', 'installed',
+                    'created_at', 'updated_at'
+                );
+                return agent.get('/auth/logout')
                 .end((err, res) => {
-                    // there should be a 200 status code
-                    res.status.should.equal(200);
-                    // the response should be JSON
-                    res.type.should.equal('application/json');
-                    // the JSON response body should have a 
-                    // key-value pair of {"status": "good!"}
-                    res.body.status.should.eql('good!');
-                    // the JSON response body should have a  
-                    // key-value pair of {"data": [1 object]}
-                    res.body.data.length.should.eql(1);
-                    // the first object in the data array should 
-                    // have the right keys
-                    res.body.data[0].should.include.keys(
-                        'id', 'community_name', 'address', 'city', 'state', 
-                        'zip', 'site_color', 'installed',
-                        'created_at', 'updated_at'
-                    );
-                    return agent.get('/auth/logout')
-                    .end((err, res) => {
-                        done();   
-                    }); 
-                });
+                    done();   
+                }); 
             });
         });
 
-        it('should not return the settings record if the current user doesn\'t have the necessary permissions', (done) => {
-            // first we need to log on
-            agent
-            .post('/auth/login')
-            .send({
-                email: 'fakeuser@gmail.com',
-                password: 'test9876'
-            })
-            .end((err, res) => {
-                // expect the response to contain a session cookie
-                expect(res).to.have.cookie('koa:sess');
-                return agent.get('/api/v1/settings')
-                .end((err, res) => {
-                    // there should be a 401 status code
-                    res.status.should.equal(401);
-                    // the response should be JSON
-                    res.type.should.equal('application/json');
-                    // the JSON response body should have a 
-                    // key-value pair of {"status": "good!"}
-                    res.body.status.should.eql('no good :(');
-                    // the JSON response body should have a 
-                    // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
-                    res.body.message.should.eql('User does not have the necessary permissions to perform this action.')
-                    return agent.get('/auth/logout')
-                    .end((err, res) => {
-                        done();   
-                    }); 
-                });
-            });
-        });
+        // we do not need to test permissions for getting settings, as anyone 
+        // should be able to see basic community settings, even visitors who 
+        // are not logged in
     });
 
     describe('PUT /api/v1/settings/:id', () => {

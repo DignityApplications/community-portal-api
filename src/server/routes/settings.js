@@ -16,21 +16,12 @@ router.get(BASE_URL, async (ctx) => {
     try {
         let user = ctx.state.user || null;
 
-        // make sure the current user (or lack of user) can 'See' settings
-        let canDo = await permissions.canDo(user, 'See', 'Settings');
-        if (canDo) {
-            const settings = await settingsQueries.getSettings();
-            ctx.body = {
-                status: 'good!',
-                data: settings
-            };
-        } else {
-            ctx.status = 401;
-            ctx.body = {
-                status: 'no good :(',
-                message: 'User does not have the necessary permissions to perform this action.'
-            };
-        }
+        const settings = await settingsQueries.getSettings();
+        
+        ctx.body = {
+            status: 'good!',
+            data: settings
+        };
     } catch (err) {
         console.log(err);
     }

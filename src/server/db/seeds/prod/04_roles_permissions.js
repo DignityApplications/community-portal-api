@@ -224,7 +224,7 @@ exports.seed = function(knex, Promise) {
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 4,
-            permission_id: 37, // UpdateSettings
+            permission_id: 36, // UpdateSettings
         });
     })
 
