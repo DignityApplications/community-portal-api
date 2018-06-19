@@ -197,10 +197,52 @@ exports.seed = function(knex, Promise) {
     });
   })
 
+  // event reservations
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'AddAnyEventReservation' // 36
+    });
+  }) 
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'SeeAllEventReservations' // 37
+    });
+  })
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'UpdateAllEventReservations' // 38
+    });
+  }) 
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'DeleteAllEventReservations' // 39
+    });
+  })
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'AddOwnEventReservation' // 40
+    });
+  })    
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'SeeOwnEventReservations' // 41
+    });
+  })
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'UpdateOwnEventReservations' // 42
+    });
+  }) 
+  .then(() => {
+    return knex('permissions').insert({
+      name: 'DeleteOwnEventReservations' // 43
+    });
+  })
+  
   // settings
   .then(() => {
     return knex('permissions').insert({
-      name: 'UpdateSettings' // 36
+      name: 'UpdateSettings' // 44
     });
   }) 
 

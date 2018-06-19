@@ -218,7 +218,55 @@ exports.seed = function(knex, Promise) {
     .then(() => {
         return knex('roles_permissions').insert({
             role_id: 4,
-            permission_id: 36, // SeeSettings
+            permission_id: 36, // AddAnyEventReservation
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 4,
+            permission_id: 37, // SeeAllEventReservations
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 4,
+            permission_id: 38, // UpdateAllEventReservations
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 4,
+            permission_id: 39, // DeleteAllEventReservations
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 4,
+            permission_id: 40, // AddOwnEventReservation
+        });
+    })    
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 4,
+            permission_id: 41, // SeeOwnEventReservations
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 4,
+            permission_id: 42, // UpdateOwnEventReservations
+        });
+    })     
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 4,
+            permission_id: 43, // DeleteOwnEventReservations
+        });
+    })     
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 4,
+            permission_id: 44, // UpdateSettings
         });
     })
 
@@ -259,6 +307,36 @@ exports.seed = function(knex, Promise) {
             permission_id: 33, // SeeEvents
         });
     })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 1,
+            permission_id: 37, // SeeAllEventReservations
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 1,
+            permission_id: 40, // AddOwnEventReservation
+        });
+    })    
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 1,
+            permission_id: 41, // SeeOwnEventReservations
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 1,
+            permission_id: 42, // UpdateOwnEventReservations
+        });
+    })     
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 1,
+            permission_id: 43, // DeleteOwnEventReservations
+        });
+    }) 
 
     // give roles_permissions to administrative staff
     .then(() => {
@@ -387,6 +465,54 @@ exports.seed = function(knex, Promise) {
             permission_id: 35, // DeleteEvents
         });
     })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 2,
+            permission_id: 36, // AddAnyEventReservation
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 2,
+            permission_id: 37, // SeeAllEventReservations
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 2,
+            permission_id: 38, // UpdateAllEventReservations
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 2,
+            permission_id: 39, // DeleteAllEventReservations
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 2,
+            permission_id: 40, // AddOwnEventReservation
+        });
+    })    
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 2,
+            permission_id: 41, // SeeOwnEventReservations
+        });
+    })
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 2,
+            permission_id: 42, // UpdateOwnEventReservations
+        });
+    })     
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 2,
+            permission_id: 43, // DeleteOwnEventReservations
+        });
+    }) 
 
     // give roles_permissions to guests
     .then(() => {
@@ -419,7 +545,18 @@ exports.seed = function(knex, Promise) {
             permission_id: 33, // SeeEvents
         });
     })
-    
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 3,
+            permission_id: 37, // SeeAllEventReservations
+        });
+    })    
+    .then(() => {
+        return knex('roles_permissions').insert({
+            role_id: 3,
+            permission_id: 41, // SeeOwnEventReservations
+        });
+    })     
+
     // give roles_permissions to unregistered visitors 
 };
-  
