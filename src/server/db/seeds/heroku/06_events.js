@@ -28,6 +28,7 @@ exports.seed = function(knex, Promise) {
       location: 'Robertson Hall',
       creator: 2, // user id
       reservable: true,
+      allow_guests: true,
       reservation_limit: 20
     });
   })

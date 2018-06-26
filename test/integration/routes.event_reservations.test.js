@@ -13,8 +13,8 @@ const expect = chai.expect;
 const moment = require('moment');
 chai.use(chaiHttp);
 
-// test our event CRUD routes
-describe('routes : events', () => {
+// test our event_reservations CRUD routes
+describe('routes : event_reservations', () => {
     // we need a fresh instance of the database before each test is run
     beforeEach(() => {
         return knex.migrate.rollback()
@@ -26,8 +26,8 @@ describe('routes : events', () => {
         return knex.migrate.rollback();
     });
 
-    describe('GET /api/v1/events', () => {
-        it('should return all events if the current user has the necessary permissions', (done) => {
+    describe('GET /api/v1/event_reservations', () => {
+        it('should return all event reservations if the current user has the necessary permissions', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -38,7 +38,7 @@ describe('routes : events', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.get('/api/v1/events')
+                return agent.get('/api/v1/event_reservations')
                 .end((err, res) => {
                     // there should be a 200 status code
                     res.status.should.equal(200);
@@ -48,14 +48,13 @@ describe('routes : events', () => {
                     // key-value pair of {"status": "good!"}
                     res.body.status.should.eql('good!');
                     // the JSON response body should have a  
-                    // key-value pair of {"data": [6 objects]}
-                    res.body.data.length.should.eql(6);
+                    // key-value pair of {"data": [3 objects]}
+                    res.body.data.length.should.eql(3);
                     // the first object in the data array should 
                     // have the right keys
                     res.body.data[0].should.include.keys(
-                        'id', 'title', 'description', 'start', 'end', 
-                        'location', 'creator', 'reservable', 'reservation_limit', 
-                        'allow_guests', 'created_at', 'updated_at'
+                        'id', 'user_id', 'event_id', 'attendees', 
+                        'created_at', 'updated_at'
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
@@ -65,7 +64,7 @@ describe('routes : events', () => {
             });
         });
 
-        it('should not return all events if the current user doesn\'t have the necessary permissions', (done) => {
+        it('should not return all event reservations if the current user doesn\'t have the necessary permissions', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -76,7 +75,7 @@ describe('routes : events', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.get('/api/v1/events')
+                return agent.get('/api/v1/event_reservations')
                 .end((err, res) => {
                     // there should be a 401 status code
                     res.status.should.equal(401);
@@ -97,8 +96,8 @@ describe('routes : events', () => {
         });
     });
 
-    describe('GET /api/v1/events/:id', () => {
-        it('should return a single event if the current user has the necessary permissions', (done) => {
+    describe('GET /api/v1/event_reservations/:id', () => {
+        it('should return a single event reservation if the current user has the necessary permissions', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -109,7 +108,7 @@ describe('routes : events', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.get('/api/v1/events/1')
+                return agent.get('/api/v1/event_reservations/1')
                 .end((err, res) => {
                     // there should be a 200 status code
                     res.status.should.equal(200);
@@ -124,9 +123,8 @@ describe('routes : events', () => {
                     // the first object in the data array should 
                     // have the right keys
                     res.body.data[0].should.include.keys(
-                        'id', 'title', 'description', 'start', 'end', 
-                        'location', 'creator', 'reservable', 'reservation_limit', 
-                        'allow_guests', 'created_at', 'updated_at' 
+                        'id', 'user', 'event', 'attendees', 
+                        'created_at', 'updated_at' 
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
@@ -136,7 +134,7 @@ describe('routes : events', () => {
             });
         });
 
-        it('should not return an event if the current user doesn\'t have the necessary permissions', (done) => {
+        it('should not return an event reservation if the current user doesn\'t have the necessary permissions', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -147,7 +145,7 @@ describe('routes : events', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.get('/api/v1/events/1')
+                return agent.get('/api/v1/event_reservations/1')
                 .end((err, res) => {
                     // there should be a 401 status code
                     res.status.should.equal(401);
@@ -167,7 +165,7 @@ describe('routes : events', () => {
             });
         });
 
-        it('should throw an error if the event does not exist', (done) => {
+        it('should throw an error if the event reservation does not exist', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -178,7 +176,7 @@ describe('routes : events', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.get('/api/v1/events/999999999')
+                return agent.get('/api/v1/event_reservations/999999999')
                 .end((err, res) => {
                     // there should be a 404 status code
                     res.status.should.equal(404);
@@ -188,8 +186,8 @@ describe('routes : events', () => {
                     // key-value pair of {"message": "no good :("}
                     res.body.status.should.eql('no good :(');
                     // the JSON response body should have a 
-                    // key-value pair of {"message": "That event does not exist."}
-                    res.body.message.should.eql('That event does not exist.');
+                    // key-value pair of {"message": "That event reservation does not exist."}
+                    res.body.message.should.eql('That event reservation does not exist.');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
                         done();   
@@ -199,8 +197,8 @@ describe('routes : events', () => {
         });
     });
 
-    describe('POST /api/v1/events', () => {
-        it('should return the event that was added if the current user has the necessary permissions', (done) => {
+    describe('POST /api/v1/event_reservations', () => {
+        it('should return the event reservation that was added if the current user has the necessary permissions', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -211,16 +209,11 @@ describe('routes : events', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.post('/api/v1/events')
+                return agent.post('/api/v1/event_reservations')
                 .send({
-                    title: 'Game Night!',
-                    description: 'There will be a game night coming up. Game on!.',
-                    start: moment().add(4, 'days').add(20, 'hours'),
-                    end: moment().add(4, 'days').add(22, 'hours'),
-                    location: 'Game Room',
-                    creator: 2, // user id
-                    reservable: true,
-                    reservation_limit: 30        
+                    user_id: 1,
+                    event_id: 1,
+                    attendees: 3,      
                 })
                 .end((err, res) => {
                     // there should be a 201 status code
@@ -232,14 +225,13 @@ describe('routes : events', () => {
                     // key-value pair of {"status": "good!"}
                     res.body.status.should.eql('good!');
                     // the JSON response body should have a 
-                    // key-value pair of {"data": 1 event object}
+                    // key-value pair of {"data": 1 event reservation object}
                     res.body.data.length.should.eql(1);
                     // the first object in the data array should
                     // have the right keys
                     res.body.data[0].should.include.keys(
-                        'id', 'title', 'description', 'start', 'end', 
-                        'location', 'creator', 'reservable', 'reservation_limit', 
-                        'allow_guests', 'created_at', 'updated_at'
+                        'id', 'user_id', 'event_id', 'attendees', 
+                        'created_at', 'updated_at' 
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
@@ -249,7 +241,7 @@ describe('routes : events', () => {
             });
         });
 
-        it('should not add the event if the current user doesn\'t have the necessary permissions', (done) => {
+        it('should not add the event reservation if the current user doesn\'t have the necessary permissions', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -260,16 +252,11 @@ describe('routes : events', () => {
             .end((err, res) => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
-                return agent.post('/api/v1/events')
+                return agent.post('/api/v1/event_reservations')
                 .send({
-                    title: 'Game Night!',
-                    description: 'There will be a game night coming up. Game on!.',
-                    start: moment().add(4, 'days').add(20, 'hours'),
-                    end: moment().add(4, 'days').add(22, 'hours'),
-                    location: 'Game Room',
-                    creator: 2, // user id
-                    reservable: true,
-                    reservation_limit: 30            
+                    user_id: 1,
+                    event_id: 1,
+                    attendees: 3,            
                 })
                 .end((err, res) => {
                     // there should be a 401 status code
@@ -302,7 +289,7 @@ describe('routes : events', () => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
                 agent
-                .post('/api/v1/events')
+                .post('/api/v1/event_reservations')
                 .send({
                     test: 'not sending the right payload!'
                 })
@@ -325,12 +312,12 @@ describe('routes : events', () => {
         });
     });
 
-    describe('PUT /api/v1/events/:id', () => {
-        it('should return the event that was updated if the current user has the necessary permissions', (done) => {
-            knex('events')
+    describe('PUT /api/v1/event_reservations/:id', () => {
+        it('should return the event reservation that was updated if the current user has the necessary permissions', (done) => {
+            knex('event_reservations')
             .select('*')
-            .then((events) => {
-                const eventObject = events[0];
+            .then((event_reservations) => {
+                const eventReservationObject = event_reservations[0];
                 // first we need to log on
                 agent
                 .post('/auth/login')
@@ -342,9 +329,9 @@ describe('routes : events', () => {
                     // expect the response to contain a session cookie
                     expect(res).to.have.cookie('koa:sess');
                     agent
-                    .put(`/api/v1/events/${eventObject.id}`)
+                    .put(`/api/v1/event_reservations/${eventReservationObject.id}`)
                     .send({
-                        title: 'Updated: Cancelled!'
+                        attendees: 4
                     })
                     .end((err, res) => {
                         // there should be a 200 status code
@@ -355,18 +342,17 @@ describe('routes : events', () => {
                         // key-value pair of {"status", "good!"}
                         res.body.status.should.eql('good!');
                         // the JSON response body should have a 
-                        // key-value pair of {"data": 1 event object}
+                        // key-value pair of {"data": 1 event_reservation object}
                         res.body.data.length.should.eql(1);
                         // the first object in the data array should 
                         // have the right keys
                         res.body.data[0].should.include.keys(
-                            'id', 'title', 'description', 'start', 'end', 
-                            'location', 'creator', 'reservable', 'reservation_limit', 
-                            'allow_guests', 'created_at', 'updated_at' 
+                            'id', 'user_id', 'event_id', 'attendees', 
+                            'created_at', 'updated_at' 
                         );
-                        // ensure the event was in fact updated
-                        const newEventObject = res.body.data[0];
-                        newEventObject.title.should.not.eql(eventObject.title);
+                        // ensure the event reservation was in fact updated
+                        const newEventReservationObject = res.body.data[0];
+                        newEventReservationObject.attendees.should.not.eql(eventReservationObject.attendees);
                         return agent.get('/auth/logout')
                         .end((err, res) => {
                             done();   
@@ -376,11 +362,11 @@ describe('routes : events', () => {
             });
         });
 
-        it('should not update the event if the current user doesn\'t have the necessary permissions', (done) => {
-            knex('events')
+        it('should not update the event_reservation if the current user doesn\'t have the necessary permissions', (done) => {
+            knex('event_reservations')
             .select('*')
-            .then((events) => {
-                const eventObject = events[0];
+            .then((event_reservations) => {
+                const eventReservationObject = event_reservations[0];
                 // first we need to log on
                 agent
                 .post('/auth/login')
@@ -392,9 +378,9 @@ describe('routes : events', () => {
                     // expect the response to contain a session cookie
                     expect(res).to.have.cookie('koa:sess');
                     agent
-                    .put(`/api/v1/events/${eventObject.id}`)
+                    .put(`/api/v1/event_reservations/${eventReservationObject.id}`)
                     .send({
-                        title: 'Updated: Cancelled!'
+                        attendees: 4
                     })
                     .end((err, res) => {
                         // there should be a 401 status code
@@ -416,7 +402,7 @@ describe('routes : events', () => {
             });
         });
 
-        it('should throw an error if the event does not exist', (done) => {
+        it('should throw an error if the event reservation does not exist', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -428,9 +414,9 @@ describe('routes : events', () => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
                 agent
-                .put('/api/v1/events/9999999')
+                .put('/api/v1/event_reservations/9999999')
                 .send({
-                    title: 'Updated: Cancelled!'
+                    attendees: 4
                 })
                 .end((err, res) => {
                     // there should be a 404 status 
@@ -441,8 +427,8 @@ describe('routes : events', () => {
                     // key-value pair of {"status": "no good :("}
                     res.body.status.should.eql('no good :(');
                     // the JSON response body should have a 
-                    // key-value pair of {"message": "That event does not exist."}
-                    res.body.message.should.eql('That event does not exist.');
+                    // key-value pair of {"message": "That event reservation does not exist."}
+                    res.body.message.should.eql('That event reservation does not exist.');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
                         done();   
@@ -452,13 +438,13 @@ describe('routes : events', () => {
         });
     });
 
-    describe('DELETE /api/v1/events/:id', () => {
-        it('should return the event that was deleted if the current user has the necessary permissions', (done) => {
-            knex('events')
+    describe('DELETE /api/v1/event_reservations/:id', () => {
+        it('should return the event reservation that was deleted if the current user has the necessary permissions', (done) => {
+            knex('event_reservations')
             .select('*')
-            .then((events) => {
-                const eventObject = events[1];
-                const lengthBeforeDelete = events.length;
+            .then((event_reservations) => {
+                const eventReservationObject = event_reservations[1];
+                const lengthBeforeDelete = event_reservations.length;
                 // first we need to log on
                 agent
                 .post('/auth/login')
@@ -470,7 +456,7 @@ describe('routes : events', () => {
                     // expect the response to contain a session cookie
                     expect(res).to.have.cookie('koa:sess');
                     agent
-                    .delete(`/api/v1/events/${eventObject.id}`)
+                    .delete(`/api/v1/event_reservations/${eventReservationObject.id}`)
                     .end((err, res) => {
                         // there should be a 200 status code
                         res.status.should.equal(200);
@@ -480,21 +466,20 @@ describe('routes : events', () => {
                         // key-value pair of {"status": "good!"}
                         res.body.status.should.eql('good!');
                         // the JSON response body should have a 
-                        // key-value pair of {"data": 1 event object}
+                        // key-value pair of {"data": 1 event reservation object}
                         res.body.data.length.should.eql(1);
                         // the first object in the data array should
                         // have the right keys
                         res.body.data[0].should.include.keys(
-                            'id', 'title', 'description', 'start', 'end', 
-                            'location', 'creator', 'reservable', 'reservation_limit', 
-                            'allow_guests', 'created_at', 'updated_at'
+                            'id', 'user_id', 'event_id', 'attendees', 
+                            'created_at', 'updated_at'
                         );
                         return agent.get('/auth/logout')
                         .end((err, res) => {
-                            // ensure that the event was in fact deleted
-                            knex('events').select('*')
-                            .then((updatedEvents) => {
-                                updatedEvents.length.should.eql(lengthBeforeDelete - 1);
+                            // ensure that the event reservation was in fact deleted
+                            knex('event_reservations').select('*')
+                            .then((updatedEventReservations) => {
+                                updatedEventReservations.length.should.eql(lengthBeforeDelete - 1);
                                 done();
                             }); 
                         });
@@ -503,12 +488,12 @@ describe('routes : events', () => {
             });
         });
 
-        it('should not delete the event if the current user doesn\'t have the necessary permissions', (done) => {
-            knex('events')
+        it('should not delete the event reservation if the current user doesn\'t have the necessary permissions', (done) => {
+            knex('event_reservations')
             .select('*')
-            .then((events) => {
-                const eventObject = events[1];
-                const lengthBeforeDelete = events.length;
+            .then((eventReservations) => {
+                const eventReservationObject = eventReservations[1];
+                const lengthBeforeDelete = eventReservations.length;
                 // first we need to log on
                 agent
                 .post('/auth/login')
@@ -520,7 +505,7 @@ describe('routes : events', () => {
                     // expect the response to contain a session cookie
                     expect(res).to.have.cookie('koa:sess');
                     agent
-                    .delete(`/api/v1/events/${eventObject.id}`)
+                    .delete(`/api/v1/event_reservations/${eventReservationObject.id}`)
                     .end((err, res) => {
                         // there should be a 401 status code
                         res.status.should.equal(401);
@@ -541,7 +526,7 @@ describe('routes : events', () => {
             });
         });
 
-        it('should throw an error if the event does not exist', (done) => {
+        it('should throw an error if the event reservation does not exist', (done) => {
             // first we need to log on
             agent
             .post('/auth/login')
@@ -553,7 +538,7 @@ describe('routes : events', () => {
                 // expect the response to contain a session cookie
                 expect(res).to.have.cookie('koa:sess');
                 agent
-                .delete('/api/v1/events/9999999')
+                .delete('/api/v1/event_reservations/9999999')
                 .end((err, res) => {
                     // there should be a 404 status code
                     res.status.should.equal(404);
@@ -563,8 +548,8 @@ describe('routes : events', () => {
                     // key-value pair of {"status": "no good :("}
                     res.body.status.should.eql('no good :(');
                     // the JSON response body should have a 
-                    // key-value pair of {"message": "That event does not exist."}
-                    res.body.message.should.eql('That event does not exist.');
+                    // key-value pair of {"message": "That event reservation does not exist."}
+                    res.body.message.should.eql('That event reservation does not exist.');
                     return agent.get('/auth/logout')
                     .end((err, res) => {
                         done();   

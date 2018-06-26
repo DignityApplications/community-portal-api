@@ -28,6 +28,7 @@ const authRoutes = require('./routes/auth');
 const roleRoutes = require('./routes/roles');
 const permissionRoutes = require('./routes/permissions');
 const eventRoutes = require('./routes/events');
+const eventReservationRoutes = require('./routes/event_reservations');
 const settingsRoutes = require('./routes/settings');
 
 // use sessions
@@ -53,6 +54,7 @@ app.use(authRoutes.routes());
 app.use(roleRoutes.routes());
 app.use(permissionRoutes.routes());
 app.use(eventRoutes.routes());
+app.use(eventReservationRoutes.routes());
 app.use(settingsRoutes.routes());
 
 if (environment == 'development') {
