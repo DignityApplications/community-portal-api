@@ -212,7 +212,7 @@ describe('routes : event_reservations', () => {
                 return agent.post('/api/v1/event_reservations')
                 .send({
                     user_id: 1,
-                    event_id: 1,
+                    event_id: 2,
                     attendees: 3,      
                 })
                 .end((err, res) => {
@@ -310,6 +310,42 @@ describe('routes : event_reservations', () => {
                 });
             });
         });
+
+        it('should not create the event reservation if the reservation limit is exceeded', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'elliotsminion@gmail.com',
+                password: 'test1234'
+            })
+            .end((err, res) => {
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                return agent.post('/api/v1/event_reservations')
+                .send({
+                    user_id: 1,
+                    event_id: 1,
+                    attendees: 22,      
+                })
+                .end((err, res) => {
+                    // there should be a 409 status code
+                    res.status.should.equal(409);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "no good :("}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a 
+                    // key-value pair of {"message", "The reservation limit has been exceeded, therefore this reservation can not be made."}
+                    res.body.message.should.eql('The reservation limit has been exceeded, therefore this reservation can not be made.');
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        done();   
+                    }); 
+                });
+            });
+        });
     });
 
     describe('PUT /api/v1/event_reservations/:id', () => {
@@ -331,7 +367,7 @@ describe('routes : event_reservations', () => {
                     agent
                     .put(`/api/v1/event_reservations/${eventReservationObject.id}`)
                     .send({
-                        attendees: 4
+                        attendees: 1
                     })
                     .end((err, res) => {
                         // there should be a 200 status code
@@ -362,7 +398,7 @@ describe('routes : event_reservations', () => {
             });
         });
 
-        it('should not update the event_reservation if the current user doesn\'t have the necessary permissions', (done) => {
+        it('should not update the event reservation if the current user doesn\'t have the necessary permissions', (done) => {
             knex('event_reservations')
             .select('*')
             .then((event_reservations) => {
@@ -432,6 +468,46 @@ describe('routes : event_reservations', () => {
                     return agent.get('/auth/logout')
                     .end((err, res) => {
                         done();   
+                    });
+                });
+            });
+        });
+
+        it('should not update the event reservation if the reservation limit is exceeded', (done) => {
+            knex('event_reservations')
+            .select('*')
+            .then((event_reservations) => {
+                const eventReservationObject = event_reservations[0];
+                // first we need to log on
+                agent
+                .post('/auth/login')
+                .send({
+                    email: 'elliotsminion@gmail.com',
+                    password: 'test1234'
+                })
+                .end((err, res) => {
+                    // expect the response to contain a session cookie
+                    expect(res).to.have.cookie('koa:sess');
+                    agent
+                    .put(`/api/v1/event_reservations/${eventReservationObject.id}`)
+                    .send({
+                        attendees: 25
+                    })
+                    .end((err, res) => {
+                        // there should be a 409 status code
+                        res.status.should.equal(409);
+                        // the response should be JSON
+                        res.type.should.equal('application/json');
+                        // the JSON response body should have a 
+                        // key-value pair of {"status": "no good :("}
+                        res.body.status.should.eql('no good :(');
+                        // the JSON response body should have a 
+                        // key-value pair of {"message", "The reservation limit has been exceeded, therefore this reservation can not be made."}
+                        res.body.message.should.eql('The reservation limit has been exceeded, therefore this reservation can not be made.');
+                        return agent.get('/auth/logout')
+                        .end((err, res) => {
+                            done();   
+                        }); 
                     });
                 });
             });

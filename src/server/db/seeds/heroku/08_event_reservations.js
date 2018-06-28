@@ -8,7 +8,7 @@ exports.seed = function(knex, Promise) {
         return knex('event_reservations').insert({
             user_id: 15, // Member 3
             event_id: 1, // Knitting Club
-            attendees: 1
+            attendees: 2
         });
     })
     .then(() => {

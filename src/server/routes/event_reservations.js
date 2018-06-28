@@ -58,8 +58,6 @@ router.get(`${BASE_URL}/:id`, async (ctx) => {
                 delete eventReservationToSee[0].user_id;
                 delete eventReservationToSee[0].event_id;
 
-                console.log(eventReservationToSee);
-
                 ctx.body = {
                     status: 'good!',
                     data: eventReservationToSee
@@ -96,19 +94,31 @@ router.post(`${BASE_URL}`, bodyParser(), async(ctx) => {
             canDo = await permissions.canDo(user, 'AddAny', 'EventReservation');
 
         if (canDo) {
-            const eventReservation = await eventReservationQueries.addEventReservation(ctx.request.body);
-            if (eventReservation.length) {
-                ctx.status = 201;
-                ctx.body = {
-                    status: 'good!',
-                    data: eventReservation
-                };
+            // before creating the event reservation, let's make sure we maintain integrity with reservation limits
+            let eventToCheck = (await eventQueries.getSingleEvent(ctx.request.body.event_id))[0]
+            let reservationLimit = (eventToCheck.allow_guests) ? (parseInt(eventToCheck.reservation_limit) || 100) : 1 // hard code a max res. limit
+            if (!eventToCheck.reservable) reservationLimit = 1;
+            if (parseInt(ctx.request.body.attendees) <= reservationLimit) {
+                const eventReservation = await eventReservationQueries.addEventReservation(ctx.request.body);
+                if (eventReservation.length) {
+                    ctx.status = 201;
+                    ctx.body = {
+                        status: 'good!',
+                        data: eventReservation
+                    };
+                } else {
+                    ctx.status = 400;
+                    ctx.body = {
+                        status: 'no good :(',
+                        message: 'Something went wrong.'
+                    };
+                }
             } else {
-                ctx.status = 400;
+                ctx.status = 409;
                 ctx.body = {
                     status: 'no good :(',
-                    message: 'Something went wrong.'
-                };
+                    message: 'The reservation limit has been exceeded, therefore this reservation can not be made.'
+                };   
             }
         } else {
             ctx.status = 401;
@@ -140,10 +150,27 @@ router.put(`${BASE_URL}/:id`, bodyParser(), async (ctx) => {
                 canDo = await permissions.canDo(user, 'UpdateAll', 'EventReservations');
 
             if (canDo) {
-                const eventReservation = await eventReservationQueries.updateEventReservation(ctx.params.id, ctx.request.body);
-                ctx.body = {
-                    status: 'good!',
-                    data: eventReservation
+                // before creating the event reservation, let's make sure we maintain integrity with reservation limits
+                let eventToCheck = (await eventQueries.getSingleEvent(eventReservationToUpdate[0].event_id))[0]
+                let reservationLimit = (eventToCheck.allow_guests) ? (parseInt(eventToCheck.reservation_limit) || 100) : 1 // hard code a max res. limit
+                if (!eventToCheck.reservable) reservationLimit = 1;
+                if ((parseInt(ctx.request.body.attendees) <= reservationLimit) || !(ctx.request.body.attendees)) {
+                    // we also want to make sure the user doesn't try and update the event. This would cause
+                    // complications with attendee integrity, and shouldn't ever be done anyway
+                    if (ctx.request.body.event_id) throw ('Get outta here!');
+                    else {
+                        const eventReservation = await eventReservationQueries.updateEventReservation(ctx.params.id, ctx.request.body);
+                        ctx.body = {
+                            status: 'good!',
+                            data: eventReservation
+                        }
+                    }
+                } else {
+                    ctx.status = 409;
+                    ctx.body = {
+                        status: 'no good :(',
+                        message: 'The reservation limit has been exceeded, therefore this reservation can not be made.'
+                    };  
                 }
             } else {
                 ctx.status = 401;
@@ -160,6 +187,7 @@ router.put(`${BASE_URL}/:id`, bodyParser(), async (ctx) => {
             };
         }
     } catch (err) {
+        console.log(err);
         ctx.status = 400;
         ctx.body = {
             status: 'no good :(',
