@@ -55,11 +55,23 @@ function getEventReservationsByUser(id) {
     .where({user_id: parseInt(id)})
 }
 
+// get all event reservations by event id
+// also, we'll populate the user's name for the sake of convenience
+function getEventReservationsByEvent(id) {
+    return knex('event_reservations')
+    .select('event_reservations.id', 'event_reservations.event_id', 'event_reservations.user_id', 
+            'event_reservations.attendees', 'users.first_name', 'users.last_name', 'event_reservations.created_at',
+            'event_reservations.updated_at')
+    .leftJoin('users', 'event_reservations.user_id', 'users.id')
+    .where({event_id: parseInt(id)})
+}
+
 module.exports = {
     getAllEventReservations,
     getSingleEventReservation,
     addEventReservation,
     updateEventReservation,
     deleteEventReservation,
-    getEventReservationsByUser
+    getEventReservationsByUser,
+    getEventReservationsByEvent
 }

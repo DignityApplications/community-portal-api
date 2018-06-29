@@ -295,7 +295,7 @@ router.get(`${BASE_URL}/:id/event_reservations`, async (ctx) => {
             ctx.status = 404;
             ctx.body = {
                 status: 'no good :(',
-                message: 'That role does not exist.'
+                message: 'That user does not exist.'
             };            
         }
     } catch (err) {

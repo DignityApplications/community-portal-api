@@ -1,6 +1,7 @@
 // get our router and queries
 const Router = require('koa-router');
 const eventQueries = require('../db/queries/events');
+const eventReservationQueries = require('../db/queries/event_reservations');
 
 // bring in our helper functions
 const permissions = require('./_permissionHelpers');
@@ -189,5 +190,44 @@ router.delete(`${BASE_URL}/:id`, async (ctx) => {
         };
     }
 })
+
+// return all event reservations for a single event
+router.get(`${BASE_URL}/:id/event_reservations`, async (ctx) => {
+    try {
+        let user = ctx.state.user || null;
+
+        // get the event that is being accessed
+        const eventToSee = await eventQueries.getSingleEvent(ctx.params.id);
+ 
+        // make sure the event exists
+        if (eventToSee.length) {
+            // the user will need to be able to 'see' all event reservations
+            let canDo = (await permissions.canDo(user, 'SeeAll', 'EventReservations'));
+
+            if (canDo) {
+                // get all of the event reservations for the given event
+                const eventReservations = await eventReservationQueries.getEventReservationsByEvent(ctx.params.id);
+                ctx.body = {
+                    status: 'good!',
+                    data: eventReservations
+                };                
+            } else {
+                ctx.status = 401;
+                ctx.body = {
+                    status: 'no good :(',
+                    message: 'User does not have the necessary permissions to perform this action.'
+                };                 
+            }   
+        } else {
+            ctx.status = 404;
+            ctx.body = {
+                status: 'no good :(',
+                message: 'That event does not exist.'
+            };            
+        }
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 module.exports = router;
