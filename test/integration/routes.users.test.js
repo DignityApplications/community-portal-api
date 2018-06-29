@@ -716,4 +716,75 @@ describe('routes : users', () => {
             });
         });
     });
+
+    // test our /users/:id/event_reservations routes (R)
+    describe('GET /api/v1/users/:id/event_reservations', () => {
+        it('should return all event reservations for a given user if the current user has the necessary permissions', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'elliotsminion@gmail.com',
+                password: 'test1234'
+            })
+            .end((err, res) => {
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                return agent.get('/api/v1/users/1/event_reservations')
+                .end((err, res) => {
+                    // there should be a 200 status code
+                    res.status.should.equal(200);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "good!"}
+                    res.body.status.should.eql('good!');
+                    // the JSON response body should have a  
+                    // key-value pair of {"data": [3 objects]}
+                    res.body.data.length.should.eql(3);
+                    // the first object in the data array should 
+                    // have the right keys
+                    res.body.data[0].should.include.keys(
+                        'id', 'user_id', 'event_id', 'attendees', 
+                        'created_at', 'updated_at'
+                    );
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        done();   
+                    }); 
+                });
+            });
+        });
+
+        it('should not return all event reservations for the given user if the current user doesn\'t have the necessary permissions', (done) => {
+            // first we need to log on
+            agent
+            .post('/auth/login')
+            .send({
+                email: 'fakeuser@gmail.com',
+                password: 'test9876'
+            })
+            .end((err, res) => {
+                // expect the response to contain a session cookie
+                expect(res).to.have.cookie('koa:sess');
+                return agent.get('/api/v1/users/1/event_reservations')
+                .end((err, res) => {
+                    // there should be a 401 status code
+                    res.status.should.equal(401);
+                    // the response should be JSON
+                    res.type.should.equal('application/json');
+                    // the JSON response body should have a 
+                    // key-value pair of {"status": "no good :("}
+                    res.body.status.should.eql('no good :(');
+                    // the JSON response body should have a 
+                    // key-value pair of {"message", "User does not have the necessary permissions to perform this action."}
+                    res.body.message.should.eql('User does not have the necessary permissions to perform this action.')
+                    return agent.get('/auth/logout')
+                    .end((err, res) => {
+                        done();   
+                    }); 
+                });
+            });
+        });
+    });
 });

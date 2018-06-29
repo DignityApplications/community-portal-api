@@ -2,6 +2,7 @@
 const Router = require('koa-router');
 const userQueries = require('../db/queries/users');
 const roleQueries = require('../db/queries/roles');
+const eventReservationQueries = require('../db/queries/event_reservations');
 
 // bring in our body parser
 const bodyParser = require('koa-body')({ 
@@ -259,5 +260,47 @@ router.delete(`${BASE_URL}/:id`, async (ctx) => {
         };
     }
 })
+
+// return all event reservations for a single user
+router.get(`${BASE_URL}/:id/event_reservations`, async (ctx) => {
+    try {
+        let user = ctx.state.user || null;
+
+        // get the user that is being accessed
+        const userToSee = await userQueries.getSingleUser(ctx.params.id);
+ 
+        // make sure the user exists
+        if (userToSee.length) {
+            let canDo = false;
+            if (user && user.id == userToSee[0].id) // they are trying to see their own event reservations
+                canDo = await permissions.canDo(user, 'SeeOwn', 'EventReservations');
+            else // they are trying to see another user's event reservations
+                canDo = await permissions.canDo(user, 'SeeAll', 'EventReservations');
+
+            if (canDo) {
+                // get all of the event reservations for the given user
+                const eventReservations = await eventReservationQueries.getEventReservationsByUser(ctx.params.id);
+                ctx.body = {
+                    status: 'good!',
+                    data: eventReservations
+                };                
+            } else {
+                ctx.status = 401;
+                ctx.body = {
+                    status: 'no good :(',
+                    message: 'User does not have the necessary permissions to perform this action.'
+                };                 
+            }   
+        } else {
+            ctx.status = 404;
+            ctx.body = {
+                status: 'no good :(',
+                message: 'That role does not exist.'
+            };            
+        }
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 module.exports = router;

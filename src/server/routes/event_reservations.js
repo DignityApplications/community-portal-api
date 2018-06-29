@@ -155,9 +155,11 @@ router.put(`${BASE_URL}/:id`, bodyParser(), async (ctx) => {
                 let reservationLimit = (eventToCheck.allow_guests) ? (parseInt(eventToCheck.reservation_limit) || 100) : 1 // hard code a max res. limit
                 if (!eventToCheck.reservable) reservationLimit = 1;
                 if ((parseInt(ctx.request.body.attendees) <= reservationLimit) || !(ctx.request.body.attendees)) {
-                    // we also want to make sure the user doesn't try and update the event. This would cause
-                    // complications with attendee integrity, and shouldn't ever be done anyway
-                    if (ctx.request.body.event_id) throw ('Get outta here!');
+                    // we also want to make sure the user doesn't try and update the event_id. This would cause
+                    // complications with attendee integrity, and shouldn't ever be done anyway.
+                    // on top of this, it's best to make sure that the user also can't update the user_id, as it would make 
+                    // much more sense to create a new reservation, and it avoids integrity issues.
+                    if (ctx.request.body.event_id || ctx.request.body.user_id) throw ('Get outta here!');
                     else {
                         const eventReservation = await eventReservationQueries.updateEventReservation(ctx.params.id, ctx.request.body);
                         ctx.body = {

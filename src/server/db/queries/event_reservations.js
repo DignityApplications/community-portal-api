@@ -48,10 +48,18 @@ function deleteEventReservation(id) {
     .returning('*');
 }
 
+// get all event reservations by user id
+function getEventReservationsByUser(id) {
+    return knex('event_reservations')
+    .select('*')
+    .where({user_id: parseInt(id)})
+}
+
 module.exports = {
     getAllEventReservations,
     getSingleEventReservation,
     addEventReservation,
     updateEventReservation,
-    deleteEventReservation
+    deleteEventReservation,
+    getEventReservationsByUser
 }
