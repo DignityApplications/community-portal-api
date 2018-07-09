@@ -3,6 +3,7 @@ const Router = require('koa-router');
 const userQueries = require('../db/queries/users');
 const roleQueries = require('../db/queries/roles');
 const eventReservationQueries = require('../db/queries/event_reservations');
+const relationshipQueries = require('../db/queries/relationships');
 
 // bring in our body parser
 const bodyParser = require('koa-body')({ 
@@ -283,6 +284,53 @@ router.get(`${BASE_URL}/:id/event_reservations`, async (ctx) => {
                 ctx.body = {
                     status: 'good!',
                     data: eventReservations
+                };                
+            } else {
+                ctx.status = 401;
+                ctx.body = {
+                    status: 'no good :(',
+                    message: 'User does not have the necessary permissions to perform this action.'
+                };                 
+            }   
+        } else {
+            ctx.status = 404;
+            ctx.body = {
+                status: 'no good :(',
+                message: 'That user does not exist.'
+            };            
+        }
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+// return all relationships for a single user
+router.get(`${BASE_URL}/:id/relationships`, async (ctx) => {
+    try {
+        let user = ctx.state.user || null;
+
+        // get the user that is being accessed
+        const userToSee = await userQueries.getSingleUser(ctx.params.id);
+    
+        // make sure the user exists
+        if (userToSee.length) {
+            let canDo = false;
+
+            // make sure the current user (or lack of user) can 'See' that type of user
+            let userToSeeRole = (await roleQueries.getSingleRole(userToSee[0].role_id))[0].name;
+
+            if (user && user.id == ctx.params.id) // they are trying to see themself
+                canDo = await permissions.canDo(user, 'See', 'Self');
+            else // they are trying to see another user
+                canDo = await permissions.canDo(user, 'SeeAnyUser', String(userToSeeRole));
+
+            if (canDo) {
+                // get all of the relationships for the given user
+                const relationships = await relationshipQueries.getRelationshipsByUser(ctx.params.id);
+
+                ctx.body = {
+                    status: 'good!',
+                    data: relationships
                 };                
             } else {
                 ctx.status = 401;
