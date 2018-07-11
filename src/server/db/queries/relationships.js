@@ -10,6 +10,34 @@ function getRelationshipsByUser(id) {
     .where({'relationships.user1': parseInt(id)});   
 }
 
+// add a relationship
+function addRelationship(relationship) {
+    // user should not be able to manually set these
+    if (relationship.id) delete relationship.id;
+
+    return knex('relationships')
+    .insert(relationship)
+    .returning('*');
+}
+
+// get a single relationship
+function getSingleRelationship(id) {
+    return knex('relationships')
+    .select('*')
+    .where({ 'relationships.id': parseInt(id) });
+}
+
+// delete a relationship
+function deleteRelationship(id) {
+    return knex('relationships')
+    .del()
+    .where({'relationships.id': parseInt(id)})
+    .returning('*');
+}
+
 module.exports = {
-    getRelationshipsByUser
+    getRelationshipsByUser,
+    addRelationship,
+    getSingleRelationship,
+    deleteRelationship
 }
