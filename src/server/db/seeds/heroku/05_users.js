@@ -38,169 +38,19 @@ exports.seed = function(knex, Promise) {
       role_id: 4
     });
   })
-  .then(() => {
-    return knex('users').insert({
-      email: 'webadmin1@dignityapps.com',
-      password: bcrypt.hashSync('WebAdmin11234', 10),
-      first_name: 'Web',
-      last_name: 'Admin1',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Web Admin 1 Rd. Wilmington NC 28111',
-      previous_address: 'Web Admin 1 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 4
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'webadmin2@dignityapps.com',
-      password: bcrypt.hashSync('WebAdmin21234', 10),
-      first_name: 'Web',
-      last_name: 'Admin2',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Web Admin 2 Rd. Wilmington NC 28111',
-      previous_address: 'Web Admin 2 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 4
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'webamin3@dignityapps.com',
-      password: bcrypt.hashSync('WebAdmin31234', 10),
-      first_name: 'Web',
-      last_name: 'Admin3',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Web Admin 3 Rd. Wilmington NC 28111',
-      previous_address: 'Web Admin 3 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 4
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'webadmin4@dignityapps.com',
-      password: bcrypt.hashSync('WebAdmin41234', 10),
-      first_name: 'Web',
-      last_name: 'Admin4',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Web Admin 4 Rd. Wilmington NC 28111',
-      previous_address: 'Web Admin 4 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 4
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'webadmin5@dignityapps.com',
-      password: bcrypt.hashSync('WebAdmin51234', 10),
-      first_name: 'Web',
-      last_name: 'Admin5',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Web Admin 5 Rd. Wilmington NC 28111',
-      previous_address: 'Web Admin 5 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 4
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'webadmin6@dignityapps.com',
-      password: bcrypt.hashSync('WebAdmin61234', 10),
-      first_name: 'Web',
-      last_name: 'Admin6',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Web Admin 6 Rd. Wilmington NC 28111',
-      previous_address: 'Web Admin 6 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 4
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'webadmin7@dignityapps.com',
-      password: bcrypt.hashSync('WebAdmin71234', 10),
-      first_name: 'Web',
-      last_name: 'Admin7',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Web Admin 7 Rd. Wilmington NC 28111',
-      previous_address: 'Web Admin 7 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 4
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'webadmin8@dignityapps.com',
-      password: bcrypt.hashSync('WebAdmin81234', 10),
-      first_name: 'Web',
-      last_name: 'Admin8',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Web Admin 8 Rd. Wilmington NC 28111',
-      previous_address: 'Web Admin 8 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 4
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'webadmin9@dignityapps.com',
-      password: bcrypt.hashSync('WebAdmin91234', 10),
-      first_name: 'Web',
-      last_name: 'Admin9',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Web Admin 1 Rd. Wilmington NC 28111',
-      previous_address: 'Web Admin 1 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 4
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'webadmin10@dignityapps.com',
-      password: bcrypt.hashSync('WebAdmin101234', 10),
-      first_name: 'Web',
-      last_name: 'Admin10',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Web Admin 1 Rd. Wilmington NC 28111',
-      previous_address: 'Web Admin 1 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 4
-    });
-  })
 
   // add Members
   .then(() => {
     return knex('users').insert({
-      email: 'member1@dignityapps.com',
-      password: bcrypt.hashSync('Member11234', 10),
-      first_name: 'Member',
-      last_name: '1',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 1 Rd. Wilmington NC 28111',
-      previous_address: 'Member 1 Rd. Monroe NC 28113',
+      email: 'juwan1972@gmail.com',
+      password: bcrypt.hashSync('Member1234', 10),
+      first_name: 'Melissa',
+      last_name: 'Garcia',
+      date_of_birth: '11/20/1954',
+      home_phone_number: '317-356-1572',
+      cell_phone_number: '317-391-7251',
+      current_address: '1218 Clay Street, Indianapolis, Indiana 46219',
+      previous_address: '1516 Bourbon Street, Indianapolis, Indiana 46219',
       avatar_path: '/images/person1.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
@@ -208,15 +58,15 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'member2@dignityapps.com',
-      password: bcrypt.hashSync('Member21234', 10),
-      first_name: 'Member',
-      last_name: '2',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 2 Rd. Wilmington NC 28111',
-      previous_address: 'Member 2 Rd. Monroe NC 28113',
+      email: 'maudie.schuli@yahoo.com',
+      password: bcrypt.hashSync('Member1234', 10),
+      first_name: 'Alice',
+      last_name: 'Cuthbertson',
+      date_of_birth: '08/25/1948',
+      home_phone_number: '920-410-8316',
+      cell_phone_number: '715-451-6287',
+      current_address: '2898 Sycamore Lake Road, Menasha, Wisconsin 54592',
+      previous_address: '324 Sycamore Lake Road, Menasha, Wisconsin 54592',
       avatar_path: '/images/person2.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
@@ -224,15 +74,15 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'member3@dignityapps.com',
-      password: bcrypt.hashSync('Member31234', 10),
-      first_name: 'Member',
-      last_name: '3',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 3 Rd. Wilmington NC 28111',
-      previous_address: 'Member 3 Rd. Monroe NC 28113',
+      email: 'dfranklin@gmail.com',
+      password: bcrypt.hashSync('Member1234', 10),
+      first_name: 'Dean',
+      last_name: 'Franklin',
+      date_of_birth: '10/24/1950',
+      home_phone_number: '937-886-7960',
+      cell_phone_number: '740-424-0655',
+      current_address: '2537 Boggess Street Five Points (Warren), Ohio 45066',
+      previous_address: '4693 Broadcast Drive, Ohio 45066',
       avatar_path: '/images/person3.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
@@ -240,30 +90,15 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'member4@dignityapps.com',
-      password: bcrypt.hashSync('Member41234', 10),
-      first_name: 'Member',
-      last_name: '4',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 4 Rd. Wilmington NC 28111',
-      previous_address: 'Member 4 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 1
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'member5@dignityapps.com',
-      password: bcrypt.hashSync('Member51234', 10),
-      first_name: 'Member',
-      last_name: '5',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 5 Rd. Wilmington NC 28111',
-      previous_address: 'Member 5 Rd. Monroe NC 28113',
+      email: 'buster2013@gmail.com',
+      password: bcrypt.hashSync('Member1234', 10),
+      first_name: 'Mildred',
+      last_name: 'Green',
+      date_of_birth: '02/27/1949',
+      home_phone_number: '703-267-3366',
+      cell_phone_number: '276-340-4221',
+      current_address: '2355 Lawman Avenue, Fairfax, Virginia, 22030',
+      previous_address: '896 Heavens Way, Fairfax, Virginia, 22030',
       avatar_path: '/images/person4.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
@@ -271,15 +106,15 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'member6@dignityapps.com',
-      password: bcrypt.hashSync('Member61234', 10),
-      first_name: 'Member',
-      last_name: '6',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 6 Rd. Wilmington NC 28111',
-      previous_address: 'Member 6 Rd. Monroe NC 28113',
+      email: 'sflores@yahoo.com',
+      password: bcrypt.hashSync('Member1234', 10),
+      first_name: 'Suzanne',
+      last_name: 'Flores',
+      date_of_birth: '12/7/1956',
+      home_phone_number: '830-288-0649',
+      cell_phone_number: '361-652-1896',
+      current_address: '1973 Morris Street, Victoria, Texas, 77901',
+      previous_address: '3628 McDowell Street, Victoria, Texas, 77901',
       avatar_path: '/images/person5.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
@@ -287,15 +122,15 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
-      email: 'member7@dignityapps.com',
-      password: bcrypt.hashSync('Member71234', 10),
-      first_name: 'Member',
-      last_name: '7',
+      email: 'aurelie2014@yahoo.com',
+      password: bcrypt.hashSync('Member1234', 10),
+      first_name: 'Michael',
+      last_name: 'Selby',
       date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 7 Rd. Wilmington NC 28111',
-      previous_address: 'Member 7 Rd. Monroe NC 28113',
+      home_phone_number: '859-588-9011',
+      cell_phone_number: '502-408-4105',
+      current_address: '2696 Black Stallion Road, Winchester, Kentucky, 40391',
+      previous_address: '312 Heather Sees Way, Winchester, Kentucky, 40391',
       avatar_path: '/images/person6.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
@@ -303,413 +138,114 @@ exports.seed = function(knex, Promise) {
   })
   .then(() => {
     return knex('users').insert({
+      email: 'royal_leffl@hotmail.com',
+      password: bcrypt.hashSync('Member1234', 10),
+      first_name: 'Charles',
+      last_name: 'Walton',
+      date_of_birth: '02/01/1948',
+      home_phone_number: '972-592-6784',
+      cell_phone_number: '469-960-2652',
+      current_address: '3865 Worthington Drive, Plano, Texas, 75074',
+      previous_address: '1950 Indiana Avenue, Plano, Texas, 75074',
+      avatar_path: '/images/person7.jpg',
+      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
+      role_id: 1
+    });
+  })
+  .then(() => {
+    return knex('users').insert({
       email: 'member8@dignityapps.com',
-      password: bcrypt.hashSync('Member81234', 10),
-      first_name: 'Member',
-      last_name: '8',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 8 Rd. Wilmington NC 28111',
-      previous_address: 'Member 8 Rd. Monroe NC 28113',
+      password: bcrypt.hashSync('Member1234', 10),
+      first_name: 'Mary',
+      last_name: 'Jackson',
+      date_of_birth: '05/25/1949',
+      home_phone_number: '906-863-6161',
+      cell_phone_number: '906-290-1058',
+      current_address: '2301 Pinewood Avenue, Menominee, Michigan, 49858',
+      previous_address: '352 Gordon Street, Fullerton, California, 93632',
+      avatar_path: '/images/person8.jpg',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
   })
   .then(() => {
     return knex('users').insert({
-      email: 'member9@dignityapps.com',
-      password: bcrypt.hashSync('Member91234', 10),
-      first_name: 'Member',
-      last_name: '9',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 9 Rd. Wilmington NC 28111',
-      previous_address: 'Member 9 Rd. Monroe NC 28113',
+      email: 'newton2004@hotmail.com',
+      password: bcrypt.hashSync('Member1234', 10),
+      first_name: 'Christopher',
+      last_name: 'Lemos',
+      date_of_birth: '03/14/1940',
+      home_phone_number: '530-938-0169',
+      cell_phone_number: '415-620-8312',
+      current_address: '3665 Maxwell Farm Road, Weed, California, 96094',
+      previous_address: '4248 Deans Lane, South Salem, New York, 10590',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
     });
   })
   .then(() => {
     return knex('users').insert({
-      email: 'member10@dignityapps.com',
-      password: bcrypt.hashSync('Member101234', 10),
-      first_name: 'Member',
-      last_name: '10',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 10 Rd. Wilmington NC 28111',
-      previous_address: 'Member 10 Rd. Monroe NC 28113',
+      email: 'bernhard2001@gmail.com',
+      password: bcrypt.hashSync('Member1234', 10),
+      first_name: 'Luke',
+      last_name: 'Williams',
+      date_of_birth: '09/25/1983',
+      home_phone_number: '253-383-1409',
+      current_address: '434 Hillcrest Drive, Tacoma, Washington, 98402',
+      previous_address: '161 Lakeland Terrace, Southfield, Michigan, 48075',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
       role_id: 1
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'member11@dignityapps.com',
-      password: bcrypt.hashSync('Member111234', 10),
-      first_name: 'Member',
-      last_name: '11',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 11 Rd. Wilmington NC 28111',
-      previous_address: 'Member 11 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 1
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'member12@dignityapps.com',
-      password: bcrypt.hashSync('Member121234', 10),
-      first_name: 'Member',
-      last_name: '12',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 12 Rd. Wilmington NC 28111',
-      previous_address: 'Member 12 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 1
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'member13@dignityapps.com',
-      password: bcrypt.hashSync('Member131234', 10),
-      first_name: 'Member',
-      last_name: '13',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 13 Rd. Wilmington NC 28111',
-      previous_address: 'Member 13 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 1
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'member14@dignityapps.com',
-      password: bcrypt.hashSync('Member141234', 10),
-      first_name: 'Member',
-      last_name: '14',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 14 Rd. Wilmington NC 28111',
-      previous_address: 'Member 14 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 1
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'member15@dignityapps.com',
-      password: bcrypt.hashSync('Member151234', 10),
-      first_name: 'Member',
-      last_name: '15',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Member 15 Rd. Wilmington NC 28111',
-      previous_address: 'Member 15 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 1
-    });
-  })
-
-  // add Administrative Staff
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff1@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff11234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '1',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Administrative Staff 1 Rd. Wilmington NC 28111',
-      previous_address: 'Administrative Staff 1 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff2@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff21234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '2',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 2 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 2 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff3@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff31234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '3',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 3 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 3 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff4@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff41234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '4',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 4 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 4 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff5@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff51234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '5',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 5 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 5 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff6@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff61234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '6',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 6 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 6 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff7@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff71234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '7',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 7 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 7 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff8@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff81234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '8',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 8 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 8 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff9@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff91234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '9',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 9 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 9 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff10@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff101234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '10',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 10 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 10 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff11@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff111234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '11',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 11 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 11 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff12@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff121234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '12',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 12 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 12 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff13@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff131234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '13',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 13 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 13 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff14@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff141234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '14',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 14 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 14 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'administrativestaff15@dignityapps.com',
-      password: bcrypt.hashSync('AdministrativeStaff151234', 10),
-      first_name: 'AdministrativeStaff',
-      last_name: '15',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'AdministrativeStaff 15 Rd. Wilmington NC 28111',
-      previous_address: 'AdministrativeStaff 15 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 2
-    });
-  })
-
-  // add Guests
-  .then(() => {
-    return knex('users').insert({
-      email: 'guest1@dignityapps.com',
-      password: bcrypt.hashSync('Guest11234', 10),
-      first_name: 'Guest',
-      last_name: '1',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Guest 1 Rd. Wilmington NC 28111',
-      previous_address: 'Guest 1 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 3
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'guest2@dignityapps.com',
-      password: bcrypt.hashSync('Guest21234', 10),
-      first_name: 'Guest',
-      last_name: '2',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Guest 2 Rd. Wilmington NC 28111',
-      previous_address: 'Guest 2 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 3
-    });
-  })
-  .then(() => {
-    return knex('users').insert({
-      email: 'guest3@dignityapps.com',
-      password: bcrypt.hashSync('Guest31234', 10),
-      first_name: 'Guest',
-      last_name: '3',
-      date_of_birth: '11/20/1995',
-      home_phone_number: '704-372-1423',
-      cell_phone_number: '965-367-321',
-      current_address: 'Guest 3 Rd. Wilmington NC 28111',
-      previous_address: 'Guest 3 Rd. Monroe NC 28113',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-      role_id: 3
     });
   })
   
-  // add Unregistered user
+  // add Administrative Staff
   .then(() => {
     return knex('users').insert({
-      email: 'fakeuser@gmail.com',
-      password: bcrypt.hashSync('test9876', 10),
-      first_name: 'Jerry',
-      last_name: 'Fake User',
-      date_of_birth: '05/20/1942',
-      home_phone_number: '704-378-7460',
-      cell_phone_number: '704-233-8465',
-      current_address: '7281 Test Dr., Wilmington NC 28411',
-      previous_address: '1422 Test Cir., Wilmington NC 28403',
-      bio: 'He\'s not even real',
-      role_id: 5
+      email: 'jerwin@livinginwisdom.com',
+      password: bcrypt.hashSync('AdministrativeStaff1234', 10),
+      first_name: 'Joel',
+      last_name: 'Erwin',
+      date_of_birth: '10/05/1984',
+      home_phone_number: '720-836-6879',
+      cell_phone_number: '303-726-7359',
+      current_address: '2448 Clay Lick Road, Denver, Colorado, 80202',
+      previous_address: '1871 Candlelight Drive, Denver, Colorado, 80202',
+      avatar_path: '/images/person9.jpg',
+      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
+      role_id: 2
     });
   })
+  .then(() => {
+    return knex('users').insert({
+      email: 'mlewis@livinginwisdom.com',
+      password: bcrypt.hashSync('AdministrativeStaff1234', 10),
+      first_name: 'Mary',
+      last_name: 'Lewis',
+      date_of_birth: '02/03/1986 ',
+      home_phone_number: '860-695-4586',
+      cell_phone_number: '860-202-0775',
+      current_address: '4116 Copperhead Road, Hartford, Connecticut, 06103',
+      previous_address: '3796 Golf Course Drive, Arlington, Virginia, 22206',
+      avatar_path: '/images/person10.jpg',
+      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
+      role_id: 2
+    });
+  })
+  .then(() => {
+    return knex('users').insert({
+      email: 'jmckinney@livinginwisdom.com',
+      password: bcrypt.hashSync('AdministrativeStaff1234', 10),
+      first_name: 'Jacklyn',
+      last_name: 'McKinney',
+      date_of_birth: '5/15/1985',
+      home_phone_number: '206-995-2425',
+      cell_phone_number: '360-201-2606',
+      current_address: '1663 Chipmunk Lane, Seattle, Washington, 98101',
+      previous_address: '1527 Bryan Street, Greensboro, North Carolina, 27409',
+      avatar_path: '/images/person11.jpg',
+      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
+      role_id: 2
+    });
+  })
+
 };
