@@ -6,29 +6,29 @@ exports.seed = function(knex, Promise) {
     
     .then(() => {
         return knex('relationships').insert({
-            user1: 15,
-            user2: 16,
+            user1: 5,
+            user2: 3,
             relationship: 'Wife'
         });
     })
     .then(() => {
         return knex('relationships').insert({
-            user1: 16,
-            user2: 15,
+            user1: 3,
+            user2: 5,
             relationship: 'Husband'
         });
     })
     .then(() => {
         return knex('relationships').insert({
-            user1: 14,
-            user2: 15,
+            user1: 9,
+            user2: 8,
             relationship: 'Brother'
         });
     })
     .then(() => {
         return knex('relationships').insert({
-            user1: 15,
-            user2: 14,
+            user1: 8,
+            user2: 9,
             relationship: 'Sister'
         });
     })        
