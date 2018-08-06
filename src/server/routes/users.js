@@ -82,6 +82,12 @@ router.get(`${BASE_URL}/:id`, async (ctx) => {
                 canDo = await permissions.canDo(user, 'SeeAnyUser', String(userToSeeRole));
 
             if (canDo) {
+                // let's go ahead and hydrate the role to make it easier on the frontend
+                userToSee[0].role = {
+                    id: userToSee.role_id,
+                    name: userToSeeRole
+                }
+                delete userToSee[0].role_id;
                 ctx.body = {
                     status: 'good!',
                     data: userToSee

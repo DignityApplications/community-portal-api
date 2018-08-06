@@ -127,7 +127,7 @@ describe('routes : users', () => {
                         'id', 'email', 'first_name', 'last_name', 
                         'date_of_birth', 'home_phone_number', 'cell_phone_number',
                         'current_address', 'previous_address', 'avatar_path', 'bio', 
-                        'role_id', 'created_at', 'updated_at' 
+                        'role', 'created_at', 'updated_at' 
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {
