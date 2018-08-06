@@ -88,6 +88,7 @@ router.get(`${BASE_URL}/:id`, async (ctx) => {
                     name: userToSeeRole
                 }
                 delete userToSee[0].role_id;
+
                 ctx.body = {
                     status: 'good!',
                     data: userToSee
@@ -133,6 +134,10 @@ router.post(`${BASE_URL}`, bodyParser, async(ctx) => {
     
             const user = await userQueries.addUser(formData);
             if (user.length) {
+                // let's go ahead and hydrate the role to make it easier on the frontend
+                user[0].role = newUserRole
+                delete user[0].role_id;
+
                 ctx.status = 201;
                 ctx.body = {
                     status: 'good!',
@@ -192,7 +197,13 @@ router.put(`${BASE_URL}/:id`, bodyParser, async (ctx) => {
                 formData.avatar_path = String(ctx.request.body.files.fileObject.path).replace('uploads/', '/');
 
             const user = await userQueries.updateUser(ctx.params.id, formData);
+
             if (user.length) {
+                // let's go ahead and hydrate the role to make it easier on the frontend
+                let updatedUsersRole = (await roleQueries.getSingleRole(user[0].role_id))[0]
+                user[0].role = updatedUsersRole
+                delete user[0].role_id;
+
                 ctx.status = 200;
                 ctx.body = {
                     status: 'good!',
