@@ -603,7 +603,8 @@ describe('routes : events', () => {
                     // have the right keys
                     res.body.data[0].should.include.keys(
                         'id', 'user_id', 'event_id', 'attendees', 
-                        'first_name', 'last_name', 'created_at', 'updated_at' 
+                        'first_name', 'last_name', 'email', 'home_phone_number',
+                        'cell_phone_number', 'created_at', 'updated_at' 
                     );
                     return agent.get('/auth/logout')
                     .end((err, res) => {

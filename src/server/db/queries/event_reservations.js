@@ -60,8 +60,9 @@ function getEventReservationsByUser(id) {
 function getEventReservationsByEvent(id) {
     return knex('event_reservations')
     .select('event_reservations.id', 'event_reservations.event_id', 'event_reservations.user_id', 
-            'event_reservations.attendees', 'users.first_name', 'users.last_name', 'event_reservations.created_at',
-            'event_reservations.updated_at')
+            'event_reservations.attendees', 'users.first_name', 'users.last_name', 
+            'users.email', 'users.home_phone_number', 'users.cell_phone_number',
+            'event_reservations.created_at', 'event_reservations.updated_at')
     .leftJoin('users', 'event_reservations.user_id', 'users.id')
     .where({event_id: parseInt(id)})
 }
